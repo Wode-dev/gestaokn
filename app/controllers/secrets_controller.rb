@@ -30,7 +30,8 @@ class SecretsController < ApplicationController
     puts mt.get_reply( "/ppp/secret/add",
                   "=name=#{secret_params["secret"]}",
                   "=password=#{secret_params["secret_password"]}",
-                  "=profile=#{@secret.plan.profile_name}")
+                  "=profile=#{@secret.plan.profile_name}",
+                  "=service=pppoe")
 
     respond_to do |format|
       if @secret.save
@@ -46,8 +47,33 @@ class SecretsController < ApplicationController
   # PATCH/PUT /secrets/1
   # PATCH/PUT /secrets/1.json
   def update
+
+    @secret_old = @secret.as_json
+
     respond_to do |format|
+
+      mk = connect_mikrotik
+
+      id = mk.get_reply("/ppp/secret/print", "?name=#{@secret.secret}")[0][".id"]
+      puts mk.get_reply("/ppp/secret/print", "?name=#{@secret.secret}")
+
       if @secret.update(secret_params)
+
+        result = mk.get_reply("/ppp/secret/set",
+        "=name=#{secret_params["secret"]}",
+        "=password=#{secret_params["secret_password"]}",
+        "=profile=#{Plan.find(secret_params["plan_id"]).profile_name}",
+        "=service=pppoe",
+        "=.id=#{id}")[0]["message"]
+
+        puts result
+
+        @notice = 'Secret was successfully updated.'
+        if result != nil
+          @notice = "It wasn't possible to update mikrotik"
+          @secret.update(@secret_old)
+        end
+
         format.html { redirect_to @secret, notice: 'Secret was successfully updated.' }
         format.json { render :show, status: :ok, location: @secret }
       else
