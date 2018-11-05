@@ -26,6 +26,12 @@ class SecretsController < ApplicationController
   def create
     @secret = Secret.new(secret_params)
 
+    mt = connect_mikrotik
+    puts mt.get_reply( "/ppp/secret/add",
+                  "=name=#{secret_params["secret"]}",
+                  "=password=#{secret_params["secret_password"]}",
+                  "=profile=#{@secret.plan.profile_name}")
+
     respond_to do |format|
       if @secret.save
         format.html { redirect_to @secret, notice: 'Secret was successfully created.' }
