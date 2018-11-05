@@ -37,12 +37,34 @@ class PlansController < ApplicationController
     end
   end
 
+  
   # PATCH/PUT /plans/1
   # PATCH/PUT /plans/1.json
   def update
+    mk = connect_mikrotik
     respond_to do |format|
+
+      
+      @plan_old = @plan.as_json # Guarda os parâmetros antigos do registro para retornar caso não consiga mudar no mikrotik
+      
+      id = mk.get_reply("/ppp/profile/print", "?name=#{@plan.profile_name}")[0][".id"]
+      puts "Id do registro a ser mudado"
+      puts id
+
       if @plan.update(plan_params)
-        format.html { redirect_to @plan, notice: 'Plan was successfully updated.' }
+        
+        result =  mk.get_reply("/ppp/profile/set",
+        "=name=#{plan_params["profile_name"]}",
+        "=rate-limit=#{plan_params["rate_limit"]}",
+        "=.id=#{id}")[0]["message"]
+
+        @notice = 'Plan was successfully updated.'
+        if result != nil
+          @notice = "It wasn't possible to update mikrotik"
+          @plan.update(@plan_old)
+        end
+
+        format.html { redirect_to @plan, notice: @notice }
         format.json { render :show, status: :ok, location: @plan }
       else
         format.html { render :edit }
@@ -59,6 +81,18 @@ class PlansController < ApplicationController
       format.html { redirect_to plans_url, notice: 'Plan was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def check
+
+    mk = connect_mikrotik
+    all_plans = mk.get_reply("/ppp/profile/print")
+
+    all_plans.each do |plan|
+      Plan.where(profile_name: plan["name"]).length > 0 ? nil : Plan.create(profile_name: plan["name"], rate_limit: plan["rate_limit"])
+    end
+
+    redirect_to "/plans"
   end
 
   private
