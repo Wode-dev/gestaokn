@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Secret:</strong>
+  <%= @plan.secret_id %>
+</p>
+
+<p>
+  <strong>Transfer rate:</strong>
+  <%= @plan.transfer_rate %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @plan.value %>
+</p>
+
+<p>
+  <strong>Profile name:</strong>
+  <%= @plan.profile_name %>
+</p>
+
+<%= link_to 'Edit', edit_plan_path(@plan) %> |
+<%= link_to 'Back', plans_path %>
