@@ -10,24 +10,6 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_05_193913) do
-
-  create_table "secrets", force: :cascade do |t|
-    t.string "name"
-    t.text "address"
-    t.string "city"
-    t.string "state"
-    t.string "neighborhood"
-    t.string "doc_name"
-    t.string "doc_value"
-    t.string "secret"
-    t.string "secret_password"
-    t.string "wireless_ssid"
-    t.string "wireless_password"
-    t.string "due_date"
-    t.integer "plan"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+ActiveRecord::Schema.define(version: 0) do
 
 end
