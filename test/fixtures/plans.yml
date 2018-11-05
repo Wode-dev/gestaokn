@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  rate_limit: MyString
+  value: 9.99
+  profile_name: MyString
+
+two:
+  rate_limit: MyString
+  value: 9.99
+  profile_name: MyString
