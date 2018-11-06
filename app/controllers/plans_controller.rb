@@ -28,6 +28,9 @@ class PlansController < ApplicationController
 
     respond_to do |format|
       if @plan.save
+
+        mk_create_plan()
+
         format.html { redirect_to @plan, notice: 'Plan was successfully created.' }
         format.json { render :show, status: :created, location: @plan }
       else
@@ -47,19 +50,16 @@ class PlansController < ApplicationController
       
       @plan_old = @plan.as_json # Guarda os parâmetros antigos do registro para retornar caso não consiga mudar no mikrotik
       
-      id = mk.get_reply("/ppp/profile/print", "?name=#{@plan.profile_name}")[0][".id"]
+      id = mk_print_plan(@plan.profile_name)[0][".id"]
       puts "Id do registro a ser mudado"
       puts id
 
       if @plan.update(plan_params)
         
-        result =  mk.get_reply("/ppp/profile/set",
-        "=name=#{plan_params["profile_name"]}",
-        "=rate-limit=#{plan_params["rate_limit"]}",
-        "=.id=#{id}")[0]["message"]
+        result =  mk_update_plan(id, plan_params["profile_name"], plan_params["rate_limit"])
 
         @notice = 'Plan was successfully updated.'
-        if result != nil
+        if result
           @notice = "It wasn't possible to update mikrotik"
           @plan.update(@plan_old)
         end
@@ -93,6 +93,51 @@ class PlansController < ApplicationController
     end
 
     redirect_to "/plans"
+  end
+
+  # MK INTERFACE
+
+  # Retorna boolean
+  def mk_create_plan(name, rate_limit)
+    
+    @reply = mk.get_reply("/ppp/profile/add",
+    "=name=#{plan_params["profile_name"]}",
+    "=rate-limit=#{plan_params["rate_limit"]}")
+
+    puts @reply
+    return @reply[0]["message"] == nil
+  end
+
+  
+  # Retorna boolean
+  def mk_update_plan(id, name, rate_limit)
+    
+    @reply =  mk.get_reply("/ppp/profile/set",
+    "=name=#{plan_params["profile_name"]}",
+    "=rate-limit=#{plan_params["rate_limit"]}",
+    "=.id=#{id}")
+    
+    puts @reply
+    return @reply[0]["message"] == nil
+  end
+
+  # Retorna boolean
+  def mk_destroy_plan(name)
+
+    @reply =  mk.get_reply("/ppp/profile/remove",
+    "=.id=#{id}")
+
+    puts @reply
+    return @reply[0]["message"] == nil
+  end
+
+  def mk_print_plan(name)
+
+    @reply = mk.get_reply("/ppp/profile/print", 
+    "?name=#{name}")
+    
+    puts @reply
+    return @reply[0]
   end
 
   private
