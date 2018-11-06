@@ -136,7 +136,7 @@ class PlansController < ApplicationController
   end
 
   # Retorna boolean
-  def mk_destroy_plan(name)
+  def mk_destroy_plan(id)
 
     @reply =  mk.get_reply("/ppp/profile/remove",
     "=.id=#{id}")
