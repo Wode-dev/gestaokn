@@ -52,7 +52,7 @@ class SecretsController < ApplicationController
 
     respond_to do |format|
 
-      id = mk_print_secret(@secret.secret)[0][".id"]
+      id = mk_print_secret(@secret.secret)[".id"]
       puts "O id é:" + id
 
       if @secret.update(secret_params)
@@ -61,8 +61,11 @@ class SecretsController < ApplicationController
 
         puts result
 
-        @notice = 'Secret was successfully updated.'
-        if result != nil
+        if result
+        
+          @notice = 'Secret was successfully updated.'
+        else
+
           @notice = "It wasn't possible to update mikrotik"
           @secret.update(@secret_old)
         end
