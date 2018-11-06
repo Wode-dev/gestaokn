@@ -26,18 +26,18 @@ class SecretsController < ApplicationController
   def create
     @secret = Secret.new(secret_params)
 
-    mt = connect_mikrotik
-    puts mt.get_reply( "/ppp/secret/add",
-                  "=name=#{secret_params["secret"]}",
-                  "=password=#{secret_params["secret_password"]}",
-                  "=profile=#{@secret.plan.profile_name}",
-                  "=service=pppoe")
-
     respond_to do |format|
-      if @secret.save
-        format.html { redirect_to @secret, notice: 'Secret was successfully created.' }
-        format.json { render :show, status: :created, location: @secret }
+      
+      if mk_create_secret(@secret.secret, @secret.secret_password, "ppp", @secret.plan.profile_name)
+        
+        if @secret.save
+
+          format.html { redirect_to @secret, notice: 'Secret was successfully created.' }
+          format.json { render :show, status: :created, location: @secret }
+
+        end
       else
+
         format.html { render :new }
         format.json { render json: @secret.errors, status: :unprocessable_entity }
       end
@@ -52,19 +52,12 @@ class SecretsController < ApplicationController
 
     respond_to do |format|
 
-      mk = connect_mikrotik
-
-      id = mk.get_reply("/ppp/secret/print", "?name=#{@secret.secret}")[0][".id"]
-      puts mk.get_reply("/ppp/secret/print", "?name=#{@secret.secret}")
+      id = mk_print_secret(@secret.secret)[0][".id"]
+      puts "O id é:" + id
 
       if @secret.update(secret_params)
 
-        result = mk.get_reply("/ppp/secret/set",
-        "=name=#{secret_params["secret"]}",
-        "=password=#{secret_params["secret_password"]}",
-        "=profile=#{Plan.find(secret_params["plan_id"]).profile_name}",
-        "=service=pppoe",
-        "=.id=#{id}")[0]["message"]
+        result = mk_update_secret(id, @secret.secret, @secret.secret_password, "ppp", @secret.plan.profile_name)
 
         puts result
 
@@ -86,10 +79,15 @@ class SecretsController < ApplicationController
   # DELETE /secrets/1
   # DELETE /secrets/1.json
   def destroy
-    @secret.destroy
-    respond_to do |format|
-      format.html { redirect_to secrets_url, notice: 'Secret was successfully destroyed.' }
-      format.json { head :no_content }
+
+    if mk_destroy_secret(mk_print_secret(@secret.secret)[".id"])
+
+      @secret.destroy
+   
+      respond_to do |format|
+        format.html { redirect_to secrets_url, notice: 'Secret was successfully destroyed.' }
+        format.json { head :no_content }
+      end
     end
   end
 
