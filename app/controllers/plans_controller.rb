@@ -29,11 +29,16 @@ class PlansController < ApplicationController
     respond_to do |format|
       if @plan.save
 
-        mk_create_plan()
+        if mk_create_plan(plan_params["name"], plan_params["rate_limit"])
+          
+          format.html { redirect_to @plan, notice: 'Plano foi criado com sucesso' }
+          format.json { render :show, status: :created, location: @plan }
+        else
 
-        format.html { redirect_to @plan, notice: 'Plan was successfully created.' }
-        format.json { render :show, status: :created, location: @plan }
+          format.html { redirect_to plans_path, notice: 'Não foi possível criar o plano' }
+        end
       else
+        
         format.html { render :new }
         format.json { render json: @plan.errors, status: :unprocessable_entity }
       end
@@ -76,9 +81,18 @@ class PlansController < ApplicationController
   # DELETE /plans/1
   # DELETE /plans/1.json
   def destroy
-    @plan.destroy
+
+    id = mk_print_plan(@plan.profile_name)[0][".id"]
+    if mk_destroy_plan(id)
+      
+      @plan.destroy
+      @notice = "Plan was successfully destroyed."
+    else
+      @notice = "Plano não foi deletado no mikrotik"
+    end
+
     respond_to do |format|
-      format.html { redirect_to plans_url, notice: 'Plan was successfully destroyed.' }
+      format.html { redirect_to plans_url, notice: @notice }
       format.json { head :no_content }
     end
   end
@@ -92,7 +106,7 @@ class PlansController < ApplicationController
       Plan.where(profile_name: plan["name"]).length > 0 ? nil : Plan.create(profile_name: plan["name"], rate_limit: plan["rate_limit"])
     end
 
-    redirect_to "/plans"
+    redirect_to plans_path
   end
 
   # MK INTERFACE
