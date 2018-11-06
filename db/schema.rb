@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_05_195310) do
+ActiveRecord::Schema.define(version: 2018_11_06_194718) do
 
   create_table "plans", force: :cascade do |t|
     t.string "rate_limit"
@@ -36,6 +36,10 @@ ActiveRecord::Schema.define(version: 2018_11_05_195310) do
     t.integer "plan_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "enabled?"
+    t.string "service"
+    t.string "remote_address"
+    t.string "local_address"
   end
 
 end
