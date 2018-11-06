@@ -55,7 +55,7 @@ class PlansController < ApplicationController
       
       @plan_old = @plan.as_json # Guarda os parâmetros antigos do registro para retornar caso não consiga mudar no mikrotik
       
-      id = mk_print_plan(@plan.profile_name)[0][".id"]
+      id = mk_print_plan(@plan.profile_name)[".id"]
       puts "Id do registro a ser mudado"
       puts id
 
@@ -63,8 +63,10 @@ class PlansController < ApplicationController
         
         result =  mk_update_plan(id, plan_params["profile_name"], plan_params["rate_limit"])
 
-        @notice = 'Plan was successfully updated.'
+        
         if result
+          @notice = 'Plan was successfully updated.'
+        else
           @notice = "It wasn't possible to update mikrotik"
           @plan.update(@plan_old)
         end
