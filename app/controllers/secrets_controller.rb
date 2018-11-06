@@ -94,56 +94,6 @@ class SecretsController < ApplicationController
     end
   end
 
-  # Retorna boolean
-  def mk_create_secret(name, password, service, profile)
-  
-    mk = connect_mikrotik
-    @reply = mk.get_reply("/ppp/secret/add",
-    "=name=#{name}",
-    "=password=#{password}",
-    "=profile=#{profile}",
-    "=service=#{service}")
-
-    puts @reply
-    return @reply[0]["message"] == nil
-  end
-
-  
-  # Retorna boolean
-  def mk_update_secret(id, name, password, service, profile)
-    
-    mk = connect_mikrotik
-    @reply =  mk.get_reply("/ppp/secret/set",
-    "=name=#{name}",
-    "=password=#{password}",
-    "=profile=#{profile}",
-    "=service=#{service}",
-    "=.id=#{id}")
-    
-    puts @reply
-    return @reply[0]["message"] == nil
-  end
-
-  # Retorna boolean
-  def mk_destroy_secret(id)
-
-    mk = connect_mikrotik
-    @reply =  mk.get_reply("/ppp/secret/remove",
-    "=.id=#{id}")
-
-    puts @reply
-    return @reply[0]["message"] == nil
-  end
-
-  def mk_print_secret(name)
-
-    mk = connect_mikrotik
-    @reply = mk.get_reply("/ppp/secret/print", 
-    "?name=#{name}")
-    
-    puts @reply
-    return @reply[0]
-  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
