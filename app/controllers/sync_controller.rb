@@ -22,6 +22,6 @@ class SyncController < ApplicationController
             end
         end
 
-        redirect_to secrets_path
+        redirect_to root_path
     end
 end
