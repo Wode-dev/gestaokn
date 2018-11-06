@@ -114,6 +114,7 @@ class PlansController < ApplicationController
   # Retorna boolean
   def mk_create_plan(name, rate_limit)
     
+    mk = connect_mikrotik
     @reply = mk.get_reply("/ppp/profile/add",
     "=name=#{plan_params["profile_name"]}",
     "=rate-limit=#{plan_params["rate_limit"]}")
@@ -126,6 +127,7 @@ class PlansController < ApplicationController
   # Retorna boolean
   def mk_update_plan(id, name, rate_limit)
     
+    mk = connect_mikrotik
     @reply =  mk.get_reply("/ppp/profile/set",
     "=name=#{plan_params["profile_name"]}",
     "=rate-limit=#{plan_params["rate_limit"]}",
@@ -138,6 +140,7 @@ class PlansController < ApplicationController
   # Retorna boolean
   def mk_destroy_plan(id)
 
+    mk = connect_mikrotik
     @reply =  mk.get_reply("/ppp/profile/remove",
     "=.id=#{id}")
 
@@ -147,6 +150,7 @@ class PlansController < ApplicationController
 
   def mk_print_plan(name)
 
+    mk = connect_mikrotik
     @reply = mk.get_reply("/ppp/profile/print", 
     "?name=#{name}")
     
