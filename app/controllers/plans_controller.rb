@@ -82,7 +82,7 @@ class PlansController < ApplicationController
   # DELETE /plans/1.json
   def destroy
 
-    id = mk_print_plan(@plan.profile_name)[0][".id"]
+    id = mk_print_plan(@plan.profile_name)[".id"]
     if mk_destroy_plan(id)
       
       @plan.destroy
