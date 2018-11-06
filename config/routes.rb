@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "sync", to: "sync#sync_partial"
+
   get "plans/check", to:"plans#check"
   resources :plans
 
