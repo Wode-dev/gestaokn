@@ -29,7 +29,7 @@ class PlansController < ApplicationController
     respond_to do |format|
       if @plan.save
 
-        if mk_create_plan(plan_params["name"], plan_params["rate_limit"])
+        if Plan.mk_create_plan(plan_params["name"], plan_params["rate_limit"])
           
           format.html { redirect_to @plan, notice: 'Plano foi criado com sucesso' }
           format.json { render :show, status: :created, location: @plan }
@@ -55,13 +55,13 @@ class PlansController < ApplicationController
       
       @plan_old = @plan.as_json # Guarda os parâmetros antigos do registro para retornar caso não consiga mudar no mikrotik
       
-      id = mk_print_plan(@plan.profile_name)[".id"]
+      id = Plan.mk_print_plan(@plan.profile_name)[".id"]
       puts "Id do registro a ser mudado"
       puts id
 
       if @plan.update(plan_params)
         
-        result =  mk_update_plan(id, plan_params["profile_name"], plan_params["rate_limit"])
+        result =  Plan.mk_update_plan(id, plan_params["profile_name"], plan_params["rate_limit"])
 
         
         if result
@@ -84,8 +84,8 @@ class PlansController < ApplicationController
   # DELETE /plans/1.json
   def destroy
 
-    id = mk_print_plan(@plan.profile_name)[".id"]
-    if mk_destroy_plan(id)
+    id = Plan.mk_print_plan(@plan.profile_name)[".id"]
+    if Plan.mk_destroy_plan(id)
       
       @plan.destroy
       @notice = "Plan was successfully destroyed."
@@ -109,55 +109,6 @@ class PlansController < ApplicationController
     end
 
     redirect_to plans_path
-  end
-
-  # MK INTERFACE
-
-  # Retorna boolean
-  def mk_create_plan(name, rate_limit)
-    
-    mk = connect_mikrotik
-    @reply = mk.get_reply("/ppp/profile/add",
-    "=name=#{plan_params["profile_name"]}",
-    "=rate-limit=#{plan_params["rate_limit"]}")
-
-    puts @reply
-    return @reply[0]["message"] == nil
-  end
-
-  
-  # Retorna boolean
-  def mk_update_plan(id, name, rate_limit)
-    
-    mk = connect_mikrotik
-    @reply =  mk.get_reply("/ppp/profile/set",
-    "=name=#{plan_params["profile_name"]}",
-    "=rate-limit=#{plan_params["rate_limit"]}",
-    "=.id=#{id}")
-    
-    puts @reply
-    return @reply[0]["message"] == nil
-  end
-
-  # Retorna boolean
-  def mk_destroy_plan(id)
-
-    mk = connect_mikrotik
-    @reply =  mk.get_reply("/ppp/profile/remove",
-    "=.id=#{id}")
-
-    puts @reply
-    return @reply[0]["message"] == nil
-  end
-
-  def mk_print_plan(name)
-
-    mk = connect_mikrotik
-    @reply = mk.get_reply("/ppp/profile/print", 
-    "?name=#{name}")
-    
-    puts @reply
-    return @reply[0]
   end
 
   private

@@ -28,7 +28,7 @@ class SecretsController < ApplicationController
 
     respond_to do |format|
       
-      if mk_create_secret(@secret.secret, @secret.secret_password, "ppp", @secret.plan.profile_name)
+      if Secret.mk_create_secret(@secret.secret, @secret.secret_password, "ppp", @secret.plan.profile_name)
         
         if @secret.save
 
@@ -52,12 +52,12 @@ class SecretsController < ApplicationController
 
     respond_to do |format|
 
-      id = mk_print_secret(@secret.secret)[".id"]
+      id = Secret.mk_print_secret(@secret.secret)[".id"]
       puts "O id é:" + id
 
       if @secret.update(secret_params)
 
-        result = mk_update_secret(id, @secret.secret, @secret.secret_password, "ppp", @secret.plan.profile_name)
+        result = Secret.mk_update_secret(id, @secret.secret, @secret.secret_password, "ppp", @secret.plan.profile_name)
 
         puts result
 
@@ -83,7 +83,7 @@ class SecretsController < ApplicationController
   # DELETE /secrets/1.json
   def destroy
 
-    if mk_destroy_secret(mk_print_secret(@secret.secret)[".id"])
+    if Secret.mk_destroy_secret(mk_print_secret(@secret.secret)[".id"])
 
       @secret.destroy
    
