@@ -94,6 +94,14 @@ class SecretsController < ApplicationController
     end
   end
 
+  def payment
+
+    params = params.require(:secret).permit(:bill, :date)
+    data = params[:date].split("/")
+
+    Bill.find(params[:bill]).update(payment_date: Date.new(data[2], data[1], data[0]))
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

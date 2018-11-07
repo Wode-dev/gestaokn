@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :plans
 
   resources :secrets
+  post "secrets/pay", to: "secrets#payment"
   root to: "secrets#index"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
