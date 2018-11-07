@@ -1,5 +1,6 @@
 class Plan < ApplicationRecord
 
+    has_many :secrets
       # MK INTERFACE
 
   # Retorna boolean
