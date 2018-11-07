@@ -10,17 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_07_205811) do
+ActiveRecord::Schema.define(version: 2018_11_07_211730) do
 
   create_table "bills", force: :cascade do |t|
     t.integer "secret_id"
     t.decimal "value"
-    t.string "reference"
+    t.date "ref_start"
     t.text "note"
     t.date "due_date"
     t.date "payment_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date "ref_end"
   end
 
   create_table "plans", force: :cascade do |t|
