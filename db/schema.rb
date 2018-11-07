@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_07_211730) do
+ActiveRecord::Schema.define(version: 2018_11_07_220703) do
 
   create_table "bills", force: :cascade do |t|
     t.integer "secret_id"
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 2018_11_07_211730) do
     t.string "remote_address"
     t.string "local_address"
     t.date "instalation"
+    t.boolean "automatic_update", default: true
   end
 
 end
