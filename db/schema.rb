@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2018_11_07_205811) do
     t.string "reference"
     t.text "note"
     t.date "due_date"
+    t.date "payment_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

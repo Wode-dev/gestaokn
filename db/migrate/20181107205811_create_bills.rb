@@ -6,6 +6,7 @@ class CreateBills < ActiveRecord::Migration[5.2]
       t.string :reference
       t.text :note
       t.date :due_date
+      t.date :payment_date
 
       t.timestamps
     end
