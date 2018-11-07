@@ -16,6 +16,33 @@ class Secret < ApplicationRecord
         end
     end
 
+      
+    def self.verify
+
+      Secret.all.each do |secret|
+        if secret.automatic_update
+          
+          if secret.is_in_debt?
+
+            secret.update(enabled: false)
+          else
+
+            secret.update(enabled: true)
+          end
+        end
+      end
+    end
+
+    def is_in_debt?
+
+      self.bills.where(payment_date: nil).each do |bill|
+
+          return Date.today > bill.due_date + 5
+      end
+
+      return false
+    end
+
   # Retorna boolean
   def self.mk_create_secret(name, password, service, profile)
   
