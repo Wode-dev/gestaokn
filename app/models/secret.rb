@@ -16,12 +16,13 @@ class Secret < ApplicationRecord
         end
     end
 
-      
+    # Verifica quais usuários estão em débito
+    # Desativa o usuário se estiver em atualização automática
     def self.verify
 
       Secret.all.each do |secret|
         if secret.automatic_update
-          
+
           if secret.is_in_debt?
 
             secret.update(enabled: false)
@@ -33,6 +34,7 @@ class Secret < ApplicationRecord
       end
     end
 
+    # Verifica se o cliente está em débito
     def is_in_debt?
 
       self.bills.where(payment_date: nil).each do |bill|
