@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_06_203429) do
+ActiveRecord::Schema.define(version: 2018_11_07_205811) do
+
+  create_table "bills", force: :cascade do |t|
+    t.integer "secret_id"
+    t.decimal "value"
+    t.string "reference"
+    t.text "note"
+    t.date "due_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "plans", force: :cascade do |t|
     t.string "rate_limit"

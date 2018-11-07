@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  secret_id: 1
+  value: 9.99
+  reference: MyString
+  note: MyText
+  due_date: 2018-11-07
+
+two:
+  secret_id: 1
+  value: 9.99
+  reference: MyString
+  note: MyText
+  due_date: 2018-11-07
