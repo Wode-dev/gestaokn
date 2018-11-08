@@ -7,6 +7,6 @@ Rails.application.routes.draw do
 
   resources :secrets
   post "secrets/pay", to: "secrets#payment"
-  root to: "secrets#index"
+  root to: "main#home"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
