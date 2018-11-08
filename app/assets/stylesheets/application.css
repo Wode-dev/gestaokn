@@ -24,6 +24,10 @@
 
  */
 
+ .create-action-button-alignment{
+     float: right;
+     margin-bottom: 10px;
+ }
 
 .disabled{
      color: red;
