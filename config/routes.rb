@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'main/home'
   get "sync", to: "sync#sync_partial"
 
   get "plans/check", to:"plans#check"
