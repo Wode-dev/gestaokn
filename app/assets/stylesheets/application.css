@@ -24,10 +24,8 @@
 
  */
 
-@import "bootstrap";
 
-
-/* .disabled{
+.disabled{
      color: red;
  }
 
@@ -77,4 +75,4 @@
 
  .b-blue{
     background-color: #3f3c9b;
- } */
+ }
