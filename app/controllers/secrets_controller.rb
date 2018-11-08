@@ -83,7 +83,7 @@ class SecretsController < ApplicationController
   # DELETE /secrets/1.json
   def destroy
 
-    if Secret.mk_destroy_secret(mk_print_secret(@secret.secret)[".id"])
+    if Secret.mk_destroy_secret(Secret.mk_print_secret(@secret.secret)[".id"])
 
       @secret.destroy
    
