@@ -9,10 +9,16 @@ class Secret < ApplicationRecord
         if enabled_changed?
             mk = MTik::Connection.new(:host=>"177.136.34.190", :user=>"admin",:pass=>"ALCATRAZ")
             
+            enabled = self.enabled
             puts mk.get_reply("/ppp/secret/set",
-                "=disabled=#{self.enabled ? "no" : "yes"}",
+                "=disabled=#{enabled ? "no" : "yes"}",
                 "=.id=#{mk.get_reply("/ppp/secret/print", 
                 "?name=#{self.secret}")[0][".id"]}")
+            
+            if !enabled
+
+
+            end
         end
     end
 
@@ -94,5 +100,16 @@ class Secret < ApplicationRecord
     
     puts @reply
     return @reply[0]
+  end
+
+  def mk_drop_connection
+    
+    mk = connect_mikrotik
+
+    id = mk.get_reply("/ppp/active/print",
+    "?name=#{self.secret}")[0][".id"]
+    returned = mk.get_reply("/ppp/active/remove",
+    "=.id=#{id}")
+    return returned[0]["message"] == nil
   end
 end
