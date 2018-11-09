@@ -7,7 +7,7 @@ class Secret < ApplicationRecord
     def on_enabled_change
 
         if enabled_changed?
-            mk = MTik::Connection.new(:host=>"177.136.34.190", :user=>"admin",:pass=>"ALCATRAZ")
+            mk = Secret.connect_mikrotik
             
             enabled = self.enabled
             puts mk.get_reply("/ppp/secret/set",
@@ -16,8 +16,8 @@ class Secret < ApplicationRecord
                 "?name=#{self.secret}")[0][".id"]}")
             
             if !enabled
-
-
+              
+              mk_drop_connection
             end
         end
     end
@@ -54,7 +54,7 @@ class Secret < ApplicationRecord
   # Retorna boolean
   def self.mk_create_secret(name, password, service, profile)
   
-    mk = connect_mikrotik
+    mk = Secret.connect_mikrotik
     @reply = mk.get_reply("/ppp/secret/add",
     "=name=#{name}",
     "=password=#{password}",
@@ -69,7 +69,7 @@ class Secret < ApplicationRecord
   # Retorna boolean
   def self.mk_update_secret(id, name, password, service, profile)
     
-    mk = connect_mikrotik
+    mk = Secret.connect_mikrotik
     @reply =  mk.get_reply("/ppp/secret/set",
     "=name=#{name}",
     "=password=#{password}",
@@ -84,7 +84,7 @@ class Secret < ApplicationRecord
   # Retorna boolean
   def self.mk_destroy_secret(id)
 
-    mk = connect_mikrotik
+    mk = Secret.connect_mikrotik
     @reply =  mk.get_reply("/ppp/secret/remove",
     "=.id=#{id}")
 
@@ -94,7 +94,7 @@ class Secret < ApplicationRecord
 
   def self.mk_print_secret(name)
 
-    mk = connect_mikrotik
+    mk = Secret.connect_mikrotik
     @reply = mk.get_reply("/ppp/secret/print", 
     "?name=#{name}")
     
@@ -104,7 +104,7 @@ class Secret < ApplicationRecord
 
   def mk_drop_connection
     
-    mk = connect_mikrotik
+    mk = Secret.connect_mikrotik
 
     id = mk.get_reply("/ppp/active/print",
     "?name=#{self.secret}")[0][".id"]
