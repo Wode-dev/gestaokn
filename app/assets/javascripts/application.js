@@ -14,3 +14,19 @@
 //= require activestorage
 // require turbolinks
 //= require_tree .
+
+
+$(
+    $('.switch-secret').change(function() {
+    console.log("Id: " + $(this).prop("id") + $(this).prop('checked'));
+    $.post({
+        url: "secrets/switch",
+        data: {"secret_id":$(this).prop("id"),
+            "state":$(this).prop('checked') },
+        success: function( data ) {
+            console.log(data);
+        }
+      });
+})
+)
+
