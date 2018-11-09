@@ -106,10 +106,10 @@ class SecretsController < ApplicationController
   # Inverte o estado do usuário entre bloqueado e desbloqueado
   def switch_secret
     
-    parameter = params.permit(:secret_id)
+    parameter = params.permit(:secret_id, :state)
 
     @user = User.find(parameter[:secret_id])
-    if @user.update(enabled: !@user.enabled)
+    if @user.update(enabled: paramenter[:state])
 
       respond_to do |format|
         format.json { head :accepted }
