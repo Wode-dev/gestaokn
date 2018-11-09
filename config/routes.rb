@@ -3,10 +3,14 @@ Rails.application.routes.draw do
   get "sync", to: "sync#sync_partial"
 
   get "plans/check", to:"plans#check"
+
+  
   resources :plans
 
   resources :secrets
   post "secrets/pay", to: "secrets#payment"
+  post "secrets/switch", to:"secrets#switch_secret"
+
   root to: "main#home"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
