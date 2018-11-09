@@ -94,12 +94,32 @@ class SecretsController < ApplicationController
     end
   end
 
+  #Registra um pagamento para um determinado cliente
   def payment
 
     params = params.require(:secret).permit(:bill, :date)
     data = params[:date].split("/")
 
     Bill.find(params[:bill]).update(payment_date: Date.new(data[2], data[1], data[0]))
+  end
+
+  # Inverte o estado do usuário entre bloqueado e desbloqueado
+  def switch_secret
+    
+    parameter = params.permit(:secret_id)
+
+    @user = User.find(parameter[:secret_id])
+    if @user.update(enabled: !@user.enabled)
+
+      respond_to do |format|
+        format.json { head :accepted }
+      end
+    else
+
+      respond_to do |format|
+        format.json {head :not_acceptable}
+      end
+    end
   end
 
 
