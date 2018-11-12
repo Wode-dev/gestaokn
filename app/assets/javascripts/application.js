@@ -14,19 +14,42 @@
 //= require activestorage
 // require turbolinks
 //= require_tree .
+//= require jquery3
+//= require jquery_ujs
 
 
-$(
-    $('.switch-secret').change(function() {
-    console.log("Id: " + $(this).prop("id") + $(this).prop('checked'));
-    $.post({
-        url: "secrets/switch",
-        data: {"secret_id":$(this).prop("id"),
-            "state":$(this).prop('checked') },
-        success: function( data ) {
-            console.log(data);
-        }
-      });
-})
-)
+$(function(){
 
+    // Ativar ou desativar usuario
+    $('input[type=checkbox].switch-secret').change(function() {
+        console.log("checkbox")
+        var toggle = $(this);
+        $('input[type=checkbox].switch-secret').bootstrapToggle('disable');
+        
+        $.post(
+            "secrets/switch",
+            {"secret_id":$(this).prop("id"),
+                "state":$(this).prop('checked') },
+            function(data, textStatus, request){
+                updateRowColorStatus(toggle)
+                toggle.bootstrapToggle('enable');
+            }, 
+           "json")
+           .fail(function() {
+               toggle.bootstrapToggle('toggle');
+               updateRowColorStatus(toggle)
+           });
+    })
+});
+
+function updateRowColorStatus(toggle) {
+    $('input[type=checkbox].switch-secret').bootstrapToggle('enable');
+    
+    if(toggle.prop('checked')){
+        toggle.parent().parent().parent().parent().parent().parent().parent()
+        .removeClass("txt-accent")
+    } else {
+        toggle.parent().parent().parent().parent().parent().parent().parent()
+        .addClass("txt-accent");
+    }
+}
