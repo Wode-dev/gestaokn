@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_12_211413) do
+ActiveRecord::Schema.define(version: 2018_11_12_211744) do
 
   create_table "bills", force: :cascade do |t|
     t.integer "secret_id"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 2018_11_12_211413) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.date "ref_end"
+    t.boolean "installation", default: false
   end
 
   create_table "deal_debts", force: :cascade do |t|
