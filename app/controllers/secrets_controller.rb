@@ -108,17 +108,16 @@ class SecretsController < ApplicationController
     
     parameter = params.permit(:secret_id, :state)
 
-    @user = User.find(parameter[:secret_id])
-    if @user.update(enabled: paramenter[:state])
+    @user = Secret.find(parameter[:secret_id])
+    if @user.update(enabled: parameter[:state])
 
-      respond_to do |format|
-        format.json { head :accepted }
-      end
+      
+        #head :accepted 
+        render json: {state: parameter[:state]}
     else
 
-      respond_to do |format|
-        format.json {head :not_acceptable}
-      end
+        #head :not_acceptable
+        render json: {state: @user.enabled}
     end
   end
 
