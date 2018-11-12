@@ -1,0 +1,2 @@
+class DealDebt < ApplicationRecord
+end
