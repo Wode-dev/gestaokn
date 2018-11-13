@@ -9,7 +9,65 @@ class SecretsController < ApplicationController
 
   # GET /secrets/1
   # GET /secrets/1.json
+  # Dentro do método show é passado um objeto com os dados pra serem atualizados na aba do financeiro
   def show
+
+    # Financeiro_legenda = [
+    #   [
+    #   "Tipo de entrada (Instalação, Consumo, Pagamento, Bloqueio)"
+    #   "Data de vencimento, Data de pagamento",
+    #   "Valor",
+    #   "Notas",
+    #   "data de consumo ou forma de pagamento"
+    #   ]
+    # ]
+
+    @finances = []
+
+    @secret.bills.each do |bill|
+      
+      if bill.installation
+
+        
+        @finances << [
+          bill.ref_start,
+          "Instalação", 
+          bill.due_date, 
+          bill.value, 
+          bill.note, 
+          "#{bill.ref_start}"]
+      else
+
+        @finances << [
+          bill.due_date,
+          "Consumo", 
+          bill.due_date, 
+          bill.value, 
+          bill.note, 
+          "#{bill.ref_start} - #{bill.ref_end}"]
+      end
+
+
+    end
+
+    @secret.payments.each do |payment|
+
+      @finances << [
+        payment.date,
+        "Pagamento", 
+        payment.date, 
+        payment.value, 
+        "#{payment.note}",
+        "#{payment.payment_form.kind} - #{payment.payment_form.place}"
+      ]
+    end
+
+    @finances = @finances.sort_by{|e| Date.today - e[0] }
+
+    @classes = Hash.new
+    @classes["Instalação"] = "text-primary"
+    @classes["Consumo"] = "text-warning"
+    @classes["Pagamento"]= "text-success"
   end
 
   # GET /secrets/new
