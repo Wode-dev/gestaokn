@@ -1,6 +1,7 @@
 class Secret < ApplicationRecord
     belongs_to :plan
     has_many :bills
+    has_many :payments
 
     before_update :on_enabled_change
 
