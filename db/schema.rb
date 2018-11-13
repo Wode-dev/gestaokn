@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_12_213646) do
+ActiveRecord::Schema.define(version: 2018_11_13_182828) do
 
   create_table "bill_payments", force: :cascade do |t|
     t.integer "bill_id"
@@ -93,6 +93,7 @@ ActiveRecord::Schema.define(version: 2018_11_12_213646) do
     t.string "local_address"
     t.date "instalation"
     t.boolean "automatic_update", default: true
+    t.boolean "active", default: true
   end
 
 end
