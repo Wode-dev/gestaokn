@@ -86,6 +86,7 @@
     position: relative;
 }
 ul.timeline:before {
+    margin-top: 0.8%;
     content: ' ';
     background: #d4d9df;
     display: inline-block;
@@ -100,6 +101,7 @@ ul.timeline > li {
     padding-left: 20px;
 }
 ul.timeline > li:before {
+    margin-top: 0.8%;
     content: ' ';
     background: white;
     display: inline-block;
