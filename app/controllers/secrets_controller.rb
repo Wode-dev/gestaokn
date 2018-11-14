@@ -155,10 +155,17 @@ class SecretsController < ApplicationController
   #Registra um pagamento para um determinado cliente
   def payment
 
-    params = params.require(:secret).permit(:bill, :date)
-    data = params[:date].split("/")
+    date = params[:date].split("/")
 
-    Bill.find(params[:bill]).update(payment_date: Date.new(data[2], data[1], data[0]))
+    Payment.create(
+      secret_id: params[:id],
+      date: Date.new(date[2].to_i, date[1].to_i, date[0].to_i),
+      value: params[:value].to_f,
+      payment_form_id: params[:payment_form_id],
+      note: params[:note]
+      )
+
+      redirect_to params[:fallback]
   end
 
   # Inverte o estado do usuário entre bloqueado e desbloqueado
@@ -179,6 +186,7 @@ class SecretsController < ApplicationController
     end
   end
 
+  # Adiciona informações da instalação para aqueles que ainda não estão cadastrados
   def add_instalation_detail
     
     installation_date = params[:date].split("/")
