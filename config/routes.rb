@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :secrets
   post "secrets/pay", to: "secrets#payment"
   post "secrets/switch", to:"secrets#switch_secret"
+  post "secrets/installation", to: "secrets#add_instalation_detail", as: :installation_details
 
   root to: "main#home"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
