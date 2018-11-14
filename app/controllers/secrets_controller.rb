@@ -179,6 +179,25 @@ class SecretsController < ApplicationController
     end
   end
 
+  def add_instalation_detail
+    
+    installation_date = params[:date].split("/")
+    due_date = params[:due_date].split("/")
+    total = params[:cable].to_f + params[:bail].to_f + params[:router].to_f + params[:other].to_f
+
+    note="#{!params[:bail].empty? ? "Fiança: " + params[:bail] : nil} \r\n #{!params[:cable].empty? ? "Cabo: " + params[:cable] : nil} \r\n #{!params[:router].empty? ? "Roteador: " + params[:router] : nil} \r\n #{!params[:other].empty? ? "Outros: " + params[:other] : nil}"
+
+    Bill.create(
+      installation: true,
+      secret_id: params[:id],
+      ref_start: Date.new(installation_date[2].to_i,installation_date[1].to_i, installation_date[0].to_i),
+      due_date: Date.new(due_date[2].to_i,due_date[1].to_i, due_date[0].to_i),
+      value: total
+      )
+
+    redirect_to params[:fallback]
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
