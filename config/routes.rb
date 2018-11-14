@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :plans
 
   resources :secrets
-  post "secrets/pay", to: "secrets#payment"
+  post "secrets/pay", to: "secrets#payment", as: :payment
   post "secrets/switch", to:"secrets#switch_secret"
   post "secrets/installation", to: "secrets#add_instalation_detail", as: :installation_details
 
