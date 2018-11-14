@@ -192,7 +192,8 @@ class SecretsController < ApplicationController
       secret_id: params[:id],
       ref_start: Date.new(installation_date[2].to_i,installation_date[1].to_i, installation_date[0].to_i),
       due_date: Date.new(due_date[2].to_i,due_date[1].to_i, due_date[0].to_i),
-      value: total
+      value: total,
+      note: note
       )
 
     redirect_to params[:fallback]
