@@ -1,2 +1,10 @@
-<h1>Main#home</h1>
-<p>Find me in app/views/main/home.html.erb</p>
+<div class="container">
+
+    Quantidade de clientes por vencimento <br>
+
+    <p>10: <%= Secret.where(due_date: 10).count %></p>
+    <p>15: <%= Secret.where(due_date: 15).count %></p>
+    <p>20: <%= Secret.where(due_date: 20).count %></p>
+    <p>25: <%= Secret.where(due_date: 25).count %></p>
+
+</div>
