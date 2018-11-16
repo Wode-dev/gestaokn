@@ -10,6 +10,7 @@
         <th>Nome do Plano</th>
         <th>Preço</th>
         <th>Taxa</th>
+        <th>Clientes</th>
         <th colspan="3"></th>
       </tr>
     </thead>
@@ -20,6 +21,7 @@
           <td><%= plan.profile_name %></td>
           <td><%= plan.value %></td>
           <td><%= plan.rate_limit %></td>
+          <td><%= Secret.where(plan_id: plan.id).count %></td>
           <td><%= link_to '<i data-feather="file-text"></i>'.html_safe, plan %></td>
           <td><%= link_to '<i data-feather="edit"></i>'.html_safe, edit_plan_path(plan) %></td>
           <td><%= link_to '<i data-feather="trash-2"></i>'.html_safe, plan, method: :delete, data: { confirm: 'Are you sure?' } %></td>
