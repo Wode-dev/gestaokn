@@ -7,6 +7,7 @@
   <table class="table table-sm table-hover table-striped">
     <thead>
       <tr>
+        <th>Id MikroTik</th>
         <th>Nome do Plano</th>
         <th>Preço</th>
         <th>Taxa</th>
@@ -18,6 +19,7 @@
     <tbody>
       <% @plans.each do |plan| %>
         <tr>
+          <td><%= plan.mk_id%></td>
           <td><%= plan.profile_name %></td>
           <td><%= plan.value %></td>
           <td><%= plan.rate_limit %></td>
