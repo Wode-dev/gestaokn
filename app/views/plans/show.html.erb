@@ -1,19 +1,45 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Rate limit:</strong>
-  <%= @plan.rate_limit %>
-</p>
+  <h3><%= @plan.profile_name %></h3>
 
-<p>
-  <strong>Value:</strong>
-  <%= @plan.value %>
-</p>
+  <ul class="list-group list-group-flush mb-5 mt-3">
 
-<p>
-  <strong>Profile name:</strong>
-  <%= @plan.profile_name %>
-</p>
+    <li class="list-group-item">
 
-<%= link_to 'Edit', edit_plan_path(@plan) %> |
-<%= link_to 'Back', plans_path %>
+      <span class="font-weight-bold">
+        Taxa:
+      </span>
+      <p>
+        <%= @plan.rate_limit %>
+      </p>
+
+    </li>
+    <li class="list-group-item">
+
+        <span class="font-weight-bold">
+          Valor:
+        </span>
+        <p>
+          <%= @plan.value %>
+        </p>
+
+    </li>
+    <li class="list-group-item">
+     
+      <span class="font-weight-bold">
+        Quantidade de clientes com o plano
+      </span>
+      <p>
+        <%= Secret.where(plan_id: params[:id]).count %>
+      </p>
+     
+    </li>
+
+  </ul>
+
+
+
+  <%= link_to 'Editar', edit_plan_path(@plan), class:"btn btn-warning mb-3" %>
+  <%= link_to 'Voltar', plans_path, class:"btn btn-info mb-3" %>
+</div>
