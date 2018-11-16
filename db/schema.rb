@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_13_182828) do
+ActiveRecord::Schema.define(version: 2018_11_16_141755) do
 
   create_table "bill_payments", force: :cascade do |t|
     t.integer "bill_id"
@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 2018_11_13_182828) do
     t.string "profile_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "mk_id"
   end
 
   create_table "secrets", force: :cascade do |t|
@@ -94,6 +95,7 @@ ActiveRecord::Schema.define(version: 2018_11_13_182828) do
     t.date "instalation"
     t.boolean "automatic_update", default: true
     t.boolean "active", default: true
+    t.string "mk_id"
   end
 
 end
