@@ -27,6 +27,12 @@ class Secret < ApplicationRecord
         end
     end
 
+    after_create do
+
+      self.update(mk_id: Secret.mk_print_secret(self.secret)[".id"])
+
+    end
+
     # Verifica quais usuários estão em débito
     # Desativa o usuário se estiver em atualização automática
     def self.verify

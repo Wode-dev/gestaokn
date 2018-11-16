@@ -1,7 +1,13 @@
 class Plan < ApplicationRecord
 
-    has_many :secrets
-      # MK INTERFACE
+  has_many :secrets
+  # MK INTERFACE
+
+  after_create do
+    
+    self.update(mk_id: Plan.mk_print_plan(self.profile_name)[".id"])
+
+  end
 
   # Retorna boolean
   def self.mk_create_plan(name, rate_limit)
