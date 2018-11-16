@@ -1,5 +1,10 @@
-<h1>New Plan</h1>
+<div class="container">
+    <h1>Criar plano</h1>
 
-<%= render 'form', plan: @plan %>
+    <%= link_to plans_path, class:"btn btn-outline-warning mb-3" do%>
+        <i data-feather="chevrons-left"></i> Voltar
+    <%end%>
 
-<%= link_to 'Back', plans_path %>
+    <%= render 'form', plan: @plan %>
+
+</div>
