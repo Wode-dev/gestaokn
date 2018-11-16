@@ -60,20 +60,18 @@ class PlansController < ApplicationController
       puts "Id do registro a ser mudado"
       puts id
 
-      if @plan.update(plan_params)
+      if Plan.mk_update_plan(@plan.mk_id, plan_params["profile_name"], plan_params["rate_limit"])
+       
         
-        result =  Plan.mk_update_plan(id, plan_params["profile_name"], plan_params["rate_limit"])
-
-        
-        if result
-          @notice = 'Plan was successfully updated.'
+        if @plan.update(plan_params)
+          format.html { redirect_to @plan, notice: @notice }
+          format.json { render :show, status: :ok, location: @plan }
         else
-          @notice = "It wasn't possible to update mikrotik"
-          @plan.update(@plan_old)
+          format.html { render :edit }
+          format.json { render json: @plan.errors, status: :unprocessable_entity }
         end
 
-        format.html { redirect_to @plan, notice: @notice }
-        format.json { render :show, status: :ok, location: @plan }
+
       else
         format.html { render :edit }
         format.json { render json: @plan.errors, status: :unprocessable_entity }
@@ -85,8 +83,7 @@ class PlansController < ApplicationController
   # DELETE /plans/1.json
   def destroy
 
-    id = Plan.mk_print_plan(@plan.profile_name)[".id"]
-    if Plan.mk_destroy_plan(id)
+    if Plan.mk_destroy_plan(@plan.mk_id)
       
       @plan.destroy
       @notice = "Plan was successfully destroyed."

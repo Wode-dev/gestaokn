@@ -113,23 +113,19 @@ class SecretsController < ApplicationController
       id = Secret.mk_print_secret(@secret.secret)[".id"]
       puts "O id é:" + id
 
-      if @secret.update(secret_params)
+      if Secret.mk_update_secret(id, @secret.secret, @secret.secret_password, "ppp", @secret.plan.profile_name)ms)
 
-        result = Secret.mk_update_secret(id, @secret.secret, @secret.secret_password, "ppp", @secret.plan.profile_name)
-
-        puts result
-
-        if result
+        if @secret.update(secret_para
         
-          @notice = 'Secret was successfully updated.'
+          format.html { redirect_to @secret, notice: 'Secret was successfully updated.' }
+          format.json { render :show, status: :ok, location: @secret }
         else
 
-          @notice = "It wasn't possible to update mikrotik"
-          @secret.update(@secret_old)
+          format.html { render :edit }
+          format.json { render json: @secret.errors, status: :unprocessable_entity }
         end
 
-        format.html { redirect_to @secret, notice: 'Secret was successfully updated.' }
-        format.json { render :show, status: :ok, location: @secret }
+
       else
         format.html { render :edit }
         format.json { render json: @secret.errors, status: :unprocessable_entity }
@@ -141,7 +137,7 @@ class SecretsController < ApplicationController
   # DELETE /secrets/1.json
   def destroy
 
-    if Secret.mk_destroy_secret(Secret.mk_print_secret(@secret.secret)[".id"])
+    if Secret.mk_destroy_secret(@secret.mk_id)
 
       @secret.destroy
    
