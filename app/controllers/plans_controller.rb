@@ -27,9 +27,11 @@ class PlansController < ApplicationController
     @plan = Plan.new(plan_params)
 
     respond_to do |format|
-      if @plan.save
+      if Plan.mk_create_plan(@plan.profile_name, @plan.rate_limit)
 
-        if Plan.mk_create_plan(@plan.profile_name, @plan.rate_limit)
+        if @plan.save
+
+          #@plan.update(mk_id: Plan.mk_print_plan(@plan.profile_name)[".id"])
           
           format.html { redirect_to @plan, notice: 'Plano foi criado com sucesso' }
           format.json { render :show, status: :created, location: @plan }
@@ -38,7 +40,6 @@ class PlansController < ApplicationController
           format.html { redirect_to plans_path, notice: 'Não foi possível criar o plano' }
         end
       else
-        
         format.html { render :new }
         format.json { render json: @plan.errors, status: :unprocessable_entity }
       end
