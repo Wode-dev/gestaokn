@@ -11,22 +11,32 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :rate_limit %>
-    <%= form.text_field :rate_limit %>
+  <div class="form-group">
+    <%= form.label :profile_name, "Nome do Perfil" %>
+    <%= form.text_field :profile_name, class:"form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :value %>
-    <%= form.text_field :value %>
+  <div class="row">
+    <div class="col-6">
+      <div class="form-group">
+        <%= form.label :rate_limit, "Taxa" %>
+        <%= form.text_field :rate_limit, class:"form-control", aria:{descibedly:"rateHelp"}, placeholder:"***k/****k" %>
+        <small id="rateHelp" class="form-text text-muted">Ex.: 100k/1000k<br> (100Kbps de upload e 1Mbps de download)</small>
+      </div>
+    </div>
+    <div class="col-6">
+
+      <div class="form-group">
+        <%= form.label :value, "Valor" %>
+        <%= form.text_field :value, class:"form-control" %>
+      </div>
+
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :profile_name %>
-    <%= form.text_field :profile_name %>
-  </div>
 
-  <div class="actions">
-    <%= form.submit %>
+
+  <div class="form-group">
+    <%= form.submit "Criar plano", class:"btn btn-outline-success" %>
   </div>
 <% end %>
