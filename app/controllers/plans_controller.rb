@@ -29,7 +29,7 @@ class PlansController < ApplicationController
     respond_to do |format|
       if @plan.save
 
-        if Plan.mk_create_plan(plan_params["name"], plan_params["rate_limit"])
+        if Plan.mk_create_plan(@plan.profile_name, @plan.rate_limit)
           
           format.html { redirect_to @plan, notice: 'Plano foi criado com sucesso' }
           format.json { render :show, status: :created, location: @plan }
@@ -49,7 +49,7 @@ class PlansController < ApplicationController
   # PATCH/PUT /plans/1
   # PATCH/PUT /plans/1.json
   def update
-    mk = connect_mikrotik
+    mk = ApplicationRecord.connect_mikrotik
     respond_to do |format|
 
       
@@ -101,7 +101,7 @@ class PlansController < ApplicationController
 
   def check
 
-    mk = connect_mikrotik
+    mk = ApplicationRecord.connect_mikrotik
     all_plans = mk.get_reply("/ppp/profile/print")
 
     all_plans.each do |plan|

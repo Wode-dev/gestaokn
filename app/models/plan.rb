@@ -8,8 +8,8 @@ class Plan < ApplicationRecord
     
     mk = connect_mikrotik
     @reply = mk.get_reply("/ppp/profile/add",
-    "=name=#{plan_params["profile_name"]}",
-    "=rate-limit=#{plan_params["rate_limit"]}")
+    "=name=#{name}",
+    "=rate-limit=#{rate_limit}")
 
     puts @reply
     return @reply[0]["message"] == nil
@@ -21,8 +21,8 @@ class Plan < ApplicationRecord
     
     mk = connect_mikrotik
     @reply =  mk.get_reply("/ppp/profile/set",
-    "=name=#{plan_params["profile_name"]}",
-    "=rate-limit=#{plan_params["rate_limit"]}",
+    "=name=#{name}",
+    "=rate-limit=#{rate_limit}",
     "=.id=#{id}")
     
     puts @reply

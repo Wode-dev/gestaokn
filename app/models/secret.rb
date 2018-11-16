@@ -11,10 +11,14 @@ class Secret < ApplicationRecord
             mk = Secret.connect_mikrotik
             
             enabled = self.enabled
-            puts mk.get_reply("/ppp/secret/set",
+            # puts mk.get_reply("/ppp/secret/set",
+            #     "=disabled=#{enabled ? "no" : "yes"}",
+            #     "=.id=#{mk.get_reply("/ppp/secret/print", 
+            #     "?name=#{self.secret}")[0][".id"]}")
+            
+                puts mk.get_reply("/ppp/secret/set",
                 "=disabled=#{enabled ? "no" : "yes"}",
-                "=.id=#{mk.get_reply("/ppp/secret/print", 
-                "?name=#{self.secret}")[0][".id"]}")
+                "=.id=#{self.mk_id}")
             
             if !enabled
               

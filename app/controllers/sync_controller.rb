@@ -9,8 +9,10 @@ class SyncController < ApplicationController
 
         all_plans = mk.get_reply("/ppp/profile/print")
         all_plans.each do |plan|
-          if Plan.where(profile_name: plan["name"]).length > 0 
-            Plan.create(profile_name: plan["name"], rate_limit: plan["rate-limit"])
+
+        
+          if Plan.where(profile_name: plan["name"].to_s).length == 0 && plan["name"] != nil
+            Plan.create(profile_name: plan["name"], rate_limit: plan["rate-limit"], mk_id: plan[".id"])
           else
             Plan.where(profile_name: plan["name"]).update(mk_id: plan[".id"])
           end
@@ -19,10 +21,10 @@ class SyncController < ApplicationController
         # TODO: adicionar o service e o remote-id no banco de dados quando atualizar
         all_secrets = mk.get_reply("/ppp/secret/print")
         all_secrets.each do |mk_secret|
-            if Secret.where(secret: mk_secret["name"]).length <= 0 
+            if Secret.where(secret: mk_secret["name"]).length <= 0  && mk_secret["name"] != nil
                 Secret.create(secret: mk_secret["name"],
                 secret_password: mk_secret["password"],
-                plan_id: Plan.where(profile_name: mk_secret["profile"]).first.id )
+                plan_id: Plan.where(profile_name: mk_secret["profile"]).first.id, mk_id: mk_secret[".id"] )
             else
                 Secret.where(secret: mk_secret["name"]).update(mk_id: mk_secret[".id"])
             end
