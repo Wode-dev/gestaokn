@@ -113,9 +113,9 @@ class SecretsController < ApplicationController
       id = Secret.mk_print_secret(@secret.secret)[".id"]
       puts "O id é:" + id
 
-      if Secret.mk_update_secret(id, @secret.secret, @secret.secret_password, "ppp", @secret.plan.profile_name)ms)
+      if Secret.mk_update_secret(id, @secret.secret, @secret.secret_password, "ppp", @secret.plan.profile_name)
 
-        if @secret.update(secret_para
+        if @secret.update(secret_params)
         
           format.html { redirect_to @secret, notice: 'Secret was successfully updated.' }
           format.json { render :show, status: :ok, location: @secret }
