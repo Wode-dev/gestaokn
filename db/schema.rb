@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_16_141755) do
+ActiveRecord::Schema.define(version: 2018_11_19_220021) do
 
   create_table "bill_payments", force: :cascade do |t|
     t.integer "bill_id"
@@ -96,6 +96,7 @@ ActiveRecord::Schema.define(version: 2018_11_16_141755) do
     t.boolean "automatic_update", default: true
     t.boolean "active", default: true
     t.string "mk_id"
+    t.decimal "situation"
   end
 
 end
