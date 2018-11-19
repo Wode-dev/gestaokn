@@ -3,9 +3,7 @@ class Secret < ApplicationRecord
     has_many :bills
     has_many :payments
 
-    before_update :on_enabled_change
-
-    def on_enabled_change
+    before_update do
 
         if enabled_changed?
             mk = Secret.connect_mikrotik
@@ -31,6 +29,38 @@ class Secret < ApplicationRecord
 
       self.update(mk_id: Secret.mk_print_secret(self.secret)[".id"])
 
+    end
+
+    # Soma todos os pagamentos e subtrai por todos os débtos
+    def balance
+      
+      cred = self.payments.pluck(:value).inject(0){|sum, x| sum + x }
+      debt = self.bills.pluck(:value).inject(0){|sum, x| sum + x }
+
+      self.update(situation: (cred - debt))
+    end
+
+    # Com base no "balance" define a situação do cliente.
+    def situation_status
+      
+      @value = self.situation
+
+      if @value > 0
+        "Com Crédito"
+      elsif @value == 0
+        "Regular"
+      else
+
+        @due_date = self.bills.order(due_date: :desc).first.due_date
+        if @due_date > Date.today
+          "Regular"
+        elsif @due_date == Date.today
+          "Vencimento hoje" 
+        else
+          puts @due_date - Date.today
+          "Em Aberto"
+        end
+      end
     end
 
     # Verifica quais usuários estão em débito
