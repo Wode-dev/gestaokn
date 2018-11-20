@@ -51,14 +51,20 @@ class Secret < ApplicationRecord
         "Regular"
       else
 
-        @due_date = self.bills.order(due_date: :desc).first.due_date
-        if @due_date > Date.today
-          "Regular"
-        elsif @due_date == Date.today
-          "Vencimento hoje" 
+        if self.bills.length > 0
+
+          @due_date = self.bills.order(due_date: :desc).first.due_date
+          if @due_date > Date.today
+            "Regular"
+          elsif @due_date == Date.today
+            "Vencimento hoje" 
+          else
+            puts @due_date - Date.today
+            "Em Aberto"
+          end
         else
-          puts @due_date - Date.today
-          "Em Aberto"
+          
+          "Vazio"
         end
       end
     end
