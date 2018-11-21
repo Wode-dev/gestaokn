@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_19_220021) do
+ActiveRecord::Schema.define(version: 2018_11_21_213857) do
 
   create_table "bill_payments", force: :cascade do |t|
     t.integer "bill_id"
@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 2018_11_19_220021) do
 
   create_table "bills", force: :cascade do |t|
     t.integer "secret_id"
-    t.decimal "value"
+    t.decimal "value", default: "0.0"
     t.date "ref_start"
     t.text "note"
     t.date "due_date"
@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(version: 2018_11_19_220021) do
   create_table "payments", force: :cascade do |t|
     t.integer "secret_id"
     t.date "date"
-    t.decimal "value"
+    t.decimal "value", default: "0.0"
     t.integer "payment_form_id"
     t.text "note"
     t.datetime "created_at", null: false
@@ -65,7 +65,7 @@ ActiveRecord::Schema.define(version: 2018_11_19_220021) do
 
   create_table "plans", force: :cascade do |t|
     t.string "rate_limit"
-    t.decimal "value"
+    t.decimal "value", default: "0.0"
     t.string "profile_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -96,7 +96,7 @@ ActiveRecord::Schema.define(version: 2018_11_19_220021) do
     t.boolean "automatic_update", default: true
     t.boolean "active", default: true
     t.string "mk_id"
-    t.decimal "situation"
+    t.decimal "situation", default: "0.0"
   end
 
 end
