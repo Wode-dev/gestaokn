@@ -14,9 +14,9 @@ class Secret < ApplicationRecord
             #     "=.id=#{mk.get_reply("/ppp/secret/print", 
             #     "?name=#{self.secret}")[0][".id"]}")
             
-                puts mk.get_reply("/ppp/secret/set",
-                "=disabled=#{enabled ? "no" : "yes"}",
-                "=.id=#{self.mk_id}")
+            puts mk.get_reply("/ppp/secret/set",
+            "=disabled=#{enabled ? "no" : "yes"}",
+            "=.id=#{self.mk_id}")
             
             if !enabled
               
@@ -27,7 +27,7 @@ class Secret < ApplicationRecord
 
     after_create do
 
-      self.update(mk_id: Secret.mk_print_secret(self.secret)[".id"])
+      self.update(mk_id: self.mk_print_secret[".id"])
 
     end
 
@@ -139,11 +139,11 @@ class Secret < ApplicationRecord
     return @reply[0]["message"] == nil
   end
 
-  def self.mk_print_secret(name)
+  def mk_print_secret()
 
     mk = Secret.connect_mikrotik
     @reply = mk.get_reply("/ppp/secret/print", 
-    "?name=#{name}")
+    "?name=#{self.secret}")
     
     puts @reply
     return @reply[0]

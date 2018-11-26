@@ -110,7 +110,7 @@ class SecretsController < ApplicationController
 
     respond_to do |format|
 
-      id = Secret.mk_print_secret(@secret.secret)[".id"]
+      id = @secret.mk_print_secret[".id"]
       puts "O id é:" + id
 
       if Secret.mk_update_secret(id, @secret.secret, @secret.secret_password, "ppp", @secret.plan.profile_name)
