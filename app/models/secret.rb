@@ -95,15 +95,15 @@ class Secret < ApplicationRecord
     end
 
     # Verifica se o cliente está em débito
-    def is_in_debt?
+    # def is_in_debt?
 
-      self.bills.where(payment_date: nil).each do |bill|
+    #   self.bills.where(payment_date: nil).each do |bill|
 
-          return Date.today > bill.due_date + 5
-      end
+    #       return Date.today > bill.due_date + 5
+    #   end
 
-      return false
-    end
+    #   return false
+    # end
 
   # Retorna boolean
   def self.mk_create_secret(name, password, service, profile)
