@@ -14,8 +14,15 @@ class Secret < ApplicationRecord
             #     "=.id=#{mk.get_reply("/ppp/secret/print", 
             #     "?name=#{self.secret}")[0][".id"]}")
             
+            if enabled
+              comment = "#{self.mk_print_secret["comment"].split("///")[0]}".strip
+            else
+              comment = "#{self.mk_print_secret["comment"]} /// Bloq.: #{Time.new}"
+            end
+
             puts mk.get_reply("/ppp/secret/set",
             "=disabled=#{enabled ? "no" : "yes"}",
+            "=comment=#{comment}",
             "=.id=#{self.mk_id}")
             
             if !enabled
