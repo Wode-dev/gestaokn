@@ -12,3 +12,7 @@ end
 scheduler.cron '0 23 5 * * America/Fortaleza' do
     BillJob.perform_now
 end
+
+scheduler.cron '0 0 * * * America/Fortaleza' do
+    PendencyJob.perform_now
+end
