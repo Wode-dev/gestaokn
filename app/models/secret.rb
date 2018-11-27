@@ -92,6 +92,15 @@ class Secret < ApplicationRecord
       end
     end
 
+    # Método para bloquear ou desbloquear secret
+    def enabled_change(status)
+      if self.active
+        self.update(enabled: status)
+      else
+        self.update(enabled: false)
+      end
+    end
+
     # Verifica se o cliente está em débito
     # def is_in_debt?
 
