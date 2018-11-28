@@ -30,6 +30,12 @@ class Secret < ApplicationRecord
               mk_drop_connection
             end
         end
+        # Na mudança de plano, deve-se fechar a ultima fatura com o plano antigo, e então abrir uma nova com o novo plano
+        # Quando o plano for fechado na data de fechamento normal, será considerado o valor do plano novo
+        if plan_id_changed?
+          puts "updated"
+          close_last_open_bill(plan_id_was)
+        end
     end
 
     after_create do
@@ -92,6 +98,27 @@ class Secret < ApplicationRecord
       end
     end
 
+    def close_last_open_bill(plan_id = self.plan_id)
+      if self.active
+        # busca todas as "bills" que ainda não tem data de fechamento e ordena de maneira descrescente de acordo com a data de vencimento
+        @open_bills = self.bills.where(ref_end: nil).order(due_date: :desc)
+        @open_bill = @open_bills.first
+
+        if !@open_bill.nil? && @open_bills.length > 0 && @open_bills.first.ref_end.nil?
+
+          @open_bills.first.close(plan_id)
+        end
+
+        if Date.today >= 6
+          @due_date = Date.new((Date.today + 1.month).year, (Date.today + 1.month).month, self.due_date.to_i )
+        else
+          @due_date = Date.new((Date.today).year, (Date.today).month, self.due_date.to_i )
+        end
+        Bill.create(secret_id: self.id ,ref_start: Date.today, due_date: @due_date)
+
+      end
+    end
+
     # Método para bloquear ou desbloquear secret
     def enabled_change(status)
       if self.active
@@ -101,18 +128,6 @@ class Secret < ApplicationRecord
       end
     end
 
-    # Verifica se o cliente está em débito
-    # def is_in_debt?
-
-    #   self.bills.where(payment_date: nil).each do |bill|
-
-    #       return Date.today > bill.due_date + 5
-    #   end
-
-    #   return false
-    # end
-
-  # Retorna boolean
   def self.mk_create_secret(name, password, service, profile)
   
     mk = Secret.connect_mikrotik
@@ -122,7 +137,6 @@ class Secret < ApplicationRecord
     "=profile=#{profile}",
     "=service=#{service}")
 
-    puts @reply
     return @reply[0]["message"] == nil
   end
 
