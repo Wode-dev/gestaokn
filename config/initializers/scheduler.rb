@@ -8,8 +8,8 @@ scheduler.cron '*/5 * * * *' do
     #BillJob.perform_now
 end
 
-# Todo dia 5, às 23 horas no horário do nordeste
-scheduler.cron '0 23 5 * * America/Fortaleza' do
+# Todo dia 6, às 2 horas da manhã no horário do nordeste
+scheduler.cron '0 2 6 * * America/Fortaleza' do
     BillJob.perform_now
 end
 
