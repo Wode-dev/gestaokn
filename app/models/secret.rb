@@ -32,8 +32,11 @@ class Secret < ApplicationRecord
         end
         # Na mudança de plano, deve-se fechar a ultima fatura com o plano antigo, e então abrir uma nova com o novo plano
         # Quando o plano for fechado na data de fechamento normal, será considerado o valor do plano novo
-        if plan_id_changed?
-          puts "updated"
+        puts "before_update"
+        puts self.bills.where(ref_end: Date.today - 1).length
+        puts plan_id_changed?
+        puts !situation_changed?
+        if plan_id_changed? && !situation_changed?
           close_last_open_bill(plan_id_was)
         end
     end
@@ -47,6 +50,7 @@ class Secret < ApplicationRecord
     # Soma todos os pagamentos e subtrai por todos os débtos
     def balance
       
+      puts "balance"
       cred = self.payments.pluck(:value).inject(0){|sum, x| sum + x }
       debt = self.bills.pluck(:value).inject(0){|sum, x| sum + x }
 
@@ -104,8 +108,7 @@ class Secret < ApplicationRecord
         @open_bills = self.bills.where(ref_end: nil).order(due_date: :desc)
         @open_bill = @open_bills.first
 
-        if !@open_bill.nil? && @open_bills.length > 0 && @open_bills.first.ref_end.nil?
-
+        if !@open_bill.nil? && @open_bills.length > 0 && @open_bill.ref_end.nil?
           @open_bills.first.close(plan_id)
         end
 
