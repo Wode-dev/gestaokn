@@ -1,10 +1,68 @@
 <div class="container">
 
-    Quantidade de clientes por vencimento <br>
+    <h2>Overview</h2>
 
-    <p>10: <%= Secret.where(due_date: 10).count %></p>
-    <p>15: <%= Secret.where(due_date: 15).count %></p>
-    <p>20: <%= Secret.where(due_date: 20).count %></p>
-    <p>25: <%= Secret.where(due_date: 25).count %></p>
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    Quantidade de clientes por vencimento
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-3">
+                            10
+                            15
+                            20
+                            25
+                        </div>
+                        <div class="col-9">
+                            <div class="progress mb-2"><div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: <%= (Secret.where(due_date: 10).count * 100 / Secret.count) %>%"><%=Secret.where(due_date: 10).count%></div></div> 
+                            <div class="progress mb-2"><div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: <%= (Secret.where(due_date: 15).count * 100 / Secret.count) %>%"><%=Secret.where(due_date: 15).count%></div></div> 
+                            <div class="progress mb-2"><div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: <%= (Secret.where(due_date: 20).count * 100 / Secret.count) %>%"><%=Secret.where(due_date: 20).count%></div></div> 
+                            <div class="progress mb-2"><div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: <%= (Secret.where(due_date: 25).count * 100 / Secret.count) %>%"><%=Secret.where(due_date: 25).count%></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    Meios de pagamento mais usados
+                </div>
+                <div class="card-body">
+                    <% Plan.all.each do |plan|%>
+                        <%= plan.profile_name %>
+                        <div class="progress mb-2"><div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: <%= (plan.secrets.count * 100 / Secret.count) %>%"><%=plan.secrets.count != 0 ? plan.secrets.count : nil%></div></div>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    Quantidade de clientes por plano
+                </div>
+                <div class="card-body">
+                    <% PaymentForm.all.each do |paymentform|%>
+                        <%= paymentform.form %>
+                        <div class="progress mb-2"><div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: <%= (paymentform.payments.count * 100 / Payment.count) %>%"><%= (paymentform.payments.count * 100 / Payment.count) %>%</div></div>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            Ultimos pagamentos recebidos
+        </div>
+        <div class="list-group list-group-flush text-success">
+            <% Payment.order(created_at: :desc).first(20).each do |payment| %>
+                <li class="list-group-item"><%= payment.secret.name %> | <%= payment.value%> | <%= payment.payment_form.form %> | <%= payment.date%> </li>
+            <% end %>
+        </div>
+    </div>
 
 </div>
