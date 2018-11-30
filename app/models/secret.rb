@@ -84,6 +84,18 @@ class Secret < ApplicationRecord
       end
     end
 
+    def self.clients_by_due_date(due_date)
+      # 0 -> quantidade
+      # 1 -> porcentagem
+      @answer = [0,0]
+      if !due_date.nil?
+        @answer[0] = Secret.where(due_date: due_date).count
+        @answer[1] = (Secret.where(due_date: due_date).count * 100 / Secret.count)
+      end
+
+      @answer
+    end
+
     # Verifica quais usuários estão em débito
     # Desativa o usuário se estiver em atualização automática
     def self.verify
