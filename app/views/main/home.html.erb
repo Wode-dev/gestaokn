@@ -1,68 +1,147 @@
-<div class="container">
+<div class="container-fluid">
 
-    <h2>Overview</h2>
+<div class="row">
+    <div class="col-md-9 col-sm-12">
+    
+        <h2>Global</h2>
 
-    <div class="row">
-        <div class="col-6">
-            <div class="card">
-                <div class="card-header">
-                    Quantidade de clientes por vencimento
+        <div class="card mb-4">
+            <div class="card-header">
+                Quantidade de clientes por vencimento
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <canvas id="clients-amount"></canvas>
+                    <script>
+                        $(function(){
+                        var ctx = document.getElementById("clients-amount").getContext('2d');
+                        var myChart = new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: ["Dia 10", "Dia 15", "Dia 20", "Dia 25"],
+                                datasets: [{
+                                    data: [<%=  Secret.clients_by_due_date(10)[0] %>, <%=  Secret.clients_by_due_date(15)[0] %>, <%=  Secret.clients_by_due_date(20)[0] %>, <%=  Secret.clients_by_due_date(25)[0] %>],
+                                    backgroundColor: [
+                                        'rgba(255, 99, 132, 0.2)',
+                                        'rgba(54, 162, 235, 0.2)',
+                                        'rgba(255, 206, 86, 0.2)',
+                                        'rgba(75, 192, 192, 0.2)'
+                                    ],
+                                    borderColor: [
+                                        'rgba(255,99,132,1)',
+                                        'rgba(54, 162, 235, 1)',
+                                        'rgba(255, 206, 86, 1)',
+                                        'rgba(75, 192, 192, 1)'
+                                    ],
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                legend:{
+                                    display: false
+                                },
+                                scales: {
+                                    yAxes: [{
+                                        ticks: {
+                                            beginAtZero:true
+                                        }
+                                    }]
+                                }
+                            }
+                        });
+                        })
+                    </script>
                 </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-3">
-                            10
-                            15
-                            20
-                            25
-                        </div>
-                        <div class="col-9">
-                            <div class="progress mb-2"><div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: <%= (Secret.where(due_date: 10).count * 100 / Secret.count) %>%"><%=Secret.where(due_date: 10).count%></div></div> 
-                            <div class="progress mb-2"><div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: <%= (Secret.where(due_date: 15).count * 100 / Secret.count) %>%"><%=Secret.where(due_date: 15).count%></div></div> 
-                            <div class="progress mb-2"><div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: <%= (Secret.where(due_date: 20).count * 100 / Secret.count) %>%"><%=Secret.where(due_date: 20).count%></div></div> 
-                            <div class="progress mb-2"><div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: <%= (Secret.where(due_date: 25).count * 100 / Secret.count) %>%"><%=Secret.where(due_date: 25).count%></div></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                Ultimos pagamentos recebidos
+            </div>
+            <div class="list-group list-group-flush text-success">
+                <% Payment.order(created_at: :desc).first(20).each do |payment| %>
+                    <li class="list-group-item"><%= payment.secret.name %> | <%= payment.value%> | <%= payment.payment_form.form %> | <%= payment.date%> </li>
+                <% end %>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-3 col-sm-12 pt-4">
+
+        <div class="row">
+
+            <div class="col-sm-6 col-md-12">
+                <h5 class="pb-0 mb-2"><b> Quantidade de clientes por plano</b></h5>
+                <% Plan.all.each do |plan|%>
+                    <%= plan.profile_name %>
+                    <div class="progress mb-2">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: <%= (plan.secrets.count * 100 / Secret.count) %>%">
+                            <%=plan.secrets.count != 0 ? plan.secrets.count : nil%>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-6">
-            <div class="card">
-                <div class="card-header">
-                    Meios de pagamento mais usados
-                </div>
-                <div class="card-body">
-                    <% Plan.all.each do |plan|%>
-                        <%= plan.profile_name %>
-                        <div class="progress mb-2"><div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: <%= (plan.secrets.count * 100 / Secret.count) %>%"><%=plan.secrets.count != 0 ? plan.secrets.count : nil%></div></div>
-                    <% end %>
-                </div>
-            </div>
-        </div>
-        <div class="col-6">
-            <div class="card">
-                <div class="card-header">
-                    Quantidade de clientes por plano
-                </div>
-                <div class="card-body">
-                    <% PaymentForm.all.each do |paymentform|%>
-                        <%= paymentform.form %>
-                        <div class="progress mb-2"><div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: <%= (paymentform.payments.count * 100 / Payment.count) %>%"><%= (paymentform.payments.count * 100 / Payment.count) %>%</div></div>
-                    <% end %>
-                </div>
-            </div>
-        </div>
-    </div>
+                <% end %>
 
-    <div class="card">
-        <div class="card-header">
-            Ultimos pagamentos recebidos
-        </div>
-        <div class="list-group list-group-flush text-success">
-            <% Payment.order(created_at: :desc).first(20).each do |payment| %>
-                <li class="list-group-item"><%= payment.secret.name %> | <%= payment.value%> | <%= payment.payment_form.form %> | <%= payment.date%> </li>
-            <% end %>
+                <div class="dropdown-divider mt-0 pt-0"></div>
+
+            </div>
+
+            <div class="col-sm-6 col-md-12">
+                <h5 class="pb-0 mb-2"><b> Meios de pagamento mais usados</b></h5>
+                <% PaymentForm.all.each do |paymentform|%>
+                    <%= paymentform.form %>
+                    <div class="progress mb-2">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: <%= (paymentform.payments.count * 100 / Payment.count) %>%">
+                            <%= (paymentform.payments.count * 100 / Payment.count) %>%
+                        </div>
+                    </div>
+                <% end %>
+
+                <div class="dropdown-divider mt-0 pt-0"></div>
+
+            </div>
+
+            <div class="col-sm-6 col-md-12">
+                <h5><b>Clientes por data de vencimento</b></h5>
+                <canvas id="clients-amount-pie"></canvas>
+                <script>
+                    $(function(){
+                        var ctx = document.getElementById("clients-amount-pie").getContext('2d');
+                        var myChart = new Chart(ctx, {
+                            type: 'pie',
+                            data: {
+                                labels: ["Dia 10", "Dia 15", "Dia 20", "Dia 25"],
+                                datasets: [{
+                                    data: [<%=  Secret.clients_by_due_date(10)[0] %>, <%=  Secret.clients_by_due_date(15)[0] %>, <%=  Secret.clients_by_due_date(20)[0] %>, <%=  Secret.clients_by_due_date(25)[0] %>],
+                                    backgroundColor: [
+                                        'rgba(255, 99, 132, 0.2)',
+                                        'rgba(54, 162, 235, 0.2)',
+                                        'rgba(255, 206, 86, 0.2)',
+                                        'rgba(75, 192, 192, 0.2)'
+                                    ],
+                                    borderColor: [
+                                        'rgba(255,99,132,1)',
+                                        'rgba(54, 162, 235, 1)',
+                                        'rgba(255, 206, 86, 1)',
+                                        'rgba(75, 192, 192, 1)'
+                                    ],
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                legend:{
+                                    display: false
+                                }
+                            }
+                        });
+                        })
+                </script>
+            </div>
+
         </div>
     </div>
 
 </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js"></script>
