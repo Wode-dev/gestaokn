@@ -32,4 +32,8 @@ class SyncController < ApplicationController
 
         redirect_to root_path
     end
+
+    def selective_sync
+        
+    end
 end
