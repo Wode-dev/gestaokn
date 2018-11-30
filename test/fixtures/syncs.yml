@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  table: MyString
+  column: MyString
+  value: MyText
+  mk_value: MyText
+
+two:
+  table: MyString
+  column: MyString
+  value: MyText
+  mk_value: MyText
