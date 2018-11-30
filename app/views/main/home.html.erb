@@ -59,11 +59,34 @@
             <div class="card-header">
                 Ultimos pagamentos recebidos
             </div>
-            <div class="list-group list-group-flush text-success">
-                <% Payment.order(created_at: :desc).first(20).each do |payment| %>
-                    <li class="list-group-item"><%= payment.secret.name %> | <%= payment.value%> | <%= payment.payment_form.form %> | <%= payment.date%> </li>
+            <div class="list-group list-group-flush">
+                <% PaymentForm.all.each do |pform| %>
+                <li class="list-group-item">
+                    <h5><%= pform.form %></h5>
+                    <table class="table table-borderless text-success">
+                    <!--    <thead>
+                            <th scope="col">Cliente</th>
+                            <th scope="col">Valor</th>
+                            <th scope="col">Data</th>
+                        </thead>-->
+                        <tbody> 
+                        <% Payment.where(payment_form_id: pform.id).order(created_at: :desc).first(10).each do |payment| %>
+                            <tr class="clickable-row", data-href=" <%= url_for(payment.secret) %> ">
+                                <td style="width: 40%"><%= payment.secret.name%></td>
+                                <td style="width: 30%"><%= payment.value%></td>
+                                <td style="width: 40%"><%= payment.date%></td>
+                            </tr>
+                        <% end %>
+                        </tbody>
+                    </table>
+                </li>
                 <% end %>
             </div>
+            <script>
+                $(".clickable-row").click(function() {
+                    window.location = $(this).data("href");
+                });
+            </script>
         </div>
 
     </div>
