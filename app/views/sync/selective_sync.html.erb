@@ -1,1 +1,22 @@
-oi
+<div class="container">
+    <% Sync.all.each do |sync|%>
+    <div class="row mb-2">
+        <div class="col-md-8 col-sm-12">
+            <%= record_details(sync.table, sync.table_id) %> <br>
+            <%= sync.column%> <br>
+            <%= sync.value%> <br>
+            <%= sync.mk_value%> <br>
+            <%= sync.table_id%> <br>
+            <%= sync.mk_id%> <br>
+        </div>
+        <div class="col-md-4 col-sm-12">
+            <div class="row mb-2">
+                <%= button_to "Atualizar Mikrotik", update_mikrotik_path , params:{"id": sync.id} %>
+            </div>
+            <div class="row">
+                <%= button_to "Atualizar Systema", update_system_path , params:{"id": sync.id} %>
+            </div>
+        </div>
+    </div>
+    <% end %>
+</div>
