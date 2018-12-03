@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_30_162336) do
+ActiveRecord::Schema.define(version: 2018_12_03_175918) do
 
   create_table "bill_payments", force: :cascade do |t|
     t.integer "bill_id"
@@ -106,6 +106,8 @@ ActiveRecord::Schema.define(version: 2018_11_30_162336) do
     t.text "mk_value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "table_id"
+    t.string "mk_id"
   end
 
 end
