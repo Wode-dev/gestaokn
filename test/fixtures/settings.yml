@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  mk_ip: MyString
+  mk_user: MyString
+  mk_password: MyString
+
+two:
+  mk_ip: MyString
+  mk_user: MyString
+  mk_password: MyString
