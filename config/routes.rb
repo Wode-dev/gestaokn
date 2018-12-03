@@ -8,8 +8,9 @@ Rails.application.routes.draw do
 
   get "plans/check", to:"plans#check"
 
-  
   resources :plans
+
+  get "configuracoes", to:"main#settings", as: :settings
 
   resources :secrets
   post "secrets/pay", to: "secrets#payment", as: :payment
