@@ -34,6 +34,26 @@ class SyncController < ApplicationController
     end
 
     def selective_sync
-        
+        @ontime = true
+        if Sync.count != 0
+            @ontime = DateTime.now - 5.minutes > Sync.last.created_at
+        end
+        if @ontime
+            Sync.sync_mikrotik_and_system
+        end
     end
+
+    def update_mikrotik_selective
+        Sync.find(params["id"]).update_mikrotik
+
+        redirect_to sync_selective_path
+    end
+
+    def update_system_selective
+        Sync.find(params["id"]).update_system
+
+        redirect_to sync_selective_path
+    end
+    
+    
 end
