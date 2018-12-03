@@ -15,5 +15,16 @@
           <%= link_to "Planos", plans_path, class:"nav-link"%>
         </li>
       </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <%= link_to settings_path, class:"nav-link" do %> <i data-feather="settings"></i> <% end %>
+        </li>
+      </ul>
     </div>
   </nav>
+
+  <script>
+    $(function(){
+      feather.replace();
+    })
+  </script>
