@@ -124,9 +124,9 @@
 
             </div>
 
-            <div class="col-sm-6 col-md-12">
-                <h5><b>Clientes por data de vencimento</b></h5>
-                <canvas id="clients-amount-pie"></canvas>
+            <div class="col-sm-6 col-md-12 mb-2">
+                <h5 ><b>Clientes por data de vencimento</b></h5>
+                <canvas id="clients-amount-pie" class="mb-2"></canvas>
                 <script>
                     $(function(){
                         var ctx = document.getElementById("clients-amount-pie").getContext('2d');
@@ -159,6 +159,12 @@
                         });
                         })
                 </script>
+
+                <div class="dropdown-divider mt-0 pt-0"></div>
+            </div>
+
+            <div class="col-sm-6 col-md-12">
+                <%= button_to "Sincronização Seletiva", sync_selective_path, method: :get, class:"btn btn-outline-primary"  %>
             </div>
 
         </div>
