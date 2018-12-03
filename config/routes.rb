@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
   get 'main/home'
   get "sync", to: "sync#sync_partial"
-  get "syncselective", to: "sync#selective_sync"
+
+  get "sync/selective", to: "sync#selective_sync"
+  post "sync/tosystem", to: "sync#update_system_selective", as: :update_system
+  post "sync/tomikrotik", to:"sync#update_mikrotik_selective", as: :update_mikrotik
 
   get "plans/check", to:"plans#check"
 
