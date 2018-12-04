@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_03_221650) do
+ActiveRecord::Schema.define(version: 2018_12_04_165922) do
 
   create_table "bill_payments", force: :cascade do |t|
     t.integer "bill_id"
@@ -100,11 +100,10 @@ ActiveRecord::Schema.define(version: 2018_12_03_221650) do
   end
 
   create_table "settings", force: :cascade do |t|
-    t.string "mk_ip"
-    t.string "mk_user"
-    t.string "mk_password"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "key"
+    t.string "value"
   end
 
   create_table "syncs", force: :cascade do |t|
