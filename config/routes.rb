@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   post "secrets/switch", to:"secrets#switch_secret"
   post "secrets/installation", to: "secrets#add_instalation_detail", as: :installation_details
   post "secrets/note", to: "secrets#commit_note", as: :commit_note
+  get "secrets/note/:id", to: "secrets#edit_note", as: :edit_note
 
   root to: "main#home"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
