@@ -1,6 +1,6 @@
 class Setting < ApplicationRecord
 
-    def get(key)
+    def self.get(key)
 
         @query = Setting.where(key: key)
         if @query.length != 0
@@ -10,7 +10,7 @@ class Setting < ApplicationRecord
         end
     end
 
-    def insert(key, value)
+    def self.insert(key, value)
 
         @query = Setting.where(key: key)
         if @query.length != 0
