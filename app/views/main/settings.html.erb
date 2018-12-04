@@ -7,7 +7,7 @@
     <div class="container">
         <%= form_tag save_settings_path do %>
             <ul class="list-group">
-                <li class="list-group-item list-group-item-dark">
+                <li class="list-group-item list-group-item-primary text-dark">
                     Mikrotik
                 </li>
                 <li class="list-group-item">
@@ -21,7 +21,7 @@
                     <%= password_field_tag :mk_password, Setting.get(:mk_password), class:"form-control" %>
                 </li>
             </ul>
-            <%= submit_tag :Salvar, class:"btn btn-success float-right my-3" %>
+            <%= submit_tag :Salvar, class:"btn btn-outline-primary float-right my-3" %>
         <% end %>
     </div>
 </div>
