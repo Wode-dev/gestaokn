@@ -2,6 +2,8 @@ class Secret < ApplicationRecord
     belongs_to :plan
     has_many :bills
     has_many :payments
+    # model que consta os registros sobre o relacionamento do cliente com a empresa
+    has_many :relationships
 
     before_update do
 
