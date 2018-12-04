@@ -15,7 +15,9 @@ class Secret < ApplicationRecord
             #     "?name=#{self.secret}")[0][".id"]}")
             
             if enabled
-              comment = "#{self.mk_print_secret["comment"].split("///")[0]}".strip
+              if !self.mk_print_secret["comment"].nil? &&self.mk_print_secret["comment"].include?("///") 
+                comment = "#{self.mk_print_secret["comment"].split("///")[0]}".strip
+              end
             else
               comment = "#{self.mk_print_secret["comment"]} /// Bloq.: #{Time.new}"
             end
