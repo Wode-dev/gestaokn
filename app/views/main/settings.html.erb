@@ -1,1 +1,27 @@
-CONFIGURACOES
+<div class="container-fluid">
+    <div class="mb-3">
+        <i data-feather="settings" class="align-middle" height="40px" width="40px"></i><span class="h1 align-middle"> Configurações</span>
+        <div class="dropdown-divider"></div>
+    </div>
+
+    <div class="container">
+        <%= form_tag save_settings_path do %>
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-dark">
+                    Mikrotik
+                </li>
+                <li class="list-group-item">
+                    <%= label_tag :mk_ip, "Endereço de IP" %>
+                    <%= text_field_tag :mk_ip, Setting.get(:mk_ip), class:"form-control" %>
+                </li>
+                <li class="list-group-item">
+                    <%= label_tag :mk_user, "Usuário" %>
+                    <%= text_field_tag :mk_user, Setting.get(:mk_user), class:"form-control" %>
+                    <%= label_tag :mk_password, "Senha" %>
+                    <%= password_field_tag :mk_password, Setting.get(:mk_password), class:"form-control" %>
+                </li>
+            </ul>
+            <%= submit_tag :Salvar, class:"btn btn-success float-right my-3" %>
+        <% end %>
+    </div>
+</div>
