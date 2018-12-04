@@ -216,7 +216,7 @@ class SecretsController < ApplicationController
   end
 
   def edit_note
-    
+    @relationship = Relationship.find(params[:id])
   end
 
   private
