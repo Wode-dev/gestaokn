@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :plans
 
   get "configuracoes", to:"main#settings", as: :settings
+  post "configuracoes", to: "main#save_settings", as: :save_settings
 
   resources :secrets
   post "secrets/pay", to: "secrets#payment", as: :payment
