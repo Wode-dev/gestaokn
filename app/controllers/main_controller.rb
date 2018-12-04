@@ -12,6 +12,8 @@ class MainController < ApplicationController
     Setting.insert(:mk_ip, @settings[:mk_ip])
     Setting.insert(:mk_user, @settings[:mk_user])
     Setting.insert(:mk_password, @settings[:mk_password])
+
+    redirect_to settings_path
   end
   
   
