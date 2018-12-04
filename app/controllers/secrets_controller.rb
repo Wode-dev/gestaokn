@@ -203,10 +203,14 @@ class SecretsController < ApplicationController
     redirect_to params[:fallback]
   end
 
-  def add_note
-    @data = params.permit(:id, :description)
+  def commit_note
+    @data = params.permit(:id, :r_id, :description)
 
-    Relationship.create(secret_id: @data[:id], description: @data[:description])
+    if @data[:r_id].nil?
+      Relationship.create(secret_id: @data[:id], description: @data[:description])
+    else
+      Relationship.find(@data[:r_id]).update(description: @data[:description])
+    end
 
     redirect_to secret_path(Secret.find(@data[:id]))
   end
@@ -214,7 +218,7 @@ class SecretsController < ApplicationController
   def edit_note
     
   end
-  
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_secret
