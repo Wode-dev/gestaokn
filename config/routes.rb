@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
   get "configuracoes", to:"main#settings", as: :settings
   post "configuracoes", to: "main#save_settings", as: :save_settings
+  post "configuracoes/teste", to: "main#test_mikrotik_connection", as: :test_mikrotik_connection
 
   resources :secrets
   post "secrets/pay", to: "secrets#payment", as: :payment

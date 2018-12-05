@@ -15,6 +15,19 @@ class MainController < ApplicationController
 
     redirect_to settings_path
   end
+
+  def test_mikrotik_connection
+    @connection = true
+    begin
+      puts MTik::Connection.new(:host=>params[:ip], :user=>params[:user],:pass=>params[:password])
+    rescue Errno::ETIMEDOUT, Errno::ENETUNREACH, Errno::EHOSTUNREACH => e
+      @connection = false
+    end
+    
+
+    render json: {connection: @connection}
+  end
+  
   
   
 end
