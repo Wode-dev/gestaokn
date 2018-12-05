@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :records
   get 'main/home'
   get "sync", to: "sync#sync_partial"
 

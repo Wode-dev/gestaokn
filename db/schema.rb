@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_04_193051) do
+ActiveRecord::Schema.define(version: 2018_12_05_220948) do
 
   create_table "bill_payments", force: :cascade do |t|
     t.integer "bill_id"
@@ -70,6 +70,18 @@ ActiveRecord::Schema.define(version: 2018_12_04_193051) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "mk_id"
+  end
+
+  create_table "records", force: :cascade do |t|
+    t.string "name"
+    t.text "address"
+    t.string "city"
+    t.string "state"
+    t.string "neighborhood"
+    t.string "phone"
+    t.text "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "relationships", force: :cascade do |t|
