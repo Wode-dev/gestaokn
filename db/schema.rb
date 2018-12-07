@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_05_220948) do
+ActiveRecord::Schema.define(version: 2018_12_07_140603) do
 
   create_table "bill_payments", force: :cascade do |t|
     t.integer "bill_id"
@@ -82,6 +82,8 @@ ActiveRecord::Schema.define(version: 2018_12_05_220948) do
     t.text "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date "date"
+    t.integer "shift", limit: 3
   end
 
   create_table "relationships", force: :cascade do |t|
