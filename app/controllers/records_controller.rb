@@ -4,7 +4,20 @@ class RecordsController < ApplicationController
   # GET /records
   # GET /records.json
   def index
-    @records = Record.all
+    # Produz array que levará a seguinte configuração
+    # [[data,[instalações]], [data,instalações], ...]
+    @records = []
+    @dates = Record.all.order(:date).pluck(:date).uniq
+    
+    @dates.each do |date|
+      @date_and_records = [date,[]]
+      Record.where(date: date).order(:shift).each do |rec|
+        @date_and_records[1] << rec
+      end
+      @records << @date_and_records
+    end
+
+    puts @records
   end
 
   # GET /records/1
@@ -62,7 +75,7 @@ class RecordsController < ApplicationController
   end
 
   def confirm
-    
+
   end
 
   private
