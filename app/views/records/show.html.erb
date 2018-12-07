@@ -1,39 +1,21 @@
 <p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @record.name %>
-</p>
-
-<p>
-  <strong>Address:</strong>
-  <%= @record.address %>
-</p>
-
-<p>
-  <strong>City:</strong>
-  <%= @record.city %>
-</p>
-
-<p>
-  <strong>State:</strong>
-  <%= @record.state %>
-</p>
-
-<p>
-  <strong>Neighborhood:</strong>
-  <%= @record.neighborhood %>
-</p>
-
-<p>
-  <strong>Phone:</strong>
-  <%= @record.phone %>
-</p>
-
-<p>
-  <strong>Notes:</strong>
-  <%= @record.notes %>
-</p>
-
-<%= link_to 'Edit', edit_record_path(@record) %> |
-<%= link_to 'Back', records_path %>
+<div class="container">
+  <h2><%= @record.name %></h2>
+  <p>
+    <strong>Address:</strong>
+    <%= @record.address %> <br>
+    <%= @record.neighborhood %> <br>
+    <%= @record.city %> <br>
+    <%= @record.state %>
+  </p>
+  <p>
+    <strong>Phone:</strong>
+    <%= @record.phone %>
+  </p>
+  <p>
+    <strong>Notes:</strong>
+    <%= @record.notes %>
+  </p>
+  <%= link_to 'Edit', edit_record_path(@record) %> |
+  <%= link_to 'Back', records_path %>
+</div>
