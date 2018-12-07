@@ -1,5 +1,6 @@
 <p id="notice"><%= notice %></p>
 <div class="container">
+  <%= link_to 'Adicionar Instalação', new_record_path, class:"float-right btn btn-outline-primary" %>
   <h1>Instalações pendentes</h1>
   <% @records.each do |date_and_record| %>
     <div class="row">
@@ -28,5 +29,4 @@
     </div>
   <% end %>
   <br>
-  <%#= link_to 'New Record', new_record_path %>
 </div>
