@@ -2,51 +2,61 @@
   <% if record.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(record.errors.count, "error") %> prohibited this record from being saved:</h2>
-
       <ul>
-      <% record.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
+        <% record.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
-
   <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= form.label "Nome" %>
+    <%= form.text_field :name, class:"form-control" %>
   </div>
-
   <div class="field">
-    <%= form.label :address %>
-    <%= form.text_area :address %>
+    <%= form.label "Endereço" %>
+    <%= form.text_area :address, class:"form-control" %>
   </div>
-
   <div class="field">
-    <%= form.label :city %>
-    <%= form.text_field :city %>
+    <%= form.label "Cidade" %>
+    <%= form.text_field :city, class:"form-control" %>
   </div>
-
   <div class="field">
-    <%= form.label :state %>
-    <%= form.text_field :state %>
+    <%= form.label "Estado" %>
+    <%= form.text_field :state, class:"form-control" %>
   </div>
-
   <div class="field">
-    <%= form.label :neighborhood %>
-    <%= form.text_field :neighborhood %>
+    <%= form.label "Bairro" %>
+    <%= form.text_field :neighborhood, class:"form-control" %>
   </div>
-
   <div class="field">
-    <%= form.label :phone %>
-    <%= form.text_field :phone %>
+    <%= form.label "Telefone" %>
+    <%= form.text_field :phone, class:"form-control" %>
   </div>
-
   <div class="field">
-    <%= form.label :notes %>
-    <%= form.text_area :notes %>
+    <%= form.label "Data" %>
+    <%= text_field_tag :date, nil, class:"form-control installation-date-picker", data:{date:{format:"dd-mm-yyyy"}}, autocomplete:"off"  %>
   </div>
-
+  <div class="field">
+    <%= form.label "Observações" %>
+    <%= form.text_area :notes, class:"form-control" %>
+  </div>
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "Registrar", class:"btn btn-success" %>
   </div>
 <% end %>
+
+
+<script>
+$(function(){
+  var date = new Date();
+  var today = date.getDate() + "/" +  (date.getMonth() + 1)  + "/" + date.getFullYear();
+  
+  /* Inicializando pickers modal de adição das informações de instalação */
+  console.log(today)
+  $(".installation-date-picker").datepicker({ 
+      language: "pt-BR",
+      endDate: today
+  });
+})
+</script>
