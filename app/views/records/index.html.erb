@@ -12,7 +12,8 @@
         <% date_and_record[1].each do |record| %>
           <div class="card" style="width: 18rem;">
             <div class="card-body">
-              <button type="button" href="#" class="float-right close">&times;</button>
+              <%= button_to record, method: :delete, data: { confirm: 'Are you sure?' }, class:"float-right" do%>
+              &times;<%end%>
               <h5 class="card-title"><%= record.name%></h5>
               <p class="card-text">
                 <b>Endereço</b>: <%= record.address%> <br>
