@@ -1,21 +1,21 @@
 <p id="notice"><%= notice %></p>
 <div class="container">
+  <%= link_to 'Voltar', records_path, class:"btn btn-outline-warning mb-3" %>
   <h2><%= @record.name %></h2>
   <p>
-    <strong>Address:</strong>
+    <strong>Endereço:</strong>
     <%= @record.address %> <br>
     <%= @record.neighborhood %> <br>
     <%= @record.city %> <br>
     <%= @record.state %>
   </p>
   <p>
-    <strong>Phone:</strong>
+    <strong>Telefone:</strong>
     <%= @record.phone %>
   </p>
   <p>
-    <strong>Notes:</strong>
+    <strong>Notas:</strong>
     <%= @record.notes %>
   </p>
-  <%= link_to 'Edit', edit_record_path(@record) %> |
-  <%= link_to 'Back', records_path %>
+  <%= link_to 'Editar', edit_record_path(@record), class:"btn btn-outline-primary" %>
 </div>
