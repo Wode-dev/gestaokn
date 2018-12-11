@@ -22,7 +22,7 @@
             </div>
             <div class="card-body">
               <%= link_to 'Ver', record_path(record),class:"card-link" %>
-              <a href="#" class="card-link">Confirmar</a>
+              <%= link_to 'Confirmar', confirm_client_path(id: record.id), class:"card-link" %>
             </div>
           </div>
         <% end %>
