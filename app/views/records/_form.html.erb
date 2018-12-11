@@ -35,7 +35,7 @@
   </div>
   <div class="field">
     <%= form.label "Data" %>
-    <%= text_field_tag :date, nil, class:"form-control installation-date-picker", data:{date:{format:"dd-mm-yyyy"}}, autocomplete:"off"  %>
+    <%= form.text_field :date, class:"form-control installation-date-picker", data:{date:{format:"dd-mm-yyyy"}}, autocomplete:"off"  %>
   </div>
   <div class="field">
     <%= form.label "Observações" %>
@@ -48,15 +48,14 @@
 
 
 <script>
-$(function(){
-  var date = new Date();
-  var today = date.getDate() + "/" +  (date.getMonth() + 1)  + "/" + date.getFullYear();
-  
-  /* Inicializando pickers modal de adição das informações de instalação */
-  console.log(today)
-  $(".installation-date-picker").datepicker({ 
-      language: "pt-BR",
-      endDate: today
-  });
-})
+  $(function(){
+    var date = new Date();
+    var today = date.getDate() + "/" +  (date.getMonth() + 1)  + "/" + date.getFullYear();
+    
+    /* Inicializando pickers modal de adição das informações de instalação */
+    console.log(today)
+    $(".installation-date-picker").datepicker({ 
+        language: "pt-BR"
+    });
+  })
 </script>
