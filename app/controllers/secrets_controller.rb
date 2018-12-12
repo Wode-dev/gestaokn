@@ -192,8 +192,6 @@ class SecretsController < ApplicationController
 
   # Método que não é rota para manter o padrão de adição de informações de instalação nos secrets e no record (instalação)
   def self.add_instalation_detail_method(params = {})
-    installation_date = params[:date].split("/")
-    due_date = params[:due_date].split("/")
     total = params[:cable].to_f + params[:bail].to_f + params[:router].to_f + params[:other].to_f
 
     note="#{!params[:bail].empty? ? "Fiança: " + params[:bail] : nil} \r\n #{!params[:cable].empty? ? "Cabo: " + params[:cable] : nil} \r\n #{!params[:router].empty? ? "Roteador: " + params[:router] : nil} \r\n #{!params[:other].empty? ? "Outros: " + params[:other] : nil}"
@@ -201,9 +199,9 @@ class SecretsController < ApplicationController
     Bill.create(
       installation: true,
       secret_id: params[:id],
-      ref_start: Date.new(installation_date[2].to_i,installation_date[1].to_i, installation_date[0].to_i),
-      ref_end: Date.new(installation_date[2].to_i,installation_date[1].to_i, installation_date[0].to_i),
-      due_date: Date.new(due_date[2].to_i,due_date[1].to_i, due_date[0].to_i),
+      ref_start: Date.strptime(params[:date], "%d/%m/%Y"),
+      ref_end: Date.strptime(params[:date], "%d/%m/%Y"),
+      due_date: Date.strptime(params[:due_date], "%d/%m/%Y"),
       value: total,
       note: note
       )
