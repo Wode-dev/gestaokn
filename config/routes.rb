@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :records
   get "instalacoes/confirmar/:id", to: "records#confirm", as: :confirm_client
+  post "instalacoes/confirmar", to: "records#set_secret_and_instalation", as: :set_record
 
   get 'main/home'
   get "sync", to: "sync#sync_partial"
