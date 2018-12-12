@@ -194,7 +194,7 @@ class SecretsController < ApplicationController
   def self.add_instalation_detail_method(params = {})
     total = params[:cable].to_f + params[:bail].to_f + params[:router].to_f + params[:other].to_f
 
-    note="#{!params[:bail].empty? ? "Fiança: " + params[:bail] : nil} \r\n #{!params[:cable].empty? ? "Cabo: " + params[:cable] : nil} \r\n #{!params[:router].empty? ? "Roteador: " + params[:router] : nil} \r\n #{!params[:other].empty? ? "Outros: " + params[:other] : nil}"
+    note="#{!params[:bail].empty? ? "Fiança: " + ActionController::Base.helpers.number_to_currency(params[:bail], unit:"R$") : nil} \r\n #{!params[:cable].empty? ? "Cabo: " + ActionController::Base.helpers.number_to_currency(params[:cable], unit:"R$") : nil} \r\n #{!params[:router].empty? ? "Roteador: " + ActionController::Base.helpers.number_to_currency(params[:router], unit:"R$") : nil} \r\n #{!params[:other].empty? ? "Outros: " + ActionController::Base.helpers.number_to_currency(params[:other], unit:"R$") : nil}"
 
     Bill.create(
       installation: true,
