@@ -185,6 +185,13 @@ class SecretsController < ApplicationController
   # Adiciona informações da instalação para aqueles que ainda não estão cadastrados
   def add_instalation_detail
     
+    add_instalation_detail_method params
+
+    redirect_to params[:fallback]
+  end
+
+  # Método que não é rota para manter o padrão de adição de informações de instalação nos secrets e no record (instalação)
+  def add_instalation_detail_method(params = {})
     installation_date = params[:date].split("/")
     due_date = params[:due_date].split("/")
     total = params[:cable].to_f + params[:bail].to_f + params[:router].to_f + params[:other].to_f
@@ -200,9 +207,8 @@ class SecretsController < ApplicationController
       value: total,
       note: note
       )
-
-    redirect_to params[:fallback]
   end
+  
 
   def commit_note
     @data = params.permit(:id, :r_id, :description)
