@@ -1,6 +1,6 @@
 <div class="container">
   <h2>Confirmar instalação como cliente</h2>
-  <%= form_with(model: @secret, local: true, url: ) do |form| %>
+  <%= form_with(model: @secret, local: true, url: set_record_path) do |form| %>
     <% if @secret.errors.any? %>
       <div id="error_explanation">
         <h2><%= pluralize(@secret.errors.count, "error") %> prohibited this secret from being saved:</h2>
@@ -11,6 +11,7 @@
         </ul>
       </div>
     <% end %>
+    <%= form.hidden_field :id, value: params[:id] %>
     <div class="form-group">
       <%= form.label :name,"Nome" %>
       <%= form.text_field :name, class:"form-control", aria:{descibedly:"nomeHelp"} %>
@@ -133,7 +134,7 @@
           <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon3">Data de vencimento</span>
           </div>
-          <%= form.text_field :due_date, class:"form-control installationduepicker", data:{date:{format:"dd-mm-yyyy"}}, autocomplete:"off" %>
+          <%= form.text_field :due_to, class:"form-control installationduepicker", data:{date:{format:"dd-mm-yyyy"}}, autocomplete:"off" %>
         </div>
       </div>
       <div class="col-12">
