@@ -41,6 +41,8 @@ $(function(){
                updateRowColorStatus(toggle)
            });
     })
+
+    maskForMoneyInput();
 });
 
 function updateRowColorStatus(toggle) {
@@ -53,4 +55,10 @@ function updateRowColorStatus(toggle) {
         toggle.parent().parent().parent().parent().parent().parent().parent()
         .addClass("txt-accent");
     }
+}
+
+function maskForMoneyInput(){
+    $(".money-input").keyup(function(target,item){
+        console.log(item);
+    });
 }
