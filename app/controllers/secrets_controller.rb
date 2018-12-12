@@ -44,7 +44,7 @@ class SecretsController < ApplicationController
           bill.due_date.strftime("%d/%m/%Y"), 
           bill.value, 
           bill.note, 
-          "#{bill.ref_start.strftime("%d/%m/%Y")} - #{bill.ref_end.strftime("%d/%m/%Y")}"]
+          "#{!bill.ref_start.nil? ? bill.ref_start.strftime("%d/%m/%Y") : nil} - #{!bill.ref_end.nil? ? bill.ref_end.strftime("%d/%m/%Y") : nil}"]
       end
 
 
