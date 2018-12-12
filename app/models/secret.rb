@@ -159,6 +159,18 @@ class Secret < ApplicationRecord
     return @reply[0]["message"] == nil
   end
 
+  def mk_create_secret
+  
+    mk = Secret.connect_mikrotik
+    @reply = mk.get_reply("/ppp/secret/add",
+    "=name=#{self.secret}",
+    "=password=#{self.secret_password}",
+    "=profile=#{self.plan.profile_name}",
+    "=service=#{"ppp"}")
+
+    return @reply[0]["message"] == nil
+  end
+
   
   # Retorna boolean
   def self.mk_update_secret(id, name, password, service, profile)
@@ -176,6 +188,21 @@ class Secret < ApplicationRecord
   end
 
   # Retorna boolean
+  def mk_update_secret
+  
+    mk = Secret.connect_mikrotik
+    @reply =  mk.get_reply("/ppp/secret/set",
+    "=name=#{self.secret}",
+    "=password=#{self.secret_password}",
+    "=profile=#{self.plan.profile_name}",
+    "=service=#{"ppp"}",
+    "=.id=#{self.mk_id}")
+    
+    puts @reply
+    return @reply[0]["message"] == nil
+  end
+
+  # Retorna boolean
   def self.mk_destroy_secret(id)
 
     mk = Secret.connect_mikrotik
@@ -185,6 +212,17 @@ class Secret < ApplicationRecord
     puts @reply
     return @reply[0]["message"] == nil
   end
+
+  def mk_destroy_secret
+
+    mk = Secret.connect_mikrotik
+    @reply =  mk.get_reply("/ppp/secret/remove",
+    "=.id=#{self.mk_id}")
+
+    puts @reply
+    return @reply[0]["message"] == nil
+  end
+  
 
   def mk_print_secret()
 
