@@ -1,0 +1,171 @@
+<div class="container">
+  <h2>Confirmar instalação como cliente</h2>
+  <%= form_with(model: @secret, local: true, url: ) do |form| %>
+    <% if @secret.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@secret.errors.count, "error") %> prohibited this secret from being saved:</h2>
+        <ul>
+          <% @secret.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="form-group">
+      <%= form.label :name,"Nome" %>
+      <%= form.text_field :name, class:"form-control", aria:{descibedly:"nomeHelp"} %>
+      <small id="nomeHelp" class="form-text text-muted">Escreva seu nome completo</small>
+    </div>
+    <div class="form-group">
+      <%= form.label :address,"Endereço" %>
+      <%= form.text_area :address, class:"form-control"%>
+    </div>
+    <div class="form-group">
+      <%= form.label :neighborhood, "Bairro" %>
+      <%= form.text_field :neighborhood, class:"form-control" %>
+    </div>
+    <div class="form-group">
+      <div class="row">
+        <div class="col">
+          <%= form.label :doc_name, "Documento" %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-md-6">
+          <%= form.select :doc_name, options_for_select(["RG","CPF"]), {include_blank: false}, {class:"custom-select"} %>
+        </div>
+        <div class="col-sm-12 col-md-6">
+          <%= form.text_field :doc_value, class:"form-control" %>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 col-md 6">
+        <div class="form-group mb-0">
+          <%= form.label :secret, "Autenticação PPPoE" %>
+          <%= form.text_field :secret, class:"form-control" %>
+        </div>
+        <div class="form-group">
+          <small id="password-ppp" class="form-text text-muted">Senha</small>
+          <%= form.text_field :secret_password, class:"form-control", aria:{descibedly:"password-ppp"} %>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md 6">
+        <div class="form-group mb-0">
+          <%= form.label :wireless_ssid, "SSID" %>
+          <%= form.text_field :wireless_ssid, class:"form-control" %>
+        </div>
+        <div class="form-group">
+          <small id="password-ssid" class="form-text text-muted" >Senha</small>
+          <%= form.text_field :wireless_password , class:"form-control" , aria:{descibedly:"password-ssid"}%>
+        </div>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col-sm-12 col-md-6">
+        <%= form.label :plan_id, "Plano" %>
+        <%= form.select :plan_id, Plan.all.collect { |p| [ p.profile_name, p.id ] }, {include_blank: false}, class:"custom-select" %>
+      </div>
+      <div class="col-sm-12 col-md-6">
+        <%= form.label :due_date, "Vencimento" %>
+        <%= form.select :due_date, options_for_select(["10","15","20","25"],{selected: @secret.due_date}), {include_blank: false}, {class:"custom-select"} %>
+      </div>
+    </div>
+    <div class="row mb-4 ml-1 mr-1" width="100%">
+      <%= form.check_box :enabled, class:"disable-switch", data: {toggle:"toggle", onstyle:"success", offstyle:"danger", on:"Ativo", off:"Inativo", width:"100%"} %>
+    </div>
+    <%# Campos da instalação %>
+    <div class="row">
+      <div class="col-12">
+        <div class="input-group mb-4">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon3">Realizado em</span>
+          </div>
+          <%= form.text_field :instalation, class:"form-control installationpicker", data:{date:{format:"dd-mm-yyyy"}}, autocomplete:"off"  %>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="input-group mb-1">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">R$</span>
+          </div>
+          <%= form.number_field :cable, class:"form-control installation-value", aria:{ label:"Cable", describedby:"basic-addon1" }, min: 0, step:".01", value:"0.00" %>
+          <div class="input-group-append">
+            <span class="input-group-text">Cabo</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="input-group mb-1">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon2">R$</span>
+          </div>
+          <%= form.number_field :bail, class:"form-control installation-value", aria:{ label:"Cable", describedby:"basic-addon2" }, min: 0, step:".01", value:"0.00" %>
+          <div class="input-group-append">
+            <span class="input-group-text">Fiança</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon2">R$</span>
+          </div>
+          <%= form.number_field :router, class:"form-control installation-value", aria:{ label:"Cable", describedby:"basic-addon2" }, min: 0, step:".01", value:"0.00" %>
+          <div class="input-group-append">
+            <span class="input-group-text">Roteador</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="input-group mb-4">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon3">R$</span>
+          </div>
+          <%= form.number_field :other, class:"form-control installation-value", aria:{ label:"Cable", describedby:"basic-addon3" }, min: 0, step:".01", value:"0.00" %>
+          <div class="input-group-append">
+            <span class="input-group-text">Outros</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon3">Data de vencimento</span>
+          </div>
+          <%= form.text_field :due_date, class:"form-control installationduepicker", data:{date:{format:"dd-mm-yyyy"}}, autocomplete:"off" %>
+        </div>
+      </div>
+      <div class="col-12">
+        <b>Total</b>:R$<span id="installationTotal">0,00</span>
+      </div>
+    </div>
+    <div class="row mr-1 ml-1">
+      <%= form.submit "Validar", class:"btn btn-outline-success btn-block" %>
+    </div>
+  <% end %>
+</div>
+
+<script>
+$(function(){
+  var date = new Date();
+  var today = date.getDate() + "/" +  (date.getMonth() + 1)  + "/" + date.getFullYear();
+  
+  /* Inicializando pickers modal de adição das informações de instalação */
+  console.log(today)
+  $(".installationpicker").datepicker({ 
+      language: "pt-BR",
+      endDate: today
+  });
+
+  $(".installationduepicker").datepicker({ 
+    language: "pt-BR",
+    startDate: today
+  });
+
+  $(".paymentpicker").datepicker({ 
+    language: "pt-BR",
+  });
+
+})
+</script>
