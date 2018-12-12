@@ -185,7 +185,7 @@ class SecretsController < ApplicationController
   # Adiciona informações da instalação para aqueles que ainda não estão cadastrados
   def add_instalation_detail
     
-    add_instalation_detail_method params
+    SecretsController::add_instalation_detail_method params
 
     redirect_to params[:fallback]
   end
