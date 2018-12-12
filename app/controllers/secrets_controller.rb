@@ -30,21 +30,21 @@ class SecretsController < ApplicationController
 
         
         @finances << [
-          bill.ref_start,
+          bill.ref_start.strftime("%d/%m/%Y"),
           "Instalação", 
-          bill.due_date, 
+          bill.due_date.strftime("%d/%m/%Y"), 
           bill.value, 
           bill.note, 
-          "#{bill.ref_start}"]
+          "#{bill.ref_start.strftime("%d/%m/%Y")}"]
       else
 
         @finances << [
-          bill.due_date,
+          bill.due_date.strftime("%d/%m/%Y"),
           "Consumo", 
-          bill.due_date, 
+          bill.due_date.strftime("%d/%m/%Y"), 
           bill.value, 
           bill.note, 
-          "#{bill.ref_start} - #{bill.ref_end}"]
+          "#{bill.ref_start.strftime("%d/%m/%Y")} - #{bill.ref_end.strftime("%d/%m/%Y")}"]
       end
 
 
@@ -53,16 +53,16 @@ class SecretsController < ApplicationController
     @secret.payments.each do |payment|
 
       @finances << [
-        payment.date,
+        payment.date.strftime("%d/%m/%Y"),
         "Pagamento", 
-        payment.date, 
+        payment.date.strftime("%d/%m/%Y"), 
         payment.value, 
         "#{payment.note}",
         "#{payment.payment_form.kind} - #{payment.payment_form.place}"
       ]
     end
 
-    @finances = @finances.sort_by{|e| Date.today - e[0] }
+    @finances = @finances.sort_by{|e| Date.today - Date.strptime(e[0],"%d/%m/%Y") }
 
     @classes = Hash.new
     @classes["Instalação"] = "text-primary"
