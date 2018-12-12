@@ -80,8 +80,37 @@ class RecordsController < ApplicationController
     @secret = Secret.new(name: @rec.name, address: @rec.address, city: @rec.city, state: @rec.state, neighborhood: @rec.neighborhood, instalation: @rec.date)
   end
 
+  # Cria o secret a partir da instalação, e deleta a instalação automaticamente
   def set_secret_and_instalation
-    
+    @secret_params = params.require(:secret).permit(:name, :address, :neighborhood, :doc_name, :doc_value, :secret, :secret_password, :wireless_ssid, :wireless_password, :plan_id, :due_date, :enabled, :instalation, :cable, :bail, :router, :other, :due_to, :id)
+
+    @id = @secret_params.delete(:id).to_i
+
+    @instalation = {}
+    @instalation[:date] = @secret_params[:instalation]
+    @instalation[:cable] = @secret_params.delete(:cable)
+    @instalation[:bail] = @secret_params.delete(:bail)
+    @instalation[:router] = @secret_params.delete(:router)
+    @instalation[:other] = @secret_params.delete(:other)
+    @instalation[:due_date] = @secret_params.delete(:due_to)
+
+    puts @secret_params
+    puts @instalation
+
+    @secret = Secret.new(@secret_params)
+    if @secret.mk_create_secret
+      if @secret.save
+        @instalation[:id] = @secret.id
+
+        SecretsController::add_instalation_detail_method(@instalation)
+      else
+        @secret.mk_destroy_secret
+      end
+    end
+
+    Record.find(@id).destroy
+
+    redirect_to @secret
   end
   
 
