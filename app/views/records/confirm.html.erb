@@ -82,7 +82,7 @@
           <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon3">Realizado em</span>
           </div>
-          <%= form.text_field :instalation, class:"form-control installationpicker", data:{date:{format:"dd-mm-yyyy"}}, autocomplete:"off"  %>
+          <%= form.text_field :instalation, value: @secret.instalation.strftime("%d/%m/%Y"), class:"form-control installationpicker", data:{date:{format:"dd-mm-yyyy"}}, autocomplete:"off"  %>
         </div>
       </div>
       <div class="col-12">
