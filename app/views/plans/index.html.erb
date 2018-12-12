@@ -21,7 +21,7 @@
         <tr>
           <td><%= plan.mk_id%></td>
           <td><%= plan.profile_name %></td>
-          <td><%= plan.value %></td>
+          <td><%= number_to_currency(plan.value, unit:"R$") %></td>
           <td><%= plan.rate_limit %></td>
           <td><%= Secret.where(plan_id: plan.id).count %></td>
           <td><%= link_to '<i data-feather="file-text"></i>'.html_safe, plan %></td>

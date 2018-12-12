@@ -21,7 +21,7 @@
           Valor:
         </span>
         <p>
-          <%= @plan.value %>
+          <%= number_to_currency(@plan.value,unit: "R$") %>
         </p>
 
     </li>
