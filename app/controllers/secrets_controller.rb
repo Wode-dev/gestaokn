@@ -191,7 +191,7 @@ class SecretsController < ApplicationController
   end
 
   # Método que não é rota para manter o padrão de adição de informações de instalação nos secrets e no record (instalação)
-  def add_instalation_detail_method(params = {})
+  def self.add_instalation_detail_method(params = {})
     installation_date = params[:date].split("/")
     due_date = params[:due_date].split("/")
     total = params[:cable].to_f + params[:bail].to_f + params[:router].to_f + params[:other].to_f
