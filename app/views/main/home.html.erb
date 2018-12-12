@@ -74,7 +74,7 @@
                             <tr class="clickable-row", data-href=" <%= url_for(payment.secret) %> ">
                                 <td style="width: 40%"><%= payment.secret.name%></td>
                                 <td style="width: 30%"><%= payment.value%></td>
-                                <td style="width: 40%"><%= payment.date%></td>
+                                <td style="width: 40%"><%= payment.date.strftime("%d/%m/%Y")%></td>
                             </tr>
                         <% end %>
                         </tbody>
