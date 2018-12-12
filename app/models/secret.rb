@@ -168,6 +168,8 @@ class Secret < ApplicationRecord
     "=profile=#{self.plan.profile_name}",
     "=service=#{"ppp"}")
 
+    self.write_attribute(:mk_id, @reply[0][".id"])
+
     return @reply[0]["message"] == nil
   end
 
