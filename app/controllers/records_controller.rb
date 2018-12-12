@@ -75,8 +75,15 @@ class RecordsController < ApplicationController
   end
 
   def confirm
+    @rec = Record.find(params[:id])
 
+    @secret = Secret.new(name: @rec.name, address: @rec.address, city: @rec.city, state: @rec.state, neighborhood: @rec.neighborhood, instalation: @rec.date)
   end
+
+  def set_secret_and_instalation
+    
+  end
+  
 
   private
     # Use callbacks to share common setup or constraints between actions.
