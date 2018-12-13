@@ -21,6 +21,8 @@
 
 $(function(){
 
+    feather.replace();
+
     // Ativar ou desativar usuario
     $('input[type=checkbox].switch-secret').change(function() {
         console.log("checkbox")
