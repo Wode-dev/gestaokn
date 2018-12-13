@@ -90,7 +90,7 @@
           <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">R$</span>
           </div>
-          <%= form.number_field :cable, class:"form-control installation-value", aria:{ label:"Cable", describedby:"basic-addon1" }, min: 0, step:".01", value:"0.00" %>
+          <%= form.text_field :cable, class:"form-control installation-value-record money-input", aria:{ label:"Cable", describedby:"basic-addon1" }, min: 0, step:".01", value: 0 %>
           <div class="input-group-append">
             <span class="input-group-text">Cabo</span>
           </div>
@@ -101,7 +101,7 @@
           <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon2">R$</span>
           </div>
-          <%= form.number_field :bail, class:"form-control installation-value", aria:{ label:"Cable", describedby:"basic-addon2" }, min: 0, step:".01", value:"0.00" %>
+          <%= form.text_field :bail, class:"form-control installation-value-record money-input", aria:{ label:"Cable", describedby:"basic-addon2" }, min: 0, step:".01", value: 0 %>
           <div class="input-group-append">
             <span class="input-group-text">Fiança</span>
           </div>
@@ -112,7 +112,7 @@
           <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon2">R$</span>
           </div>
-          <%= form.number_field :router, class:"form-control installation-value", aria:{ label:"Cable", describedby:"basic-addon2" }, min: 0, step:".01", value:"0.00" %>
+          <%= form.text_field :router, class:"form-control installation-value-record money-input", aria:{ label:"Cable", describedby:"basic-addon2" }, min: 0, step:".01", value: 0 %>
           <div class="input-group-append">
             <span class="input-group-text">Roteador</span>
           </div>
@@ -123,7 +123,7 @@
           <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon3">R$</span>
           </div>
-          <%= form.number_field :other, class:"form-control installation-value", aria:{ label:"Cable", describedby:"basic-addon3" }, min: 0, step:".01", value:"0.00" %>
+          <%= form.text_field :other, class:"form-control installation-value-record money-input", aria:{ label:"Cable", describedby:"basic-addon3" }, min: 0, step:".01", value: 0 %>
           <div class="input-group-append">
             <span class="input-group-text">Outros</span>
           </div>
