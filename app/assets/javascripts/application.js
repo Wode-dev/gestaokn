@@ -58,7 +58,19 @@ function updateRowColorStatus(toggle) {
 }
 
 function maskForMoneyInput(){
-    $(".money-input").keyup(function(target,item){
-        console.log(item);
+    $(".money-input").keyup(function(event){
+        console.log(String(event.target.value).length);
+        console.log($($(".money-input")[0]));
+    });
+
+    $(".money-input").inputmask('decimal', {
+        'alias': 'numeric',
+        'groupSeparator': '.',
+        'autoGroup': true,
+        'digits': 2,
+        'radixPoint': ",",
+        'digitsOptional': false,
+        'allowMinus': false,
+        'placeholder': ''
     });
 }
