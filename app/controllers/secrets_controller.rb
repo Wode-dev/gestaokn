@@ -35,7 +35,9 @@ class SecretsController < ApplicationController
           bill.due_date.strftime("%d/%m/%Y"), 
           bill.value, 
           bill.note, 
-          "#{bill.ref_start.strftime("%d/%m/%Y")}"]
+          "#{bill.ref_start.strftime("%d/%m/%Y")}",
+          edit_install_path(id: bill.id)
+        ]
       else
 
         @finances << [
@@ -44,7 +46,10 @@ class SecretsController < ApplicationController
           bill.due_date.strftime("%d/%m/%Y"), 
           bill.value, 
           bill.note, 
-          "#{!bill.ref_start.nil? ? bill.ref_start.strftime("%d/%m/%Y") : nil} - #{!bill.ref_end.nil? ? bill.ref_end.strftime("%d/%m/%Y") : nil}"]
+          "#{!bill.ref_start.nil? ? bill.ref_start.strftime("%d/%m/%Y") : nil} - #{!bill.ref_end.nil? ? bill.ref_end.strftime("%d/%m/%Y") : nil}",
+          "",
+          edit_bill_path(id: bill.id)
+        ]
       end
 
 
@@ -58,7 +63,8 @@ class SecretsController < ApplicationController
         payment.date.strftime("%d/%m/%Y"), 
         payment.value, 
         "#{payment.note}",
-        "#{payment.payment_form.kind} - #{payment.payment_form.place}"
+        "#{payment.payment_form.kind} - #{payment.payment_form.place}",
+        edit_payment_path(id: payment.id)
       ]
     end
 
