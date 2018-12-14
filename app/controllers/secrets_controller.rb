@@ -151,11 +151,9 @@ class SecretsController < ApplicationController
   #Registra um pagamento para um determinado cliente
   def payment
 
-    date = params[:date].split("/")
-
     Payment.create(
       secret_id: params[:id],
-      date: Date.new(date[2].to_i, date[1].to_i, date[0].to_i),
+      date: Date.strptime(params[:date], "%d/%m/%Y"),
       value: params[:value].to_f,
       payment_form_id: params[:payment_form_id],
       note: params[:note]
