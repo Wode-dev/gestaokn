@@ -47,7 +47,6 @@ class SecretsController < ApplicationController
           bill.value, 
           bill.note, 
           "#{!bill.ref_start.nil? ? bill.ref_start.strftime("%d/%m/%Y") : nil} - #{!bill.ref_end.nil? ? bill.ref_end.strftime("%d/%m/%Y") : nil}",
-          "",
           edit_bill_path(id: bill.id)
         ]
       end
