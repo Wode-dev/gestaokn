@@ -7,6 +7,12 @@ $ ->
         totalValue = parseFloat(standardizeString($("#secret_cable").val())) + parseFloat(standardizeString($("#secret_bail").val())) + parseFloat(standardizeString($("#secret_router").val())) + parseFloat(standardizeString($("#secret_other").val()))
         $("#installationTotal").html totalValue.toFixed(2).replace(".",",")
         return
+    
+    $(".installation-date-picker").datepicker {
+      language: "pt-BR",
+    }
+
+    return
 
 standardizeString = (string) -> 
     string.replace(/\./g,"").replace(/\,/g,".")

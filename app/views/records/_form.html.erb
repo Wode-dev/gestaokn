@@ -45,17 +45,3 @@
     <%= form.submit "Registrar", class:"btn btn-success" %>
   </div>
 <% end %>
-
-
-<script>
-  $(function(){
-    var date = new Date();
-    var today = date.getDate() + "/" +  (date.getMonth() + 1)  + "/" + date.getFullYear();
-    
-    /* Inicializando pickers modal de adição das informações de instalação */
-    console.log(today)
-    $(".installation-date-picker").datepicker({ 
-        language: "pt-BR"
-    });
-  })
-</script>
