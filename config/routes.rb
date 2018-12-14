@@ -1,10 +1,9 @@
 Rails.application.routes.draw do
-  get 'edit_financial/edit_payment'
-  get 'edit_financial/confirm_payment'
-  get 'edit_financial/edit_bill'
-  get 'edit_financial/confirm_bill'
-  get 'edit_financial/edit_install'
-  get 'edit_financial/confirm_install'
+  
+  get 'edit/payment/:id'
+  get 'edit/bill/:id'
+  get 'edit/install/:id'
+
   resources :records
   get "instalacoes/confirmar/:id", to: "records#confirm", as: :confirm_client
   post "instalacoes/confirmar", to: "records#set_secret_and_instalation", as: :set_record
