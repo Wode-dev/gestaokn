@@ -1,2 +1,10 @@
-<h1>EditFinancial#edit_payment</h1>
-<p>Find me in app/views/edit_financial/edit_payment.html.erb</p>
+<div class="container">
+    <h3>Editar Pagamento</h3>
+    <%= form_for @payment, remote: false, url: confirm_payment_edition_path(id: params[:id]) do |form| %>
+        <%= form.text_field :date, class:"form-control date-picker", value: @payment.date.strftime("%d/%m/%Y") %>
+        <%= form.text_field :value, class:"form-control" %>
+        <%= form.select :payment_form_id, options_for_select(PaymentForm.all.collect { |p| [ "#{p.kind} - #{p.place}", p.id ] }), {}, class:"custom-select" %>
+        <%= form.text_area :note, class:"form-control" %>
+        <%= form.submit "Enviar", class:"btn btn-success" %>
+    <% end %>
+</div>

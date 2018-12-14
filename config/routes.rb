@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
   
   get 'edit/payment/:id', to: "edit_financial#edit_payment", as: :edit_payment
+  post 'edit/payment/:id', to:"edit_financial#confirm_payment", as: :confirm_payment_edition
   get 'edit/bill/:id', to: "edit_financial#edit_bill", as: :edit_bill
+  post 'edit/bill/:id', to:"edit_financial#confirm_bill", as: :confirm_bill_edition
   get 'edit/install/:id', to: "edit_financial#edit_install", as: :edit_install
+  post 'edit/install/:id', to:"edit_financial#confirm_install", as: :confirm_install_edition
 
   resources :records
   get "instalacoes/confirmar/:id", to: "records#confirm", as: :confirm_client
