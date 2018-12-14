@@ -12,45 +12,6 @@
             <div class="card-body">
                 <div class="row">
                     <canvas id="clients-amount"></canvas>
-                    <script>
-                        $(function(){
-                        var ctx = document.getElementById("clients-amount").getContext('2d');
-                        var myChart = new Chart(ctx, {
-                            type: 'bar',
-                            data: {
-                                labels: ["Dia 10", "Dia 15", "Dia 20", "Dia 25"],
-                                datasets: [{
-                                    data: [<%=  Secret.clients_by_due_date(10)[0] %>, <%=  Secret.clients_by_due_date(15)[0] %>, <%=  Secret.clients_by_due_date(20)[0] %>, <%=  Secret.clients_by_due_date(25)[0] %>],
-                                    backgroundColor: [
-                                        'rgba(255, 99, 132, 0.2)',
-                                        'rgba(54, 162, 235, 0.2)',
-                                        'rgba(255, 206, 86, 0.2)',
-                                        'rgba(75, 192, 192, 0.2)'
-                                    ],
-                                    borderColor: [
-                                        'rgba(255,99,132,1)',
-                                        'rgba(54, 162, 235, 1)',
-                                        'rgba(255, 206, 86, 1)',
-                                        'rgba(75, 192, 192, 1)'
-                                    ],
-                                    borderWidth: 1
-                                }]
-                            },
-                            options: {
-                                legend:{
-                                    display: false
-                                },
-                                scales: {
-                                    yAxes: [{
-                                        ticks: {
-                                            beginAtZero:true
-                                        }
-                                    }]
-                                }
-                            }
-                        });
-                        })
-                    </script>
                 </div>
             </div>
         </div>
@@ -64,11 +25,6 @@
                 <li class="list-group-item">
                     <h5><%= pform.form %></h5>
                     <table class="table table-borderless text-success">
-                    <!--    <thead>
-                            <th scope="col">Cliente</th>
-                            <th scope="col">Valor</th>
-                            <th scope="col">Data</th>
-                        </thead>-->
                         <tbody> 
                         <% Payment.where(payment_form_id: pform.id).order(created_at: :desc).first(10).each do |payment| %>
                             <tr class="clickable-row", data-href=" <%= url_for(payment.secret) %> ">
@@ -82,11 +38,6 @@
                 </li>
                 <% end %>
             </div>
-            <script>
-                $(".clickable-row").click(function() {
-                    window.location = $(this).data("href");
-                });
-            </script>
         </div>
 
     </div>
@@ -127,39 +78,6 @@
             <div class="col-sm-6 col-md-12 mb-2">
                 <h5 ><b>Clientes por data de vencimento</b></h5>
                 <canvas id="clients-amount-pie" class="mb-2"></canvas>
-                <script>
-                    $(function(){
-                        var ctx = document.getElementById("clients-amount-pie").getContext('2d');
-                        var myChart = new Chart(ctx, {
-                            type: 'pie',
-                            data: {
-                                labels: ["Dia 10", "Dia 15", "Dia 20", "Dia 25"],
-                                datasets: [{
-                                    data: [<%=  Secret.clients_by_due_date(10)[0] %>, <%=  Secret.clients_by_due_date(15)[0] %>, <%=  Secret.clients_by_due_date(20)[0] %>, <%=  Secret.clients_by_due_date(25)[0] %>],
-                                    backgroundColor: [
-                                        'rgba(255, 99, 132, 0.2)',
-                                        'rgba(54, 162, 235, 0.2)',
-                                        'rgba(255, 206, 86, 0.2)',
-                                        'rgba(75, 192, 192, 0.2)'
-                                    ],
-                                    borderColor: [
-                                        'rgba(255,99,132,1)',
-                                        'rgba(54, 162, 235, 1)',
-                                        'rgba(255, 206, 86, 1)',
-                                        'rgba(75, 192, 192, 1)'
-                                    ],
-                                    borderWidth: 1
-                                }]
-                            },
-                            options: {
-                                legend:{
-                                    display: false
-                                }
-                            }
-                        });
-                        })
-                </script>
-
                 <div class="dropdown-divider mt-0 pt-0"></div>
             </div>
 
@@ -174,3 +92,5 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js"></script>
+
+<%= render 'main_graphs' %>
