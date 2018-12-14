@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   
-  get 'edit/payment/:id'
-  get 'edit/bill/:id'
-  get 'edit/install/:id'
+  get 'edit/payment/:id', to: "edit_financial#edit_payment", as: :edit_payment
+  get 'edit/bill/:id', to: "edit_financial#edit_bill", as: :edit_bill
+  get 'edit/install/:id', to: "edit_financial#edit_install", as: :edit_install
 
   resources :records
   get "instalacoes/confirmar/:id", to: "records#confirm", as: :confirm_client
