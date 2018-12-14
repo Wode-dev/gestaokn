@@ -23,6 +23,10 @@ $(function(){
 
     feather.replace();
 
+    $(".date-picker").datepicker({
+        language: "pt-BR",
+    });
+
     // Ativar ou desativar usuario
     $('input[type=checkbox].switch-secret').change(function() {
         console.log("checkbox")
