@@ -154,7 +154,7 @@ class SecretsController < ApplicationController
     Payment.create(
       secret_id: params[:id],
       date: Date.strptime(params[:date], "%d/%m/%Y"),
-      value: params[:value].to_f,
+      value: params[:value].gsub(".", "").gsub(",",".").to_f,
       payment_form_id: params[:payment_form_id],
       note: params[:note]
       )
