@@ -3,6 +3,7 @@ class Bill < ApplicationRecord
 
     after_create :balance_secret
     after_update :balance_secret
+    after_destroy :balance_secret
 
     def balance_secret
         self.secret.balance

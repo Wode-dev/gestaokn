@@ -5,6 +5,7 @@ class Payment < ApplicationRecord
 
     after_update :verify_situation_to_enable
     after_create :verify_situation_to_enable
+    after_destroy :verify_situation_to_enable
 
     def verify_situation_to_enable
         self.secret.balance
