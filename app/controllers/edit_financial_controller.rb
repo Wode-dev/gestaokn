@@ -4,10 +4,10 @@ class EditFinancialController < ApplicationController
   end
 
   def confirm_payment
-    @payment = params.require(:payment).permit(:date, :value, :payment_form_id, :note)
+    @payment_form = params.require(:payment).permit(:date, :value, :payment_form_id, :note)
 
     @payment = Payment.find(params[:id])
-    @payment.update(remove_mask_for_money(@payment, "value"))
+    @payment.update(remove_mask_for_money(@payment_form, "value"))
 
     redirect_to @payment.secret
   end
