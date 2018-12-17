@@ -5,9 +5,9 @@ $(function(){
     var myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ["Dia 10", "Dia 15", "Dia 20", "Dia 25"],
+            labels: ["<%= @receipts[0][1] %>/<%= @receipts[0][0]%>", "<%= @receipts[1][1] %>/<%= @receipts[1][0]%>", "<%= @receipts[2][1] %>/<%= @receipts[2][0]%>", "<%= @receipts[3][1] %>/<%= @receipts[3][0]%>", "<%= @receipts[4][1] %>/<%= @receipts[4][0]%>", "<%= @receipts[5][1] %>/<%= @receipts[5][0]%>"],
             datasets: [{
-                data: [<%=  Secret.clients_by_due_date(10)[0] %>, <%=  Secret.clients_by_due_date(15)[0] %>, <%=  Secret.clients_by_due_date(20)[0] %>, <%=  Secret.clients_by_due_date(25)[0] %>],
+                data: [<%=  @receipts[0][2] %>, <%=  @receipts[1][2] %>, <%=  @receipts[2][2] %>, <%=  @receipts[3][2] %>, <%= @receipts[4][2]%>, <%= @receipts[5][2]%>],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
