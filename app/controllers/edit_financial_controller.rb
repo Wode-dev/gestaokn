@@ -13,6 +13,7 @@ class EditFinancialController < ApplicationController
   end
 
   def edit_bill
+    @bill = Bill.find(params[:id])
   end
 
   def confirm_bill
