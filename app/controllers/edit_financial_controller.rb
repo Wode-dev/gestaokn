@@ -17,6 +17,12 @@ class EditFinancialController < ApplicationController
   end
 
   def confirm_bill
+    @bill_form = params.require(:bill).permit(:due_date, :ref_start, :ref_end, :value, :note)
+
+    @bill = Bill.find(params[:id])
+    @bill.update(remove_mask_for_money(@bill_form, "value"))
+
+    redirect_to @bill.secret
   end
 
   def edit_install
