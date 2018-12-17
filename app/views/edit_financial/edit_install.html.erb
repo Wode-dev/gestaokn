@@ -1,22 +1,56 @@
 <div class="container">
     <h3>Editar instalação manualmente</h3>
     <%= form_tag confirm_install_edition_path(id: params[:id]) do %>
-        <%= text_field_tag :date , @install.ref_start.strftime("%d/%m/%Y"), class: "form-control date-picker" %>
-
-        <%= text_field_tag :cable, 0, class:"form-control money-input" %>
-        <%= text_field_tag :bail, 0, class:"form-control money-input" %>
-        <%= text_field_tag :router, 0, class:"form-control money-input" %>
-        <%= text_field_tag :other, 0, class:"form-control money-input" %>
-
-        <%= text_field_tag :due_date , @install.due_date.strftime("%d/%m/%Y"), class: "form-control date-picker" %>
+        <div class="input-group my-1">
+            <div class="input-group-prepend">
+                <div class="input-group-text">Data da instalação</div>
+            </div>
+            <%= text_field_tag :date , @install.ref_start.strftime("%d/%m/%Y"), class: "form-control date-picker" %>
+        </div>
+        <div class="input-group mt-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Cabos</span>
+                <span class="input-group-text">R$</span>
+            </div>
+            <%= text_field_tag :cable, 0, class:"form-control money-input" %>
+        </div>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Fiança</span>
+                <span class="input-group-text">R$</span>
+            </div>
+            <%= text_field_tag :bail, 0, class:"form-control money-input" %>
+        </div>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Roteador</span>
+                <span class="input-group-text">R$</span>
+            </div>
+            <%= text_field_tag :router, 0, class:"form-control money-input" %>
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Outros</span>
+                <span class="input-group-text">R$</span>
+            </div>
+            <%= text_field_tag :other, 0, class:"form-control money-input" %>
+        </div>
+        <div class="input-group my-1">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Vencimento da instalação</span>
+            </div>
+            <%= text_field_tag :due_date , @install.due_date.strftime("%d/%m/%Y"), class: "form-control date-picker" %>
+        </div>
 
         <div class="row my-2">
             <div class="col-12">
-                Valor anterior: R$<span><%= @install.value %></span>
+                <b>Valor anterior </b>
             </div>
             <div class="col-12">
                 <%= simple_format(@install.note).html_safe %>
+                Total: R$<span><%= @install.value %></span>
             </div>
+            
         </div>
 
         <%= submit_tag :Enviar, class:"btn btn-primary" %>
