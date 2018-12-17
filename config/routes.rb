@@ -33,6 +33,7 @@ Rails.application.routes.draw do
 
   resources :secrets
   post "secrets/pay", to: "secrets#payment", as: :payment
+  post "secrets/bill", to: "secrets#bill", as: :bill
   post "secrets/switch", to:"secrets#switch_secret"
   post "secrets/installation", to: "secrets#add_instalation_detail", as: :installation_details
   post "secrets/note", to: "secrets#commit_note", as: :commit_note
