@@ -1,5 +1,18 @@
 class MainController < ApplicationController
   def home
+    # Cria array com os 6 ultimos meses, depois pega todos os pagamentos recebidos nesse período e coloca no gráfico
+    @receipts = []
+    @receipts << [Date.today.year, Date.today.month]
+    @receipts << [1.month.ago.year, 1.month.ago.month]
+    @receipts << [2.month.ago.year, 2.month.ago.month]
+    @receipts << [3.month.ago.year, 3.month.ago.month]
+    @receipts << [4.month.ago.year, 4.month.ago.month]
+    @receipts << [5.month.ago.year, 5.month.ago.month]
+
+    @receipts.each do |receipt|
+      #receipt << Payment.where('extract(year from date) = ?', receipt[0]).where('extract(month from date) = ?', receipt[1]).pluck(:value).inject(0){|sum,x| sum + x }
+      receipt << Payment.where('cast(strftime(\'%Y\', date) as int) = ?', receipt[0]).where('cast(strftime(\'%m\', date) as int) = ?', receipt[1]).pluck(:value).inject(0){|sum,x| sum + x }
+    end
   end
 
   def settings
