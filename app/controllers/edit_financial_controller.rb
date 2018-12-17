@@ -30,5 +30,17 @@ class EditFinancialController < ApplicationController
   end
 
   def confirm_install
+    @install = Bill.find(params[:id])
+    @secret = @install.secret
+    @install_form = params.slice(:cable, :bail, :router, :other, :date, :due_date)
+    # O "id" do secret precisa ir na hash para o método seguinte funcionar
+    @install_form[:id] = @secret.id
+
+    @created = !SecretsController::add_instalation_detail_method(@install_form).errors.any?
+
+    if @created
+      @install.destroy
+      redirect_to @secret
+    end
   end
 end
