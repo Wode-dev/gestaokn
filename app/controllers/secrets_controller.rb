@@ -199,7 +199,7 @@ class SecretsController < ApplicationController
 
     note="#{!params[:bail].empty? ? "Fiança: " + ActionController::Base.helpers.number_to_currency(params[:bail], unit:"R$") : nil} \r\n #{!params[:cable].empty? ? "Cabo: " + ActionController::Base.helpers.number_to_currency(params[:cable], unit:"R$") : nil} \r\n #{!params[:router].empty? ? "Roteador: " + ActionController::Base.helpers.number_to_currency(params[:router], unit:"R$") : nil} \r\n #{!params[:other].empty? ? "Outros: " + ActionController::Base.helpers.number_to_currency(params[:other], unit:"R$") : nil}"
 
-    Bill.create(
+    return Bill.create(
       installation: true,
       secret_id: params[:id],
       ref_start: Date.strptime(params[:date], "%d/%m/%Y"),
