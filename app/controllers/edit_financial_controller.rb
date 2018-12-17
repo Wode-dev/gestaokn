@@ -43,4 +43,20 @@ class EditFinancialController < ApplicationController
       redirect_to @secret
     end
   end
+
+  def destroy_payment
+    @secret = Payment.find(params[:id]).secret
+    Payment.find(params[:id]).destroy
+
+    redirect_to @secret
+  end
+
+  def destroy_bill
+    @secret = Bill.find(params[:id]).secret
+    Bill.find(params[:id]).destroy
+
+    redirect_to @secret
+  end
+  
+  
 end
