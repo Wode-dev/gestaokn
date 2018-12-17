@@ -166,6 +166,7 @@ class Secret < ApplicationRecord
     "=name=#{self.secret}",
     "=password=#{self.secret_password}",
     "=profile=#{self.plan.profile_name}",
+    "=disabled=#{self.enabled ? "no" : "yes"}",
     "=service=#{"ppp"}")
 
     self.write_attribute(:mk_id, @reply[0][".id"])
