@@ -91,7 +91,7 @@ class SecretsController < ApplicationController
 
     respond_to do |format|
       
-      if Secret.mk_create_secret(@secret.secret, @secret.secret_password, "ppp", @secret.plan.profile_name)
+      if @secret.mk_create_secret
         
         if @secret.save
 
