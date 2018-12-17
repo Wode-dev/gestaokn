@@ -1,2 +1,24 @@
-<h1>EditFinancial#edit_install</h1>
-<p>Find me in app/views/edit_financial/edit_install.html.erb</p>
+<div class="container">
+    <h3>Editar instalação manualmente</h3>
+    <%= form_tag confirm_install_edition_path(id: params[:id]) do %>
+        <%= text_field_tag :date , @install.ref_start.strftime("%d/%m/%Y"), class: "form-control date-picker" %>
+
+        <%= text_field_tag :cable, 0, class:"form-control money-input" %>
+        <%= text_field_tag :bail, 0, class:"form-control money-input" %>
+        <%= text_field_tag :router, 0, class:"form-control money-input" %>
+        <%= text_field_tag :other, 0, class:"form-control money-input" %>
+
+        <%= text_field_tag :due_date , @install.due_date.strftime("%d/%m/%Y"), class: "form-control date-picker" %>
+
+        <div class="row my-2">
+            <div class="col-12">
+                Valor anterior: R$<span><%= @install.value %></span>
+            </div>
+            <div class="col-12">
+                <%= simple_format(@install.note).html_safe %>
+            </div>
+        </div>
+
+        <%= submit_tag :Enviar, class:"btn btn-primary" %>
+    <% end %>
+</div>
