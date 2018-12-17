@@ -167,6 +167,20 @@ class SecretsController < ApplicationController
       redirect_to params[:fallback]
   end
 
+  def bill
+    Bill.create(
+      secret_id: params[:id],
+      ref_start: Date.strptime(params[:ref_start], "%d/%m/%Y"),
+      ref_end: Date.strptime(params[:ref_end], "%d/%m/%Y"),
+      value: params[:value].gsub(".", "").gsub(",",".").to_f,
+      note: params[:note],
+      due_date: Date.strptime(params[:due_date], "%d/%m/%Y")
+    )
+
+    redirect_to params[:fallback]
+  end
+  
+
   # Inverte o estado do usuário entre bloqueado e desbloqueado
   def switch_secret
     
