@@ -1,10 +1,29 @@
 <div class="container">
-    <h3>Editar Pagamento</h3>
-    <%= form_for @payment, remote: false, method: :post, url: confirm_payment_edition_path(id: params[:id]) do |form| %>
-        <%= form.text_field :date, class:"form-control date-picker", value: @payment.date.strftime("%d/%m/%Y") %>
+  <h3>Editar Pagamento</h3>
+  <%= form_for @payment, remote: false, method: :post, url: confirm_payment_edition_path(id: params[:id]) do |form| %>
+    <div class="input-group my-1">
+      <div class="input-group-prepend">
+        <div class="input-group-text">Data</div>
+      </div>
+      <%= form.text_field :date, class:"form-control date-picker", value: @payment.date.strftime("%d/%m/%Y") %>
+    </div>
+    <div class="input-group my-1">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Valor</span>
+            <span class="input-group-text">R$</span>
+        </div>
         <%= form.text_field :value, class:"form-control money-input", value: @payment.value.to_s.gsub(".",",") %>
+    </div>
+    <div class="input-group my-1">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Forma de pagamento</span>
+        </div>
         <%= form.select :payment_form_id, options_for_select(PaymentForm.all.collect { |p| [ "#{p.kind} - #{p.place}", p.id ] }), {}, class:"custom-select" %>
+    </div>
+    <div class="my-2">
+        Notas <br>
         <%= form.text_area :note, class:"form-control" %>
-        <%= form.submit "Enviar", class:"btn btn-success" %>
-    <% end %>
+    </div>
+    <%= form.submit "Enviar", class:"btn btn-success" %>
+  <% end %>
 </div>
