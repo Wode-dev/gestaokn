@@ -1,11 +1,49 @@
 <div class="container">
     <h3>Editar consumo manualmente</h3>
     <%= form_for @bill, remote:false, method: :post, url: confirm_bill_edition_path(id: params[:id]) do |form| %>
-        <%= form.text_field :value, class:"form-control money-input", value: @bill.value.to_s.gsub(".",",") %>
-        <%= form.text_field :due_date, class:"form-control date-picker", value: @bill.due_date.strftime("%d/%m/%Y") %>
-        <%= form.text_field :ref_start, class:"form-control date-picker", value: @bill.ref_start.strftime("%d/%m/%Y") %>
-        <%= form.text_field :ref_end, class:"form-control date-picker", value: "#{@bill.ref_end.nil? ? nil : @bill.ref_end.strftime("%d/%m/%Y")}" %>
-        <%= form.text_area :note, class:"form-control" %>
+        <div class="input-group mt-3 mb-1">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Valor</span>
+                <span class="input-group-text">R$</span>
+            </div>
+            <%= form.text_field :value, class:"form-control money-input", value: @bill.value.to_s.gsub(".",",") %>
+        </div>
+        <div class="input-group my-1">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Vencimento</span>
+            </div>
+            <%= form.text_field :due_date, class:"form-control date-picker", value: @bill.due_date.strftime("%d/%m/%Y") %>
+        </div>
+        <div class="row my-1">
+            <div class="col-6">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Início consumo</span>
+                    </div>
+                    <%= form.text_field :due_date, class:"form-control date-picker", value: @bill.due_date.strftime("%d/%m/%Y") %>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="input-group">
+                    <%= form.text_field :ref_start, class:"form-control date-picker", value: @bill.ref_start.strftime("%d/%m/%Y") %>
+                    <div class="input-group-append">
+                        <span class="input-group-text">Fim Consumo</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="input-group my-2">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Vencimento</span>
+            </div>
+            <%= form.text_field :ref_end, class:"form-control date-picker", value: "#{@bill.ref_end.nil? ? nil : @bill.ref_end.strftime("%d/%m/%Y")}" %>
+        </div>
+        <div class="row mb-3">
+            <div class="col-12">
+                Notas <br>
+                <%= form.text_area :note, class:"form-control" %>
+            </div>
+        </div>
         <%= form.submit :Enviar, class:"btn btn-primary" %>
     <% end %>
 </div>
