@@ -1,2 +1,10 @@
-<h1>EditFinancial#edit_bill</h1>
-<p>Find me in app/views/edit_financial/edit_bill.html.erb</p>
+<div class="container">
+    <h3>Editar consumo manualmente</h3>
+    <%= form_for @bill, remote:false, method: :post, url: confirm_bill_edition_path(id: params[:id]) do |form| %>
+        <%= form.text_field :value, class:"form-control money-input" %>
+        <%= form.text_field :due_date, class:"form-control date-picker", value: @bill.due_date.strftime("%d/%m/%Y") %>
+        <%= form.text_field :ref_start, class:"form-control date-picker", value: @bill.ref_start.strftime("%d/%m/%Y") %>
+        <%= form.text_field :ref_end, class:"form-control date-picker", value: @bill.ref_end.strftime("%d/%m/%Y") %>
+        <%= form.text_area :note, class:"form-control" %>
+    <% end %>
+</div>
