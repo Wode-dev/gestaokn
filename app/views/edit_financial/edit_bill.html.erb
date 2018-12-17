@@ -4,7 +4,8 @@
         <%= form.text_field :value, class:"form-control money-input", value: @bill.value.to_s.gsub(".",",") %>
         <%= form.text_field :due_date, class:"form-control date-picker", value: @bill.due_date.strftime("%d/%m/%Y") %>
         <%= form.text_field :ref_start, class:"form-control date-picker", value: @bill.ref_start.strftime("%d/%m/%Y") %>
-        <%= form.text_field :ref_end, class:"form-control date-picker", value: @bill.ref_end.strftime("%d/%m/%Y") %>
+        <%= form.text_field :ref_end, class:"form-control date-picker", value: "#{@bill.ref_end.nil? ? nil : @bill.ref_end.strftime("%d/%m/%Y")}" %>
         <%= form.text_area :note, class:"form-control" %>
+        <%= form.submit :Enviar, class:"btn btn-primary" %>
     <% end %>
 </div>
