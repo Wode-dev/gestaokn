@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
   
+  get 'methods/index', to: "payment_methods#index", as: :payment_methods
+  put 'methods/:id', to:"payment_methods#update", as: :update_payment_method
+  delete 'methods/:id', to:"payment_methods#destroy", as: :destroy_payment_method
+  post 'methods', to: "payment_methods#create", as: :create_payment_method
+  
+  
   get 'edit/payment/:id', to: "edit_financial#edit_payment", as: :edit_payment
   post 'edit/payment/:id', to:"edit_financial#confirm_payment", as: :confirm_payment_edition
   delete 'edit/payment/:id', to: "edit_financial#destroy_payment", as: :destroy_payment
