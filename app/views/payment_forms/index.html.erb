@@ -13,12 +13,14 @@
         <tbody>
             <% PaymentForm.all.each do |payment_form| %>
                 <tr>
-                    <td id="payment-form">
-                        <span id="payment-form-kind"><%= payment_form.kind %></span> - <span id="payment-form-place"><%=payment_form.place %></span>
+                    <td class="payment-form">
+                        <span id="<%= payment_form.id %>" class="payment-form-kind"><%= payment_form.kind %></span> - <span id="<%= payment_form.id %>" class="payment-form-place"><%=payment_form.place %></span>
                     </td>
                     <td>
-                        <%= link_to 'Editar', "#", class:"btn btn-primary" %>
-                        <%= link_to 'Excluir', "#", class:"btn btn-danger #{payment_form.payments.length != 0 ? "disabled" : nil}" %>
+                        <button id="<%= payment_form.id %>" type="button" class="btn btn-primary edit-payment-form-button" data-toggle="modal" data-target="#editPaymentFormModal">
+                            Editar
+                        </button>
+                        <%= link_to 'Excluir', payment_forms_path(id: payment_form.id), class:"btn btn-danger #{payment_form.payments.length != 0 ? "disabled" : nil}", method: :delete  %>
                     </td>
                 </tr>
             <% end %>
@@ -38,7 +40,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <%= form_tag create_payment_form_path do %>
+            <%= form_tag payment_forms_path do %>
                 <div class="modal-body">
                     Tipo: <br>
                     <%= text_field_tag :kind,"", class:"form-control mb-2" %>
@@ -48,6 +50,35 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                     <%= submit_tag "Adicionar", class:"btn btn-primary" %>
+                </div>
+            <% end %>
+        </div>
+    </div>
+</div>
+
+<!-- Modal editar meio de pagamento -->
+<div class="modal fade" id="editPaymentFormModal" tabindex="-1" role="dialog" aria-labelledby="editPaymentFormModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editPaymentFormModalTitle">
+                    Editar forma de pagamento
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <%= form_tag payment_forms_path, method: :put do %>
+                <div class="modal-body">
+                    <%= hidden_field_tag :id, 0 %>
+                    Tipo: <br>
+                    <%= text_field_tag :kind,"", class:"form-control mb-2" %>
+                    Local: <br>
+                    <%= text_field_tag :place,"", class:"form-control" %>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <%= submit_tag "Atualizar", class:"btn btn-primary" %>
                 </div>
             <% end %>
         </div>
