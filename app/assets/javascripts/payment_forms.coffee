@@ -8,4 +8,6 @@ $ ->
         $("input#kind.edit-form").val($("#" + event.target.id + ".payment-form-kind")[0].innerText)
         $("input#place.edit-form").val($("#" + event.target.id + ".payment-form-place")[0].innerText)
         return
+
+    $("span[data-toggle=tooltip]").tooltip()
     return
