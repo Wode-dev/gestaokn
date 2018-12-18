@@ -1,6 +1,8 @@
 <div class="container">
     <h2 class="mb-2">Editar meios de pagamento</h2>
-    <%= link_to 'Novo Meio de Pagamento', "#", class:"btn btn-success float-right mb-3" %>
+    <button type="button" class="btn btn-success float-right mb-3" data-toggle="modal" data-target="#addPaymentFormModal">
+        Novo Meio de Pagamento
+    </button>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -22,4 +24,32 @@
             <% end %>
         </tbody>
     </table>
+</div>
+
+<!-- Modal adicionar novo meio de pagamento -->
+<div class="modal fade" id="addPaymentFormModal" tabindex="-1" role="dialog" aria-labelledby="addPaymentFormModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addPaymentFormModalTitle">
+                    Nova forma de pagamento
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <%= form_tag create_payment_form_path do %>
+                <div class="modal-body">
+                    Tipo: <br>
+                    <%= text_field_tag :kind,"", class:"form-control mb-2" %>
+                    Local: <br>
+                    <%= text_field_tag :place,"", class:"form-control" %>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <%= submit_tag "Adicionar", class:"btn btn-primary" %>
+                </div>
+            <% end %>
+        </div>
+    </div>
 </div>
