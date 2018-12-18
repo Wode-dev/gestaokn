@@ -3,27 +3,39 @@ $(function(){
 
     var ctx = document.getElementById("clients-amount").getContext('2d');
     var myChart = new Chart(ctx, {
-        type: 'bar',
+        type: 'line',
         data: {
-            labels: ["<%= @receipts[0][1] %>/<%= @receipts[0][0]%>", "<%= @receipts[1][1] %>/<%= @receipts[1][0]%>", "<%= @receipts[2][1] %>/<%= @receipts[2][0]%>", "<%= @receipts[3][1] %>/<%= @receipts[3][0]%>", "<%= @receipts[4][1] %>/<%= @receipts[4][0]%>", "<%= @receipts[5][1] %>/<%= @receipts[5][0]%>"],
+            labels: [
+                "<%= @receipts[5][1] %>/<%= @receipts[5][0]%>",
+                "<%= @receipts[4][1] %>/<%= @receipts[4][0]%>",
+                "<%= @receipts[3][1] %>/<%= @receipts[3][0]%>",
+                "<%= @receipts[2][1] %>/<%= @receipts[2][0]%>",
+                "<%= @receipts[1][1] %>/<%= @receipts[1][0]%>",
+                "<%= @receipts[0][1] %>/<%= @receipts[0][0]%>"],
             datasets: [{
-                data: [<%=  @receipts[0][2] %>, <%=  @receipts[1][2] %>, <%=  @receipts[2][2] %>, <%=  @receipts[3][2] %>, <%= @receipts[4][2]%>, <%= @receipts[5][2]%>],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255,99,132,1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)'
-                ],
-                borderWidth: 1
+                data: [
+                    <%= @receipts[0][2] %>,
+                    <%= @receipts[1][2] %>,
+                    <%= @receipts[2][2] %>,
+                    <%= @receipts[3][2] %>,
+                    <%= @receipts[4][2] %>,
+                    <%= @receipts[5][2] %>],
+                backgroundColor: 'rgba(0, 0, 255, 0)',
+                borderColor: 'rgba(50,50,50,1)',
+                borderWidth: 1,
+                lineTension: 0
             }]
         },
         options: {
+            responsive: true,
+            tooltips: {
+                mode: 'index',
+                intersect: false,
+            },
+            hover: {
+                mode: 'nearest',
+                intersect: true
+            },
             legend:{
                 display: false
             },
