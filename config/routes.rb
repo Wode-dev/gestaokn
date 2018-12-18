@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   
   get 'forms', to: "payment_forms#index", as: :payment_forms
-  put 'forms/:id', to:"payment_forms#update", as: :update_payment_method_form
-  delete 'forms/:id', to:"payment_forms#destroy", as: :destroy_payment_form
-  post 'forms', to: "payment_forms#create", as: :create_payment_form
+  put 'forms', to:"payment_forms#update"
+  delete 'forms', to:"payment_forms#destroy"
+  post 'forms', to: "payment_forms#create"
   
   
   get 'edit/payment/:id', to: "edit_financial#edit_payment", as: :edit_payment
