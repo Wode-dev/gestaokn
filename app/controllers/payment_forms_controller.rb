@@ -3,19 +3,22 @@ class PaymentFormsController < ApplicationController
   end
 
   def update
-    PaymentForm.find(params[:id]).update(params.slice(:kind, :place))
+    @params = params.permit(:id, :kind, :place)
+    PaymentForm.find(@params[:id].to_i).update(@params.slice(:kind, :place))
   
     redirect_to payment_forms_path
   end
 
   def create
-    PaymentForm.create(params.slice(:kind, :place))
+    @params = params.permit(:kind, :place)
+    PaymentForm.create(@params.slice(:kind, :place))
 
     redirect_to payment_forms_path
   end
 
   def destroy
-    PaymentForm.find(params[:id]).destroy
+    @params = params.permit(:id)
+    PaymentForm.find(@params[:id]).destroy
 
     redirect_to payment_forms_path
   end
