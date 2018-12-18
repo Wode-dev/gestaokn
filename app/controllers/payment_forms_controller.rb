@@ -9,5 +9,8 @@ class PaymentFormsController < ApplicationController
   end
 
   def destroy
+    PaymentForm.find(params[:id]).destroy
+
+    redirect_to payment_forms_path
   end
 end
