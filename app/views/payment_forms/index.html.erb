@@ -20,7 +20,13 @@
                         <button id="<%= payment_form.id %>" type="button" class="btn btn-primary edit-payment-form-button" data-toggle="modal" data-target="#editPaymentFormModal">
                             Editar
                         </button>
-                        <%= link_to 'Excluir', payment_forms_path(id: payment_form.id), class:"btn btn-danger #{payment_form.payments.length != 0 ? "disabled" : nil}", method: :delete  %>
+                        <% if payment_form.payments.length != 0 %>
+                            <span data-toggle="tooltip" data-placement="top" title="<%= t("payment-forms.destroy.used")%>">
+                                <%= link_to 'Excluir', payment_forms_path(id: payment_form.id), class:"btn btn-danger disabled", method: :delete  %>
+                            </span>
+                        <% else %>
+                            <%= link_to 'Excluir', payment_forms_path(id: payment_form.id), class:"btn btn-danger", method: :delete, method: :delete %>
+                        <% end %>
                     </td>
                 </tr>
             <% end %>
