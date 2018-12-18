@@ -19,7 +19,7 @@
         <div class="card">
             <div class="card-header">
                 Ultimos pagamentos recebidos
-                <%= link_to 'Editar Meios', payment_methods_path, class:"float-right btn btn-outline-secondary btn-sm" %>
+                <%= link_to 'Editar Meios', payment_forms_path, class:"float-right btn btn-outline-secondary btn-sm" %>
             </div>
             <div class="list-group list-group-flush">
                 <% PaymentForm.all.each do |pform| %>
