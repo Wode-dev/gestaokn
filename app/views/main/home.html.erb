@@ -26,7 +26,7 @@
                     <h5><%= pform.form %></h5>
                     <table class="table table-borderless text-success">
                         <tbody> 
-                        <% Payment.where(payment_form_id: pform.id).order(created_at: :desc).first(10).each do |payment| %>
+                        <% Payment.where(payment_form_id: pform.id).order(date: :desc).first(10).each do |payment| %>
                             <tr class="clickable-row", data-href=" <%= url_for(payment.secret) %> ">
                                 <td style="width: 40%"><%= payment.secret.name%></td>
                                 <td style="width: 30%"><%= number_to_currency(payment.value, :unit => "R$")%></td>
