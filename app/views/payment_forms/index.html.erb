@@ -70,11 +70,11 @@
             </div>
             <%= form_tag payment_forms_path, method: :put do %>
                 <div class="modal-body">
-                    <%= hidden_field_tag :id, 0 %>
+                    <%= hidden_field_tag :id, 0, class:"edit-form" %>
                     Tipo: <br>
-                    <%= text_field_tag :kind,"", class:"form-control mb-2" %>
+                    <%= text_field_tag :kind,"", class:"form-control mb-2 edit-form" %>
                     Local: <br>
-                    <%= text_field_tag :place,"", class:"form-control" %>
+                    <%= text_field_tag :place,"", class:"form-control edit-form" %>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
