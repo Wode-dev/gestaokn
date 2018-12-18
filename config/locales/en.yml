@@ -36,3 +36,6 @@ en:
     clients: "Clientes"
     plans: "Planos"
     records: "Instalações"
+  payment-forms:
+    destroy:
+      used: "Não é possível excluir formas de pagamento em uso."
