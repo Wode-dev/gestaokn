@@ -38,6 +38,8 @@ Rails.application.routes.draw do
   post "configuracoes/teste", to: "main#test_mikrotik_connection", as: :test_mikrotik_connection
 
   resources :secrets
+  post "secrets/schedule_stop", to: "secrets#schedule_block", as: :schedule_block
+  post "secrets/unschedule_stop", to: "secrets#unschedule_block", as: :unschedule_block
   post "secrets/pay", to: "secrets#payment", as: :payment
   post "secrets/bill", to: "secrets#bill", as: :bill
   post "secrets/switch", to:"secrets#switch_secret"
