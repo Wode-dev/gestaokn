@@ -251,7 +251,7 @@ class Secret < ApplicationRecord
   # Programar o bloqueio do cliente e salvar o id do job
   def schedule_block(seconds = 1)
     # Limpa a programação caso já tenha algo programado.
-    if self.block_schedule_id == ""
+    if !self.has_scheduled_block?
       @id = 
       $scheduler.in "#{seconds.to_s}s" do 
         self.enabled_change false
@@ -272,8 +272,11 @@ class Secret < ApplicationRecord
       puts "Not possible to find schedule"
     end
     
-
     self.update(block_schedule_id: "")
+  end
+
+  def has_scheduled_block?
+    self.block_schedule_id != ""
   end
   
   
