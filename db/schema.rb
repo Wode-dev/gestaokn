@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_07_140603) do
+ActiveRecord::Schema.define(version: 2018_12_20_171406) do
 
   create_table "bill_payments", force: :cascade do |t|
     t.integer "bill_id"
@@ -118,6 +118,7 @@ ActiveRecord::Schema.define(version: 2018_12_07_140603) do
     t.boolean "active", default: true
     t.string "mk_id"
     t.decimal "situation", default: "0.0"
+    t.string "block_schedule_id"
   end
 
   create_table "settings", force: :cascade do |t|
