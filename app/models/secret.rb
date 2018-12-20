@@ -247,4 +247,40 @@ class Secret < ApplicationRecord
     "=.id=#{id}")
     return returned[0]["message"] == nil
   end
+
+  # Programar o bloqueio do cliente e salvar o id do job
+  def schedule_block(seconds = 1)
+    # Limpa a programação caso já tenha algo programado.
+    if self.block_schedule_id == ""
+      scheduler = Rufus::Scheduler.new
+
+      @id = scheduler.in "#{seconds.to_s}s" do 
+        self.enabled_change false
+      end
+
+      self.update(block_schedule_id: @id)
+
+    else
+
+      self.unschedule_block
+      self.schedule_block seconds
+    end
+  end
+
+  # desprogramar o bloquei que tem
+  def unschedule_block
+    scheduler = Rufus::Scheduler.new
+    
+    begin
+      job = scheduler.job(self.block_schedule_id)
+      job.unschedule
+    rescue => exception
+      puts "Not possible to find schedule"
+    end
+    
+
+    self.update(block_schedule_id: "")
+  end
+  
+  
 end
