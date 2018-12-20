@@ -241,6 +241,30 @@ class SecretsController < ApplicationController
     @relationship = Relationship.find(params[:id])
   end
 
+  # Usuário pode escolher um tempo específico pra bloquear um cliente
+  def schedule_block
+    @params = params.permit(:id, :days, :hours, :minutes, :seconds)
+
+    @time = @params[:day].to_i * 24 * 60 * 60
+    @time += @params[:hours].to_i * 60 * 60
+    @time += @params[:minutes].to_i * 60
+    @time += @params[:seconds].to_i
+    
+    @secret = Secret.find(@params[:id])
+    @secret.schedule_block @time
+
+    redirect_to @secret
+  end
+
+  def unschedule_block
+    @params = params.permit(:id)
+
+    @secret = Secret.find(params[:id])
+    @secret.unschedule_block
+
+    redirect_to @secret
+  end  
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_secret
