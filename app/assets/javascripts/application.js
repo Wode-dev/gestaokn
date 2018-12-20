@@ -28,25 +28,7 @@ $(function(){
     });
 
     // Ativar ou desativar usuario
-    $('input[type=checkbox].switch-secret').change(function() {
-        console.log("checkbox")
-        var toggle = $(this);
-        $('input[type=checkbox].switch-secret').bootstrapToggle('disable');
-        
-        $.post(
-            "secrets/switch",
-            {"secret_id":$(this).prop("id"),
-                "state":$(this).prop('checked') },
-            function(data, textStatus, request){
-                updateRowColorStatus(toggle)
-                toggle.bootstrapToggle('enable');
-            }, 
-           "json")
-           .fail(function() {
-               toggle.bootstrapToggle('toggle');
-               updateRowColorStatus(toggle)
-           });
-    })
+    $('input[type=checkbox].switch-secret').change(switchUser());
 
     maskForMoneyInput();
 });
@@ -74,4 +56,23 @@ function maskForMoneyInput(){
         'allowMinus': false,
         'placeholder': ''
     });
+}
+
+function switchUser(){
+    var toggle = $(this);
+    $('input[type=checkbox].switch-secret').bootstrapToggle('disable');
+    
+    $.post(
+        "secrets/switch",
+        {"secret_id":$(this).prop("id"),
+            "state":$(this).prop('checked') },
+        function(data, textStatus, request){
+            updateRowColorStatus(toggle)
+            toggle.bootstrapToggle('enable');
+        }, 
+       "json")
+       .fail(function() {
+           toggle.bootstrapToggle('toggle');
+           updateRowColorStatus(toggle)
+       });
 }
