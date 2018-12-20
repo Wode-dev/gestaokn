@@ -2,6 +2,8 @@ require 'rufus-scheduler'
 
 $scheduler = Rufus::Scheduler.new
 
+Secret.all.update(block_schedule_id: "")
+
 # Teste
 $scheduler.cron '*/5 * * * *' do
     puts "Cron de 5 em 5 minutos executado"
