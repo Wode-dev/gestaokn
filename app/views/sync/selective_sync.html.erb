@@ -1,22 +1,49 @@
-<div class="container">
-    <% Sync.all.each do |sync|%>
-    <div class="row mb-2">
-        <div class="col-md-8 col-sm-12">
-            <%= record_details(sync.table, sync.table_id) %> <br>
-            <%= sync.column%> <br>
-            <%= sync.value%> <br>
-            <%= sync.mk_value%> <br>
-            <%= sync.table_id%> <br>
-            <%= sync.mk_id%> <br>
+<%# Lista com os detalhes de cada sincronização  %>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-9">
+            <% Sync.all.each do |sync|%>
+                <div class="row mb-2">
+                    <div class="col-md-8 col-sm-12">
+                        <div class="card border-info mb-3">
+                            <div class="card-header"><%= sync.table %></div>
+                            <div class="card-body text-info">
+                                <h5 class="card-title"><%= sync.table %> - <%= sync.column%></h5>
+                                <p class="card-text">
+                                    <table class="table table-sm">
+                                        <thead>
+                                            <tr class="table-info">
+                                                <th>Dados</th>
+                                                <th>Sistema</th>
+                                                <th>Mikrotik</th>
+                                            <tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="table-light">
+                                                <td class="table-primary"><%= sync.table_id%> - <%= record_details sync.table, sync.table_id%></td>
+                                                <td><%= sync.value%></td>
+                                                <td><%= sync.mk_value%></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="row mb-2">
+                            <%= button_to "Atualizar Mikrotik", update_mikrotik_path , params:{"id": sync.id}, class:"btn btn-outline-primary" %>
+                        </div>
+                        <div class="row">
+                            <%= button_to "Atualizar Sistema", update_system_path , params:{"id": sync.id}, class:"btn btn-outline-secondary"  %>
+                        </div>
+                    </div>
+                </div>
+            <% end %>
         </div>
-        <div class="col-md-4 col-sm-12">
-            <div class="row mb-2">
-                <%= button_to "Atualizar Mikrotik", update_mikrotik_path , params:{"id": sync.id} %>
-            </div>
-            <div class="row">
-                <%= button_to "Atualizar Systema", update_system_path , params:{"id": sync.id} %>
-            </div>
+        <%# Menu %>
+        <div class="col-3 container">
+            <%= link_to 'Receber novidades', "#", class:"btn btn-success" %>
         </div>
     </div>
-    <% end %>
 </div>
