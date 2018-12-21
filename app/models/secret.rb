@@ -251,6 +251,7 @@ class Secret < ApplicationRecord
       @id = 
       $scheduler.in "#{seconds.to_s}s" do 
         self.enabled_change false
+        self.unschedule_block
       end
       self.update(block_schedule_id: @id)
     else
