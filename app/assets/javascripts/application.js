@@ -28,10 +28,76 @@ $(function(){
     });
 
     // Ativar ou desativar usuario
-    $('input[type=checkbox].switch-secret').change(switchUser());
+    $('input[type=checkbox].switch-secret').change(function(){
+        var toggle = $(this);
+        $('input[type=checkbox].switch-secret').bootstrapToggle('disable');
+        
+        $.post(
+            "secrets/switch",
+            {"secret_id":$(this).prop("id"),
+                "state":$(this).prop('checked') },
+            function(data, textStatus, request){
+                updateRowColorStatus(toggle)
+                toggle.bootstrapToggle('enable');
+            }, 
+           "json")
+           .fail(function() {
+               toggle.bootstrapToggle('toggle');
+               updateRowColorStatus(toggle)
+           });
+    });
 
     maskForMoneyInput();
+    conterBlockUpdateRepeat();
+    registerCounterBlockButtonsListeners();
 });
+
+function conterBlockUpdateRepeat() {
+    counterBlockUpdate();
+    setTimeout(conterBlockUpdateRepeat, 1000);
+}
+
+// Atualiza o contador do modal de programação para bloquear cliente
+function counterBlockUpdate() {
+    var date = new Date();
+    var blocktime = 0;
+    
+    blocktime += parseInt($("input#days")[0].value) * 24 * 60 * 60;
+    blocktime += parseInt($("input#hours")[0].value) * 60 * 60;
+    blocktime += parseInt($("input#minutes")[0].value) * 60;
+    blocktime += parseInt($("input#seconds")[0].value);
+    
+    date.setSeconds(blocktime + date.getSeconds());
+    $("#block-time").text(date.toLocaleString("pt-BR"));
+
+    $("span#date-0").text(date.getDate());
+    $("span#date-1").text(date.getMonth() + 1);
+    $("span#date-2").text(date.getFullYear());
+    
+    $("span#time-0").text(date.getHours());
+    $("span#time-1").text(date.getMinutes());
+    $("span#time-2").text(date.getSeconds());
+}
+
+function registerCounterBlockButtonsListeners() {
+    $("button.plus-button, button.minus-button").click(function(event) {
+        switch ($(event.target).attr('class')) {
+            case "plus-button":
+            // botão de somar
+                var object = $("input." + $(event.target).attr('id'));
+                object.val(parseInt(object.val()) + 1);
+
+                break;
+            case "minus-button":
+            // Botão de subtrair
+                var object = $("input." + $(event.target).attr('id'));
+                object.val(parseInt(object.val()) - 1);
+
+                break;
+        }
+        counterBlockUpdate();
+    });
+}
 
 function updateRowColorStatus(toggle) {
     $('input[type=checkbox].switch-secret').bootstrapToggle('enable');
@@ -56,23 +122,4 @@ function maskForMoneyInput(){
         'allowMinus': false,
         'placeholder': ''
     });
-}
-
-function switchUser(){
-    var toggle = $(this);
-    $('input[type=checkbox].switch-secret').bootstrapToggle('disable');
-    
-    $.post(
-        "secrets/switch",
-        {"secret_id":$(this).prop("id"),
-            "state":$(this).prop('checked') },
-        function(data, textStatus, request){
-            updateRowColorStatus(toggle)
-            toggle.bootstrapToggle('enable');
-        }, 
-       "json")
-       .fail(function() {
-           toggle.bootstrapToggle('toggle');
-           updateRowColorStatus(toggle)
-       });
 }
