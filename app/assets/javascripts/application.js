@@ -48,8 +48,14 @@ $(function(){
     });
 
     maskForMoneyInput();
-    conterBlockUpdateRepeat();
-    registerCounterBlockButtonsListeners();
+
+    try {
+        conterBlockUpdateRepeat();
+        registerCounterBlockButtonsListeners();
+    } catch (error) {
+        console.log("Usuário programado para bloqueio")
+    }
+    
 });
 
 function conterBlockUpdateRepeat() {
