@@ -36,10 +36,6 @@ class Secret < ApplicationRecord
         end
         # Na mudança de plano, deve-se fechar a ultima fatura com o plano antigo, e então abrir uma nova com o novo plano
         # Quando o plano for fechado na data de fechamento normal, será considerado o valor do plano novo
-        puts "before_update"
-        puts self.bills.where(ref_end: Date.today - 1).length
-        puts plan_id_changed?
-        puts !situation_changed?
         if plan_id_changed? && !situation_changed?
           close_last_open_bill(plan_id_was)
         end
