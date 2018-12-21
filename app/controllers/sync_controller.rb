@@ -9,8 +9,6 @@ class SyncController < ApplicationController
 
         all_plans = mk.get_reply("/ppp/profile/print")
         all_plans.each do |plan|
-
-        
           if Plan.where(profile_name: plan["name"].to_s).length == 0 && plan["name"] != nil
             Plan.create(profile_name: plan["name"], rate_limit: plan["rate-limit"], mk_id: plan[".id"])
           else
