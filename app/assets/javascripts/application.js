@@ -68,7 +68,6 @@ function counterBlockUpdate() {
     blocktime += parseInt($("input#seconds")[0].value);
     
     date.setSeconds(blocktime + date.getSeconds());
-    $("#block-time").text(date.toLocaleString("pt-BR"));
 
     $("span#date-0").text(date.getDate());
     $("span#date-1").text(date.getMonth() + 1);
