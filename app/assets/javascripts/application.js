@@ -79,22 +79,20 @@ function counterBlockUpdate() {
     $("span#time-2").text(date.getSeconds());
 }
 
-function registerCounterBlockButtonsListeners() {
+function registerCounterBlockButtonsListeners() {    
     $("button.plus-button, button.minus-button").click(function(event) {
-        switch ($(event.target).attr('class')) {
-            case "plus-button":
+        if ($(event.target).attr('class').includes("plus-button")) {
             // botão de somar
-                var object = $("input." + $(event.target).attr('id'));
-                object.val(parseInt(object.val()) + 1);
-
-                break;
-            case "minus-button":
+            var object = $("input." + $(event.target).attr('id'));
+            object.val(parseInt(object.val()) + 1);
+        } else if($(event.target).attr('class').includes("minus-button")) {
             // Botão de subtrair
-                var object = $("input." + $(event.target).attr('id'));
+            var object = $("input." + $(event.target).attr('id'));
+            if(object.val() > 0){
                 object.val(parseInt(object.val()) - 1);
-
-                break;
+            }
         }
+
         counterBlockUpdate();
     });
 }
