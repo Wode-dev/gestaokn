@@ -4,7 +4,7 @@ class SyncController < ApplicationController
     # Dados verificados:
     # Profile
     # Secret
-    def sync_partial
+    def sync_bring_new
         mk = ApplicationRecord.connect_mikrotik
 
         all_plans = mk.get_reply("/ppp/profile/print")
@@ -30,6 +30,25 @@ class SyncController < ApplicationController
 
         redirect_to root_path
     end
+
+    def sync_new
+        mk = ApplicationRecord.connect_mikrotik
+
+        all_plans = []
+        all_secrets = []
+
+        mk.get_reply("/ppp/profile/print").each do |profile|
+            if Plan.where(profile_name: profile["name"].to_s).length == 0 && profile.key?("name")
+                all_plans << profile
+            end
+        end
+        mk.get_reply("/ppp/secret/print").each do |secret|
+            if Secret.where(secret: mk_secret["name"]).length <= 0  && secret.key?("name")
+                all_secrets << secret
+            end
+        end
+    end
+    
 
     def selective_sync
         @ontime = true
