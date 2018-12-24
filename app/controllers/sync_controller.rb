@@ -43,7 +43,7 @@ class SyncController < ApplicationController
             end
         end
         mk.get_reply("/ppp/secret/print").each do |secret|
-            if Secret.where(secret: mk_secret["name"]).length <= 0  && secret.key?("name")
+            if Secret.where(secret: secret["name"]).length <= 0  && secret.key?("name")
                 all_secrets << secret
             end
         end
