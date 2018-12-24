@@ -34,19 +34,21 @@ class SyncController < ApplicationController
     def sync_new
         mk = ApplicationRecord.connect_mikrotik
 
-        all_plans = []
-        all_secrets = []
+        @all_plans = []
+        @all_secrets = []
 
         mk.get_reply("/ppp/profile/print").each do |profile|
-            if Plan.where(profile_name: profile["name"].to_s).length == 0 && profile.key?("name")
-                all_plans << profile
+            if profile.key?("name") && Plan.where(profile_name: profile["name"].to_s).length == 0
+                @all_plans << profile
             end
         end
+        puts @all_plans
         mk.get_reply("/ppp/secret/print").each do |secret|
-            if Secret.where(secret: secret["name"]).length <= 0  && secret.key?("name")
-                all_secrets << secret
+            if secret.key?("name") && Secret.where(secret: secret["name"].to_s.encode('UTF-8', invalid: :replace, undef: :replace, replace: '?')).length <= 0
+                @all_secrets << secret
             end
         end
+        puts @all_secrets
     end
     
 
