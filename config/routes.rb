@@ -23,7 +23,8 @@ Rails.application.routes.draw do
   post "instalacoes/confirmar", to: "records#set_secret_and_instalation", as: :set_record
 
   get 'main/home'
-  get "sync", to: "sync#sync_partial"
+  get "sync", to: "sync#sync_new"
+  get "bring_new", to:"sync#sync_bring_new"
 
   get "sync/selective", to: "sync#selective_sync"
   post "sync/tosystem", to: "sync#update_system_selective", as: :update_system
