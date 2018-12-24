@@ -24,7 +24,7 @@ Rails.application.routes.draw do
 
   get 'main/home'
   get "sync", to: "sync#sync_new"
-  get "bring_new", to:"sync#sync_bring_new"
+  get "bring_new", to:"sync#sync_bring_new", as: :sync_bring_new
 
   get "sync/selective", to: "sync#selective_sync"
   post "sync/tosystem", to: "sync#update_system_selective", as: :update_system
