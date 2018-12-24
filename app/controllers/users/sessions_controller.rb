@@ -2,7 +2,7 @@
 
 class Users::SessionsController < Devise::SessionsController
   
-  layout false
+  layout "devise.html.erb"
   
   # before_action :configure_sign_in_params, only: [:create]
 
