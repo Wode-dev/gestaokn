@@ -1,0 +1,27 @@
+<div class="container">
+    <h3>Novos no mikrotik</h3>
+    <h4>Usuários</h4> <br>
+    <% @all_secrets.each do |secret| %>
+        <div class="row">
+            <% secret.map {|x| x[0]}.uniq.each do |key| %>
+                <div class="col-4">
+                    <%= "#{key} - #{secret[key.to_s]}" %>
+                </div>
+            <% end %>
+        </div>
+            <div class="dropdown-divider"></div>
+    <% end %>
+    <h4>Planos</h4> <br>
+    <% @all_plans.each do |plan| %>
+        <div class="row">
+            <% plan.map {|x| x[0]}.uniq.each do |key| %>
+                <div class="col-4">
+                    <%= "#{key} - #{plan[key.to_s]}" %>
+                </div>
+            <% end %>
+        </div>
+            <div class="dropdown-divider"></div>
+    <% end %>
+
+    <%= link_to 'Confirmar', sync_bring_new_path, class:"btn btn-success" %>
+</div>
