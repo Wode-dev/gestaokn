@@ -88,10 +88,16 @@ class Secret < ApplicationRecord
       # 0 -> quantidade
       # 1 -> porcentagem
       @answer = [0,0]
-      if !due_date.nil?
+      begin
+        if !due_date.nil?
+          @answer[0] = Secret.where(due_date: due_date).count
+          @answer[1] = (Secret.where(due_date: due_date).count * 100 / Secret.count)
+        end
+      rescue => exception
         @answer[0] = Secret.where(due_date: due_date).count
-        @answer[1] = (Secret.where(due_date: due_date).count * 100 / Secret.count)
+        @answer[1] = 0
       end
+
 
       @answer
     end
