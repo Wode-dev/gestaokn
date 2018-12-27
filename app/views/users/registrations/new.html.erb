@@ -1,0 +1,34 @@
+<div class="container mt-5">
+    <h2>Registrar</h2>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <%= devise_error_messages! %>
+        <div class="field">
+          <%= f.label "Nome" %>
+          <%= f.text_field :name, class:"form-control" %>
+        </div>
+        <div class="field">
+          <%= f.label "Apelido" %>
+          <%= f.text_field :nick_name, class:"form-control" %>
+        </div>
+        <div class="field">
+            <%= f.label "Email" %><br />
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control" %>
+        </div>
+        <div class="field">
+            <%= f.label "Senha" %>
+            <% if @minimum_password_length %>
+                <em>(Mínimo de <%= @minimum_password_length %> caracteres)</em>
+            <% end %><br />
+            <%= f.password_field :password, autocomplete: "new-password", class:"form-control" %>
+        </div>
+        <div class="field">
+            <%= f.label "Confirmar a senha" %><br />
+            <%= f.password_field :password_confirmation, autocomplete: "new-password", class:"form-control" %>
+        </div>
+        <br>
+        <div class="actions">
+            <%= f.submit "Registrar", class:"btn btn-success" %>
+        </div>
+    <% end %>
+    <%= render "users/shared/links" %>
+</div>

@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
   
+  devise_for :users, controllers:{
+    sessions: 'users/sessions',
+    registrations: 'users/registrations',
+    passwords: 'users/passwords'
+  }
   get 'forms', to: "payment_forms#index", as: :payment_forms
   put 'forms', to:"payment_forms#update"
   delete 'forms', to:"payment_forms#destroy"
