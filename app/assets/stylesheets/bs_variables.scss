@@ -10,6 +10,12 @@ $gray-800: #343a40 !default;
 $gray-900: #212529 !default;
 $black:    #000 !default;
 
+$blue-dark: #3f3c9b;
+$blue-soft: #6fc0f2;
+$neon-fushia: #ff425e;
+$yellow: #ffff00;
+$canary: #FFFF80;
+
 $grays: () !default;
 // stylelint-disable-next-line scss/dollar-variable-default
 $grays: map-merge(
@@ -59,8 +65,10 @@ $colors: map-merge(
   $colors
 );
 
-$primary:       $blue !default;
-$secondary:     $gray-600 !default;
+//$primary:       $blue !default;
+//$secondary:     $gray-600 !default;
+$primary: $blue-dark !default;
+$secondary: $blue-soft !default;
 $success:       $green !default;
 $info:          $cyan !default;
 $warning:       $yellow !default;
