@@ -21,7 +21,7 @@
                     <% PaymentForm.all.each do |pform| %>
                         <li class="list-group-item">
                             <h5><%= pform.form %></h5>
-                            <table class="table table-borderless text-success">
+                            <table class="table table-borderless text-success font-weight-lighter">
                                 <tbody>
                                     <% Payment.where(payment_form_id: pform.id).order(date: :desc).first(10).each do |payment| %>
                                         <tr class="clickable-row", data-href=" <%= url_for(payment.secret) %> ">
