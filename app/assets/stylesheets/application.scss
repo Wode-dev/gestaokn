@@ -10,9 +10,9 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
- *= require_self
- *= require toastr
+ * require_tree .
+ * require_self
+ * require toastr
  */
 
  /*
@@ -24,6 +24,8 @@
   canary: #FFFF80
 
  */
+ @import "toastr";
+ @import "*";
 
  .create-action-button-alignment{
      float: right;
@@ -114,3 +116,5 @@ ul.timeline > li:before {
     height: 20px;
     z-index: 400;
 }
+
+@import "bootstrap";
