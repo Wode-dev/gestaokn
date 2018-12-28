@@ -1,55 +1,42 @@
 <div class="container">
-  <p id="notice"><%= notice %></p>
-
-  <h3><%= @plan.profile_name %></h3>
-
-  <ul class="list-group list-group-flush mb-5 mt-3">
-
-    <li class="list-group-item">
-
-      <span class="font-weight-bold">
-        Taxa:
-      </span>
-      <p>
-        <%= @plan.rate_limit %>
-      </p>
-
-    </li>
-    <li class="list-group-item">
-
-        <span class="font-weight-bold">
-          Valor:
-        </span>
-        <p>
-          <%= number_to_currency(@plan.value,unit: "R$") %>
-        </p>
-
-    </li>
-    <li class="list-group-item">
-     
-      <span class="font-weight-bold">
-        Quantidade de clientes com o plano
-      </span>
-      <p>
-        <%= Secret.where(plan_id: params[:id]).count %>
-      </p>
-     
-    </li>
-    <li class="list-group-item">
-
-      <span class="font-weight-bold">
-        Id:
-      </span>
-      <p>
-        <%= @plan.mk_id %>
-      </p>
-
-    </li>
-
-  </ul>
-
-
-
-  <%= link_to 'Editar', edit_plan_path(@plan), class:"btn btn-warning mb-3" %>
-  <%= link_to 'Voltar', plans_path, class:"btn btn-info mb-3" %>
+    <p id="notice"><%= notice %></p>
+    <h3><%= @plan.profile_name %></h3>
+    <div class="border border-dark mb-3 mt-3">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <span class="font-weight-bold">
+                    Taxa:
+                </span>
+                <p>
+                    <%= @plan.rate_limit %>
+                </p>
+            </li>
+            <li class="list-group-item">
+                <span class="font-weight-bold">
+                    Valor:
+                </span>
+                <p>
+                    <%= number_to_currency(@plan.value,unit: "R$") %>
+                </p>
+            </li>
+            <li class="list-group-item">
+                <span class="font-weight-bold">
+                    Quantidade de clientes com o plano
+                </span>
+                <p>
+                    <%= Secret.where(plan_id: params[:id]).count %>
+                </p>
+            </li>
+            <li class="list-group-item">
+                <span class="font-weight-bold">
+                    Id:
+                </span>
+                <p>
+                    <%= @plan.mk_id %>
+                </p>
+            </li>
+        </ul>
+    </div>
+    <%= link_to 'Editar', edit_plan_path(@plan), class:"btn btn-warning mb-3" %>
+    <%= link_to 'Voltar', plans_path, class:"btn btn-info mb-3" %>
 </div>
