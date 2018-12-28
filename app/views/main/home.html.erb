@@ -21,12 +21,12 @@
                     <% PaymentForm.all.each do |pform| %>
                         <li class="list-group-item">
                             <h5><%= pform.form %></h5>
-                            <table class="table table-borderless text-success font-weight-lighter">
+                            <table class="table table-borderless text-success font-weight-bold">
                                 <tbody>
                                     <% Payment.where(payment_form_id: pform.id).order(date: :desc).first(10).each do |payment| %>
                                         <tr class="clickable-row", data-href=" <%= url_for(payment.secret) %> ">
                                             <td style="width: 40%"><%= payment.secret.name%></td>
-                                            <td style="width: 30%"><%= number_to_currency(payment.value, :unit => "R$")%></td>
+                                            <td style="width: 30%" ><%= number_to_currency(payment.value, :unit => "R$")%></td>
                                             <td style="width: 40%"><%= payment.date.strftime("%d/%m/%Y")%></td>
                                         </tr>
                                     <% end %>
@@ -69,7 +69,7 @@
                     <div class="dropdown-divider mt-0 pt-0"></div>
                 </div>
                 <div class="col-sm-6 col-md-12">
-                    <%= button_to "Sincronização Seletiva", sync_selective_path, method: :get, class:"btn btn-outline-primary"  %>
+                    <%= button_to "Sincronização Seletiva", sync_selective_path, method: :get, class:"btn btn-outline-primary btn-block"  %>
                 </div>
             </div>
         </div>
