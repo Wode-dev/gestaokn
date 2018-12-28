@@ -23,6 +23,8 @@ $(function(){
 
     feather.replace();
 
+    $('.dropdown-toggle').dropdown();
+
     $(".date-picker").datepicker({
         language: "pt-BR",
     });
