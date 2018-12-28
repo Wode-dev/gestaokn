@@ -60,6 +60,7 @@ $theme-colors: () !default;
 $theme-colors: map-merge(
   (
     "teal":         $teal,
+    "purple":       $purple
   ),
   $theme-colors
 );
