@@ -1,10 +1,10 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-9 col-sm-12">
-            <h2>Global</h2>
+            <h2 class="display-3 font-weight-bolder" >Relatórios</h2>
             <div class="card mb-4">
                 <div class="card-header">
-                    Somatório de entradas dos últimos meses
+                    <span class="h5 font-weight-bold">Somatório de entradas dos últimos meses</span>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -13,15 +13,15 @@
                 </div>
             </div>
             <div class="card">
-                <div class="card-header">
-                    Ultimos pagamentos recebidos
-                    <%= link_to 'Editar Meios', payment_forms_path, class:"float-right btn btn-outline-secondary btn-sm" %>
+                <div class="card-header d-flex">
+                    <span class="my-auto mr-auto h5 font-weight-bold">Ultimos pagamentos recebidos</span>
+                    <%= link_to 'Editar Meios', payment_forms_path, class:"btn btn-outline-primary btn-sm my-auto" %>
                 </div>
                 <div class="list-group list-group-flush">
                     <% PaymentForm.all.each do |pform| %>
                         <li class="list-group-item">
                             <h5><%= pform.form %></h5>
-                            <table class="table table-borderless text-success font-weight-bold">
+                            <table class="table table-borderless text-info font-weight-bold table-hover">
                                 <tbody>
                                     <% Payment.where(payment_form_id: pform.id).order(date: :desc).first(10).each do |payment| %>
                                         <tr class="clickable-row", data-href=" <%= url_for(payment.secret) %> ">
