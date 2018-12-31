@@ -1,21 +1,23 @@
 <p id="notice"><%= notice %></p>
 <div class="container">
-  <%= link_to 'Voltar', records_path, class:"btn btn-outline-warning mb-3" %>
-  <h2><%= @record.name %></h2>
-  <p>
-    <strong>Endereço:</strong>
-    <%= @record.address %> <br>
-    <%= @record.neighborhood %> <br>
-    <%= @record.city %> <br>
-    <%= @record.state %>
-  </p>
-  <p>
-    <strong>Telefone:</strong>
-    <%= @record.phone %>
-  </p>
-  <p>
-    <strong>Notas:</strong>
-    <%= @record.notes %>
-  </p>
-  <%= link_to 'Editar', edit_record_path(@record), class:"btn btn-outline-primary" %>
+  <%= link_to 'Voltar', records_path, class:"btn btn-warning mb-3" %>
+  <h2 class="display-4 font-weight-bolder"><%= @record.name %></h2>
+  <ul class="list-group border border-dark rounded">
+    <li class="list-group-item">
+      <strong>Endereço:</strong><br>
+      <%= @record.address %> <br>
+      <%= @record.neighborhood %> <br>
+      <%= @record.city %> <br>
+      <%= @record.state %>
+    </li>
+    <li class="list-group-item">
+      <strong>Telefone:</strong>
+      <%= @record.phone %>
+    </li>
+    <li class="list-group-item">
+      <strong>Notas:</strong>
+      <%= @record.notes %>
+    </li>
+  </ul>
+  <%= link_to 'Editar', edit_record_path(@record), class:"btn btn-primary mt-3" %>
 </div>
