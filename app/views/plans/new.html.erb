@@ -1,10 +1,23 @@
-<div class="container">
+<%= form_with(model: @plan, local: true) do |form| %>
+<div class="container px-0">
     <h1>Criar plano</h1>
 
-    <%= link_to plans_path, class:"btn btn-outline-warning mb-3" do%>
+    <%= link_to plans_path, class:"btn btn-warning mb-3" do%>
         <i data-feather="chevrons-left"></i> Voltar
     <%end%>
+</div>
+<div class="container border rounded bg-white py-3">
 
-    <%= render 'form', plan: @plan %>
+    <%= render 'form', form: form %>
 
 </div>
+
+<div class="container px-0 py-3">
+<div class="form-group d-flex">
+    <%= link_to @plan, class:"btn btn-danger" do %>
+    <i data-feather="x-circle"></i> Cancelar
+    <%end%>
+    <%= form.submit "Criar plano", class:"btn btn-success ml-auto" %>
+</div>
+</div>
+<% end %>
