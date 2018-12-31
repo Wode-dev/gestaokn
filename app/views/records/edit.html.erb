@@ -1,6 +1,15 @@
-<h1>Editing Record</h1>
-
-<%= render 'form', record: @record %>
-
-<%= link_to 'Show', @record %> |
-<%= link_to 'Back', records_path %>
+<%= form_with(model: @record, local: true) do |form| %>
+<div class="container px-0 mb-3">
+<h1 class="font-weight-light">Editar instalação</h1>
+<%= link_to 'Voltar', records_path, class:"btn btn-warning" %>
+</div>
+<div class="container border border-dark bg-white rounded py-3">
+<%= render 'form', form: form %>
+</div>
+<div class="container px-0 mt-3">
+    <div class="d-flex">
+        <%= link_to 'Cancelar', @record, class:"btn btn-danger" %>
+        <%= form.submit "Registrar", class:"btn btn-success ml-auto" %>
+    </div>
+</div>
+<% end %>
