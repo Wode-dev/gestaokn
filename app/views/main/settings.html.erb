@@ -3,7 +3,6 @@
         <i data-feather="settings" class="align-middle" height="40px" width="40px"></i><span class="h1 align-middle"> Configurações</span>
         <div class="dropdown-divider"></div>
     </div>
-
     <div class="container">
         <%= form_tag save_settings_path do %>
             <ul class="list-group">
@@ -13,7 +12,7 @@
                         <div class="float-right">
                             <a href="#" role="button" id="testMkConnection" class="btn btn-outline-success">Testar</a>
                         </div>
-                    </div> 
+                    </div>
                 </li>
                 <li class="list-group-item">
                     <%= label_tag :mk_ip, "Endereço de IP" %>
@@ -25,8 +24,11 @@
                     <%= label_tag :mk_password, "Senha" %>
                     <%= password_field_tag :mk_password, Setting.get(:mk_password), class:"form-control" %>
                 </li>
+
             </ul>
-            <%= submit_tag :Salvar, class:"btn btn-outline-primary float-right my-3" %>
+
+            <%= submit_tag :Salvar, class:"btn btn-primary mt-3 d-flex ml-auto" %>            
+
         <% end %>
     </div>
 </div>
