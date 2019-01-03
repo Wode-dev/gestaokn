@@ -1,43 +1,60 @@
-<h2>Editar <%= resource_name.to_s.humanize %></h2>
-
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= devise_error_messages! %>
-
-  <div class="field">
-    <%= f.label "Email" %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Esperando confirmação para: <%= resource.unconfirmed_email %></div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label "Senha" %> <i>(Deixe em branco se não quiser mudar)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
-    <% end %>
-  </div>
-
-  <div class="field">
-    <%= f.label "Confirmar a senha" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label "Senha atual" %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Atualizar" %>
-  </div>
-<% end %>
-
-<h3>Cancelar minha conta</h3>
-
-<p>Não está gostando? <%= button_to "Cancelar minha conta", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
-
-<%= link_to "Voltar", :back %>
+<div class="bg-primary" style="min-height: 100vh;">
+    <div class="d-flex align-items-center justify-content-center" style=" min-width: 100vw;">
+    <div class="bg-300 border rounded mt-3 mb-2 px-3 py-2">
+        <h2>Editar usuário</h2>
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+            <%= devise_error_messages! %>
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                    <%= f.label "Apelido", class:"input-group-text" %>
+                </div>
+                <%= f.text_field :nick_name, class:"form-control" %>
+            </div>
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                    <%= f.label "Nome", class:"input-group-text" %>
+                </div>
+                <%= f.text_field :name, class:"form-control"  %>
+            </div>
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                    <%= f.label "Email", class:"input-group-text" %>
+                </div>
+                <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control" %>
+            </div>
+            <div class="row mb-2 mx-2 py-2 border border-dark rounded bg-500">
+                <div class="col-6">
+                    <p>Trocar de senha</p>
+                    <% if @minimum_password_length %>
+                        <em><%= @minimum_password_length %> characters minimum</em>
+                    <% end %>
+                </div>
+                <div class="col-6">
+                    <div class="input-group mb-1">
+                        <div class="input-group-prepend">
+                            <%= f.label "Digite", class:"input-group-text" %>
+                        </div>
+                        <%= f.password_field :password, autocomplete: "new-password", class:"form-control" %>
+                    </div>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <%= f.label "Confirmar", class:"input-group-text" %>
+                        </div>
+                        <%= f.password_field :password_confirmation, autocomplete: "new-password", class:"form-control" %>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <%= f.label "Senha Atual", class:"input-group-text" %>
+                </div>
+                <%= f.password_field :current_password, autocomplete: "current-password", class:"form-control" %>
+            </div>
+            <div class="input-group">
+                <%= f.submit "Atualizar", class:"btn btn-primary mt-3" %>
+            </div>
+        <% end %>
+        <%= link_to "Voltar", :back %>
+    </div>
+    </div>
+</div>
