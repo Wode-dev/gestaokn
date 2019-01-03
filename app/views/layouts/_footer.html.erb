@@ -1,13 +1,15 @@
-<div class="row text-light py-3">
+<div class="row py-3 border-top border-500">
     <div class="col-lg-8 col-md-12">
-        <div class="px-3">
-            <%=t("lorem-ipsum.short")%>
+        <div class="px-5 text-dark font-weight-bold">
+            KingNet Provedor - Tecnologia em <span class="font-weight-bold">provedor de internet</span> <br>
+            Travessa Sâo José, 37, Arraial do Retiro - Salvador, BA <br>
+            Tel.: 4103-0804
         </div>
     </div>
     <div class="col-lg-4 col-md-12">
         <div class="px-1 d-flex justify-content-center">
-            <div class="text-center">
-            <h5>Pages</h5>
+            <div class="text-left border-left px-2 border-dark">
+            <h5 class="font-weight-bold">Páginas</h5>
             <%= link_to t("menu.clients"), secrets_path, class:"text-muted" %> <br>
             <%= link_to t("menu.plans"), plans_path, class:"text-muted"%> <br>
             <%= link_to t("menu.records"), records_path, class:"text-muted"%> <br>
