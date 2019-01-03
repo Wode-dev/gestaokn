@@ -1,37 +1,39 @@
 <p id="notice"><%= notice %></p>
 <div class="container">
-  <h1>Instalações pendentes</h1>
-  <div class="d-flex">
-  <%= link_to 'Adicionar Instalação', new_record_path, class:"btn btn-outline-dark ml-auto" %>
-  </div>
-  <% @records.each do |date_and_record| %>
-    <div class="row">
-      <h3 class="ml-3"><b><%= date_and_record[0].strftime("%d/%m/%Y") %></b></h3>
+    <h1>Instalações pendentes</h1>
+    <div class="d-flex">
+        <%= link_to 'Adicionar Instalação', new_record_path, class:"btn btn-outline-dark ml-auto" %>
     </div>
-    <div class="row">
-      
-      <div class="dropdown-divider"></div>
-
-      <div class="card-columns">
-        <% date_and_record[1].each do |record| %>
-          <div class="card" style="width: 18rem;">
-            <div class="card-body">
-              <%= button_to record, method: :delete, data: { confirm: 'Are you sure?' }, aria:{label: "Close"}, class:"float-right close" do%>
-              <span aria-hidden="true">&times;</span><%end%>
-              <h5 class="card-title"><%= record.name%></h5>
-              <p class="card-text">
-                <b>Endereço</b>: <%= record.address%> <br>
-                <b>Notas</b>: <%= record.notes %>
-              </p>
-            </div>
-            <div class="card-body">
-              <%= link_to 'Ver', record_path(record),class:"card-link" %>
-              <%= link_to 'Confirmar', confirm_client_path(id: record.id), class:"card-link" %>
-            </div>
+    <% @records.each do |date_and_record| %>
+        <div class="row">
+          <div class="col-12">
+            <h4 class="mb-0 display-4"><%= date_and_record[0].strftime("%d/%m/%Y") %></h4>
           </div>
-        <% end %>
-      </div>
-    </div>
-  <% end %>
-  <br>
+        </div>
+        <div class="dropdown-divider mt-0"></div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card-columns">
+                    <% date_and_record[1].each do |record| %>
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <%= button_to record, method: :delete, data: { confirm: 'Are you sure?' }, aria:{label: "Close"}, class:"float-right close" do%>
+                                    <span aria-hidden="true">&times;</span><%end%>
+                                <h5 class="card-title"><%= record.name%></h5>
+                                <p class="card-text">
+                                    <b>Endereço</b>: <%= record.address%> <br>
+                                    <b>Notas</b>: <%= record.notes %>
+                                </p>
+                            </div>
+                            <div class="card-body">
+                                <%= link_to 'Ver', record_path(record),class:"card-link" %>
+                                <%= link_to 'Confirmar', confirm_client_path(id: record.id), class:"card-link" %>
+                            </div>
+                        </div>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+    <% end %>
+    <br>
 </div>
