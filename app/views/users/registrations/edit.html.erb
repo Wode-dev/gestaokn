@@ -1,8 +1,8 @@
-<div class="bg-primary" style="min-height: 100vh;">
-    <div class="d-flex align-items-center justify-content-center" style=" min-width: 100vw;">
-    <div class="bg-300 border rounded mt-3 mb-2 px-3 py-2">
-        <h2>Editar usuário</h2>
-        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+<div class="bg-primary" style="">
+    <div class="d-flex align-items-center justify-content-center" style=" min-width: 100vw; min-height: 100vh;">
+        <div class="bg-300 border rounded mt-3 mb-2 px-3 py-2">
+            <h2>Editar usuário</h2>
+            <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
             <%= devise_error_messages! %>
             <div class="input-group mb-2">
                 <div class="input-group-prepend">
@@ -26,7 +26,8 @@
                 <div class="col-6">
                     <p>Trocar de senha</p>
                     <% if @minimum_password_length %>
-                        <em><%= @minimum_password_length %> characters minimum</em>
+                    <em>Mínimo de caracteres:
+                        <%= @minimum_password_length %></em>
                     <% end %>
                 </div>
                 <div class="col-6">
@@ -50,11 +51,12 @@
                 </div>
                 <%= f.password_field :current_password, autocomplete: "current-password", class:"form-control" %>
             </div>
-            <div class="input-group">
-                <%= f.submit "Atualizar", class:"btn btn-primary mt-3" %>
+            <span class="text-muted">Necessário para confirmar as alterações</span>
+            <div class="d-flex align-items-end">
+                <%= link_to "Voltar", :back, class:"btn btn-outline-primary" %>
+                <div class="ml-auto"><%= f.submit "Atualizar", class:"btn btn-primary mt-3" %></div>
             </div>
-        <% end %>
-        <%= link_to "Voltar", :back %>
-    </div>
+            <% end %>
+        </div>
     </div>
 </div>
