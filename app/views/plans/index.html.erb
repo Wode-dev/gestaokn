@@ -1,39 +1,58 @@
 <div class="container">
-  <p id="notice"><%= notice %></p>
+  <p id="notice">
+    <%= notice %>
+  </p>
 
   <h1>Planos</h1>
 
   <div class="d-flex mb-2">
     <%= link_to 'Novo Plano', new_plan_path, class:"btn btn-outline-dark ml-auto" %>
   </div>
-  <table class="table table-sm table-hover table-striped">
-    <thead>
-      <tr>
-        <th>Id MikroTik</th>
-        <th>Nome do Plano</th>
-        <th>Preço</th>
-        <th>Taxa</th>
-        <th>Clientes</th>
-        <th colspan="3"></th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @plans.each do |plan| %>
+  <div class="table-responsive-md">
+    <table class="table table-sm table-hover table-striped">
+      <thead>
         <tr>
-          <td><%= plan.mk_id%></td>
-          <td><%= plan.profile_name %></td>
-          <td><%= number_to_currency(plan.value, unit:"R$") %></td>
-          <td><%= plan.rate_limit %></td>
-          <td><%= Secret.where(plan_id: plan.id).count %></td>
-          <td><%= link_to '<i data-feather="file-text"></i>'.html_safe, plan %></td>
-          <td><%= link_to '<i data-feather="edit"></i>'.html_safe, edit_plan_path(plan) %></td>
-          <td><%= link_to '<i data-feather="trash-2"></i>'.html_safe, plan, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <th>Id MikroTik</th>
+          <th>Nome do Plano</th>
+          <th>Preço</th>
+          <th>Taxa</th>
+          <th>Clientes</th>
+          <th colspan="3"></th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
 
+      <tbody>
+        <% @plans.each do |plan| %>
+        <tr>
+          <td>
+            <%= plan.mk_id%>
+          </td>
+          <td>
+            <%= plan.profile_name %>
+          </td>
+          <td>
+            <%= number_to_currency(plan.value, unit:"R$") %>
+          </td>
+          <td>
+            <%= plan.rate_limit %>
+          </td>
+          <td>
+            <%= Secret.where(plan_id: plan.id).count %>
+          </td>
+          <td>
+            <%= link_to '<i data-feather="file-text"></i>'.html_safe, plan %>
+          </td>
+          <td>
+            <%= link_to '<i data-feather="edit"></i>'.html_safe, edit_plan_path(plan) %>
+          </td>
+          <td>
+            <%= link_to '<i data-feather="trash-2"></i>'.html_safe, plan, method: :delete, data: { confirm: 'Are you sure?' } %>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
   <br>
 
 </div>
