@@ -21,7 +21,10 @@
 //= require toastr
 
 
-$(function(){
+
+$(function () {
+
+    onLoadingCompleteAnimation();
 
     feather.replace();
 
@@ -32,23 +35,25 @@ $(function(){
     });
 
     // Ativar ou desativar usuario
-    $('input[type=checkbox].switch-secret').change(function(){
+    $('input[type=checkbox].switch-secret').change(function () {
         var toggle = $(this);
         $('input[type=checkbox].switch-secret').bootstrapToggle('disable');
-        
+
         $.post(
             "secrets/switch",
-            {"secret_id":$(this).prop("id"),
-                "state":$(this).prop('checked') },
-            function(data, textStatus, request){
+            {
+                "secret_id": $(this).prop("id"),
+                "state": $(this).prop('checked')
+            },
+            function (data, textStatus, request) {
                 updateRowColorStatus(toggle)
                 toggle.bootstrapToggle('enable');
-            }, 
-           "json")
-           .fail(function() {
-               toggle.bootstrapToggle('toggle');
-               updateRowColorStatus(toggle)
-           });
+            },
+            "json")
+            .fail(function () {
+                toggle.bootstrapToggle('toggle');
+                updateRowColorStatus(toggle)
+            });
     });
 
     maskForMoneyInput();
@@ -59,8 +64,25 @@ $(function(){
     } catch (error) {
         console.log("Usuário programado para bloqueio")
     }
-    
+
 });
+
+function onLoadingCompleteAnimation() {
+    // $("#loading").fadeOut(300, "swing", function () {
+
+    $("#loading").fadeOut(400, "swing");
+    $("main").fadeIn(400, "swing");
+    $("main").removeAttr("hidden");
+    $("footer").fadeIn(400, "swing");
+    $("footer").removeAttr("hidden");
+    // });
+
+    window.addEventListener('popstate', function () {
+        $("#loading").removeAttr("hidden");
+        $("#loading").fadeIn(300, "swing");
+    });
+
+}
 
 function conterBlockUpdateRepeat() {
     counterBlockUpdate();
@@ -71,33 +93,33 @@ function conterBlockUpdateRepeat() {
 function counterBlockUpdate() {
     var date = new Date();
     var blocktime = 0;
-    
+
     blocktime += parseInt($("input#days")[0].value) * 24 * 60 * 60;
     blocktime += parseInt($("input#hours")[0].value) * 60 * 60;
     blocktime += parseInt($("input#minutes")[0].value) * 60;
     blocktime += parseInt($("input#seconds")[0].value);
-    
+
     date.setSeconds(blocktime + date.getSeconds());
 
     $("span#date-0").text(date.getDate());
     $("span#date-1").text(date.getMonth() + 1);
     $("span#date-2").text(date.getFullYear());
-    
+
     $("span#time-0").text(date.getHours());
     $("span#time-1").text(date.getMinutes());
     $("span#time-2").text(date.getSeconds());
 }
 
-function registerCounterBlockButtonsListeners() {    
-    $("button.plus-button, button.minus-button").click(function(event) {
+function registerCounterBlockButtonsListeners() {
+    $("button.plus-button, button.minus-button").click(function (event) {
         if ($(event.target).attr('class').includes("plus-button")) {
             // botão de somar
             var object = $("input." + $(event.target).attr('id'));
             object.val(parseInt(object.val()) + 1);
-        } else if($(event.target).attr('class').includes("minus-button")) {
+        } else if ($(event.target).attr('class').includes("minus-button")) {
             // Botão de subtrair
             var object = $("input." + $(event.target).attr('id'));
-            if(object.val() > 0){
+            if (object.val() > 0) {
                 object.val(parseInt(object.val()) - 1);
             }
         }
@@ -108,17 +130,17 @@ function registerCounterBlockButtonsListeners() {
 
 function updateRowColorStatus(toggle) {
     $('input[type=checkbox].switch-secret').bootstrapToggle('enable');
-    
-    if(toggle.prop('checked')){
+
+    if (toggle.prop('checked')) {
         toggle.parent().parent().parent().parent().parent().parent().parent()
-        .removeClass("txt-accent")
+            .removeClass("txt-accent")
     } else {
         toggle.parent().parent().parent().parent().parent().parent().parent()
-        .addClass("txt-accent");
+            .addClass("txt-accent");
     }
 }
 
-function maskForMoneyInput(){
+function maskForMoneyInput() {
     $(".money-input").inputmask('decimal', {
         'alias': 'numeric',
         'groupSeparator': '.',
