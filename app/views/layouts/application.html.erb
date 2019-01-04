@@ -5,50 +5,62 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    
     <%#= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%#= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-
+    
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
-
-
-
+    
   </head>
-
+  
   <body class="bg-400">
-
+    
+    <div id="loading" class="bg-600" style="height: 100vh; width: 100vw;">
+        <div id="circle">
+            <div class="loader">
+              <div class="loader">
+                  <div class="loader">
+                     <div class="loader">
+          
+                     </div>
+                  </div>
+              </div>
+            </div>
+          </div> 
+    </div>
     
     <header>
       <%= render "/layouts/menu"%>
     </header>
-
-    <main class="bg-light pb-5" style="padding-top:4.5rem">
+    
+    <main class="bg-light pb-5" style="padding-top:4.5rem;" hidden >
       <%= yield %>
     </main>
-
-    <footer class="footer bg-400 align-bottom">
+    
+    <footer class="footer bg-400 align-bottom" hidden>
       <%= render "/layouts/footer"%>
     </footer>
+    <%# Bootstrap Toggle %>
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    
+    <%# Feather icons %>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    
+    
+    <%# Datepicker  %>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.standalone.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/locales/bootstrap-datepicker.pt-BR.min.js"></script>
+    
+    <%# Inputmask  %>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/jquery.inputmask.bundle.js"></script>
+    <%= javascript_include_tag 'loading' %>  
   </body>
-
-  <%# Bootstrap Toggle %>
-  <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-  <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-
-  <%# Feather icons %>
-  <script src="https://unpkg.com/feather-icons"></script>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  </html>
   
-  
-  <%# Datepicker  %>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.standalone.min.css" rel="stylesheet" type="text/css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/locales/bootstrap-datepicker.pt-BR.min.js"></script>
-
-  <%# Inputmask  %>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/jquery.inputmask.bundle.js"></script>
-</html>
