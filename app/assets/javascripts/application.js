@@ -77,10 +77,10 @@ function onLoadingCompleteAnimation() {
     $("footer").removeAttr("hidden");
     // });
 
-    window.addEventListener('popstate', function () {
-        $("#loading").removeAttr("hidden");
-        $("#loading").fadeIn(300, "swing");
-    });
+    // window.addEventListener('popstate', function () {
+    //     $("#loading").removeAttr("hidden");
+    //     $("#loading").fadeIn(300, "swing");
+    // });
 
 }
 
