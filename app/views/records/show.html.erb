@@ -18,6 +18,9 @@
       <strong>Notas:</strong>
       <%= @record.notes %>
     </li>
+    <li class="list-group-item">
+      <span class="text-muted">Registrado em <span class="font-weight-bold"><%= @record.created_at.strftime("%d/%m/%Y") %></span></span>
+    </li>
   </ul>
   <%= link_to 'Editar', edit_record_path(@record), class:"btn btn-primary mt-3" %>
 </div>
