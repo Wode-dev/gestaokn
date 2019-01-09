@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   post 'forms', to: "payment_forms#create"
 
   get 'inicio', to:"main#initial_configuration", as: :initial_configuration
-  
+  get 'administracao', to:"main#users_administration", as: :users_administration
   
   get 'edit/payment/:id', to: "edit_financial#edit_payment", as: :edit_payment
   post 'edit/payment/:id', to:"edit_financial#confirm_payment", as: :confirm_payment_edition
