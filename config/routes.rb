@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   put 'forms', to:"payment_forms#update"
   delete 'forms', to:"payment_forms#destroy"
   post 'forms', to: "payment_forms#create"
+
+  get 'inicio', to:"main#initial_configuration", as: :initial_configuration
   
   
   get 'edit/payment/:id', to: "edit_financial#edit_payment", as: :edit_payment
