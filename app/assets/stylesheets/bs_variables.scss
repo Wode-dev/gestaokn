@@ -13,7 +13,6 @@ $black:    #000 !default;
 $blue-dark: #3f3c9b;
 $blue-soft: #6fc0f2;
 $neon-fushia: #ff425e;
-$yellow: #ffff00;
 $canary: #FFFF80;
 
 $grays: () !default;
@@ -46,14 +45,15 @@ $cyan:    #17a2b8 !default;
 
 //$primary:       $blue !default;
 //$secondary:     $gray-600 !default;
-$primary: $blue-dark !default;
-$secondary: $blue-soft !default;
-$success:       $green !default;
-$info:          $cyan !default;
-$warning:       $yellow !default;
-$danger:        $red !default;
-$light:         $gray-100 !default;
-$dark:          $gray-800 !default;
+// $primary: $blue-dark !default;
+// $secondary: $blue-soft !default;
+// $success:       $green !default;
+// $primary: #0B486B;
+// $secondary: #3B8686;
+// $success: #CFF09E;
+$primary:       $blue-dark;
+
+$enable-gradients: true;
 
 $theme-colors: () !default;
 // stylelint-disable-next-line scss/dollar-variable-default
