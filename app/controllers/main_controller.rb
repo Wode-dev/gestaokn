@@ -49,5 +49,11 @@ class MainController < ApplicationController
   def initial_configuration
     
   end
+
+  # Ação para que o administrador configure todos os usuários relativos à sua empresa
+  def users_administration
+    
+  end
+  
   
 end
