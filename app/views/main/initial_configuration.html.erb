@@ -1,0 +1,39 @@
+<div class="container mb-2 px-0 text-center">
+    <span class="h1 font-weight-light"><span class="font-weight-bold">Bem vindo</span> ao sistema de gestão de
+        provedores KingNet!</span>
+</div>
+<div class="container mb-2 px-0 text-center">
+    <p class="lead">
+        Para fazermos a integração inicial com o seu MikroTik, por favor, insira os dados abaixo e então traremos todos
+        os seus secrets cadastrados para dentro do sistema.
+    </p>
+</div>
+<div class="container border rounded border-dark bg-white py-3">
+    <%= form_tag save_settings_path do %>
+    <%= hidden_field_tag :initial, true %>
+    <div class="form-group row mb-3">
+        <%= label_tag :mk_ip, "Endereço de IP", class:"col-sm-2" %>
+        <div class="col-sm-10">
+            <%= text_field_tag :mk_ip, Setting.get(:mk_ip), class:"form-control" %>
+        </div>
+    </div>
+    <div class="form-group row mb-3">
+        <%= label_tag :mk_user, "Usuário", class:"col-sm-2" %>
+        <div class="col-sm-10">
+            <%= text_field_tag :mk_user, Setting.get(:mk_user), class:"form-control" %>
+        </div>
+    </div>
+    <div class="form-group row mb-3">
+        <%= label_tag :mk_password, "Senha", class:"col-sm-2" %>
+        <div class="col-sm-10">
+            <%= password_field_tag :mk_password, Setting.get(:mk_password), class:"form-control" %>
+        </div>
+    </div>
+
+    <div class="mt-3 d-flex">
+        <a id="testInitialConfiguration" class="btn btn-primary text-white ml-auto">Continuar</a>
+    </div>
+    <%= submit_tag "", style: "display: none;", id:"submitInitialConfiguration" %>
+
+    <% end %>
+</div>
