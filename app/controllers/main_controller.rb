@@ -20,13 +20,17 @@ class MainController < ApplicationController
   end
 
   def save_settings
-    @settings = params.permit(:mk_ip, :mk_user, :mk_password)
+    @settings = params.permit(:mk_ip, :mk_user, :mk_password, :initial)
 
     Setting.insert(:mk_ip, @settings[:mk_ip])
     Setting.insert(:mk_user, @settings[:mk_user])
     Setting.insert(:mk_password, @settings[:mk_password])
 
-    redirect_to settings_path
+    if @settings[:initial]
+      redirect_to root_path
+    else
+      redirect_to settings_path
+    end
   end
 
   def test_mikrotik_connection
@@ -40,7 +44,10 @@ class MainController < ApplicationController
 
     render json: {connection: @connection}
   end
-  
-  
+
+  # Método que faz a configuração inicial
+  def initial_configuration
+    
+  end
   
 end
