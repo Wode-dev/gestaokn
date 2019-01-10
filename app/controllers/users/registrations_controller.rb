@@ -59,4 +59,22 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+
+  def save_users
+    @params = params.permit(:id, :name, :email, :nick_name, :password, :manager, :manager_id)
+    @params[:manager].nil? ? @params[:manager] = User.find(@params[:id]).manager : nil
+
+    if User.find(@params[:manager_id]).manager
+      @user = User.find(@params[:id])
+      if @params[:password] == ""
+        @user.update(name: @params[:name], nick_name: @params[:nick_name], manager: @params[:manager])
+      else
+        @user.update(name: @params[:name], nick_name: @params[:nick_name], password: @params[:password], manager: @params[:manager])
+      end
+    end
+
+    puts @user.errors.messages
+
+    redirect_to users_administration_path
+  end
 end
