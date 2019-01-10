@@ -15,9 +15,7 @@ class MainController < ApplicationController
     end
   end
 
-  def settings
-    
-  end
+  def settings; end
 
   def save_settings
     @settings = params.permit(:mk_ip, :mk_user, :mk_password, :initial)
@@ -36,24 +34,19 @@ class MainController < ApplicationController
   def test_mikrotik_connection
     @connection = true
     begin
-      puts MTik::Connection.new(:host=>params[:ip], :user=>params[:user],:pass=>params[:password])
+      puts MTik::Connection.new(host: params[:ip], user: params[:user], pass: params[:password])
     rescue Errno::ETIMEDOUT, Errno::ENETUNREACH, Errno::EHOSTUNREACH => e
+      puts e
       @connection = false
     end
-    
 
-    render json: {connection: @connection}
+    render json: { connection: @connection }
   end
 
-  # Método que faz a configuração inicial
-  def initial_configuration
-    
-  end
+  # Metodo que faz a configuracao inicial
+  def initial_configuration; end
 
-  # Ação para que o administrador configure todos os usuários relativos à sua empresa
-  def users_administration
-    
-  end
-  
-  
+  # Acao para que o administrador configure todos os usuários relativos à sua
+  # empresa
+  def users_administration; end
 end
