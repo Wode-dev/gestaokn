@@ -25,6 +25,21 @@ $ ->
 
         return
     
+    $("Button.showUserModalButton").click (event) ->
+        id = event.currentTarget.id
+
+        name = $("tr#" + id).children(".name")[0].innerText
+        nick_name = $("tr#" + id).children(".nick_name")[0].innerText
+        email = $("tr#" + id).children(".email")[0].innerText
+        # console.log($("tr#"+id).children(".name")[0].innerText)
+
+        $("input#name").val(name)
+        $("input#nick_name").val(nick_name)
+        $("input#email").val(email)
+        $("input#id").val(id)
+
+        return
+    
     return # ending DOM-ready
 
 testMikrotikConnection = (ip, user, password) ->
@@ -33,9 +48,9 @@ testMikrotikConnection = (ip, user, password) ->
     console.log ip
     
     object = $.post "configuracoes/teste",
-    {"ip":ip,
-    "user":user,
-    "password":password }, 
+    { "ip": ip,
+    "user": user,
+    "password": password },
     (data, textStatus, request) ->
         $("#testMkConnection").removeClass("disabled")
         if data["connection"] is true
