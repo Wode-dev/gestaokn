@@ -19,7 +19,7 @@
                     <%= user.last_sign_in_at %>
                 </td>
                 <td>
-                    <button id="<%= user.id %>" type="button" class="btn btn-warning" data-toggle="modal" data-target="#viewUserModal">
+                    <button id="<%= user.id %>" type="button" class="btn btn-warning showUserModalButton" data-toggle="modal" data-target="#viewUserModal">
                         <i data-feather="edit"></i>
                     </button>
                     <%= link_to root_path, class:"btn btn-danger" do %>
@@ -36,7 +36,7 @@
 <div class="modal fade" id="viewUserModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <%= form_tag user_registration_path, method: :put do %>
+            <%= form_tag save_users_administration_path, method: :put do %>
             <div class="modal-header">
                 <h5 class="modal-title">Editar <span id="userName"></span></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -44,11 +44,16 @@
                 </button>
             </div>
             <div class="modal-body">
-                    <%= hidden_field :id, 0 %>
-                    <%= text_field :name, "", class:"form-control" %>
-                    <%= text_field :nick_name, "", class:"form-control" %>
-                    <%= text_field :email, "", class:"form-control" %>
-                    <%= text_field :password, "", class:"form-control" %>
+                    <%= hidden_field_tag :manager_id, current_user.id %>
+                    <%= hidden_field_tag :id, 0 %>
+                    Nome<br>
+                    <%= text_field_tag :name, "", class:"form-control" %>
+                    Apelido <br>
+                    <%= text_field_tag :nick_name, "", class:"form-control" %>
+                    Email <br>
+                    <%= text_field_tag :email, "", class:"form-control" %>
+                    Senha <br>
+                    <%= text_field_tag :password, "", class:"form-control" %>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
