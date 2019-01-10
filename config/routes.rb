@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
   
+  devise_scope :user do
+    put 'administracao/save', to: 'users/registrations#save_users', as: :save_users_administration
+  end
+
   devise_for :users, controllers:{
     sessions: 'users/sessions',
     registrations: 'users/registrations',
