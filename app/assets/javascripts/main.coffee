@@ -33,10 +33,11 @@ $ ->
         email = $("tr#" + id).children(".email")[0].innerText
         # console.log($("tr#"+id).children(".name")[0].innerText)
 
-        $("input#name").val(name)
-        $("input#nick_name").val(nick_name)
-        $("input#email").val(email)
-        $("input#id").val(id)
+        modal = $("div.modal-body.edit-users")
+        modal.children("input#name").val(name)
+        modal.children("input#nick_name").val(nick_name)
+        modal.children("input#email").val(email)
+        modal.children("input#id").val(id)
 
         return
     
