@@ -61,16 +61,28 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   def save_users
-    @params = params.permit(:id, :name, :email, :nick_name, :password, :manager, :manager_id)
-    @params[:manager].nil? ? @params[:manager] = User.find(@params[:id]).manager : nil
-
+    @params = params.permit(:id, :name, :email, :nick_name, :password, :password_confirmation, :manager, :manager_id)
+    
     if User.find(@params[:manager_id]).manager
-      @user = User.find(@params[:id])
-      if @params[:password] == ""
-        @user.update(name: @params[:name], nick_name: @params[:nick_name], manager: @params[:manager])
-      else
-        @user.update(name: @params[:name], nick_name: @params[:nick_name], password: @params[:password], manager: @params[:manager])
+      @user = User.where(email: @params[:email]).first_or_initialize
+      
+      if @user.id.nil? && @params[:password] == @params[:password_confirmation]
+        @user.name = @params[:name]
+        @user.nick_name = @params[:nick_name]
+        @user.password = @params[:password]
+        @params[:manager].nil? ? @user.manager = false : @user.manager = @params[:manager]
+      elsif @params[:password] == ''
+        @user.name = @params[:name]
+        @user.nick_name = @params[:nick_name]
+        @params[:manager].nil? ? @user.manager = User.find(@params[:id]).manager : @user.manager = @params[:manager]
+      elsif !@user.id.nil? && @params[:password] != ''
+        @user.name = @params[:name]
+        @user.nick_name = @params[:nick_name]
+        @user.password = @params[:password]
+        @params[:manager].nil? ? @user.manager = User.find(@params[:id]).manager : @user.manager = @params[:manager]
       end
+
+      @user.save
     end
 
     puts @user.errors.messages
